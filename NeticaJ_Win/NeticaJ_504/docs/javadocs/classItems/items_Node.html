@@ -1,0 +1,85 @@
+<HTML>
+<HEAD>
+<LINK REL ="stylesheet" TYPE="text/css" HREF="../enhancedBot.css" TITLE="Style">
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript" src="../enhancedBot.js"></SCRIPT> 
+</HEAD>
+<BODY topmargin=5 bottommargin=0 marginheight=5 onLoad="init()">
+
+<span class=classNm><b>Node</b></span><br><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','CONTINUOUS_TYPE')" TITLE="CONTINUOUS_TYPE">CONTINUOUS_TYPE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','DISCRETE_TYPE')" TITLE="DISCRETE_TYPE">DISCRETE_TYPE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','TEXT_TYPE')" TITLE="TEXT_TYPE">TEXT_TYPE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','CONSTANT_NODE')" TITLE="CONSTANT_NODE">CONSTANT_NODE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','DECISION_NODE')" TITLE="DECISION_NODE">DECISION_NODE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','DISCONNECTED_NODE')" TITLE="DISCONNECTED_NODE">DISCONNECTED_NODE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','NATURE_NODE')" TITLE="NATURE_NODE">NATURE_NODE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','UTILITY_NODE')" TITLE="UTILITY_NODE">UTILITY_NODE</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','Node(java.lang.String, int, norsys.netica.Net)')" TITLE="Node(String, int, Net)">Node</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','Node(java.lang.String, java.lang.String, norsys.netica.Net)')" TITLE="Node(String, String, Net)">Node</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','Node()')" TITLE="Node()">Node</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','action()')" TITLE="action()">action</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','addLink(norsys.netica.Node)')" TITLE="addLink(Node)">addLink</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','addToNodeset(java.lang.String)')" TITLE="addToNodeset(String)">addToNodeset</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','addStates(int, java.lang.String, int, double)')" TITLE="addStates(int, String, int, double)">addStates</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','calcState()')" TITLE="calcState()">calcState</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','calcValue()')" TITLE="calcValue()">calcValue</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','delete()')" TITLE="delete()">delete</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','deleteLink(int)')" TITLE="deleteLink(int)">deleteLink</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','deleteTables()')" TITLE="deleteTables()">deleteTables</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','equationToTable(int, boolean, boolean)')" TITLE="equationToTable(int, boolean, boolean)">equationToTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','fadeCPTable(double)')" TITLE="fadeCPTable(double)">fadeCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','finalize()')" TITLE="finalize()">finalize</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','finding()')" TITLE="finding()">finding</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getBelief(java.lang.String)')" TITLE="getBelief(String)">getBelief</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getBeliefs()')" TITLE="getBeliefs()">getBeliefs</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getChildren()')" TITLE="getChildren()">getChildren</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getConstructorClass()')" TITLE="getConstructorClass()">getConstructorClass</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getCPTable(int[], float[])')" TITLE="getCPTable(int[], float[])">getCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getCPTable(java.lang.String, float[])')" TITLE="getCPTable(String, float[])">getCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getCPTable(float[])')" TITLE="getCPTable(float[])">getCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getEquation()')" TITLE="getEquation()">getEquation</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getExpectedUtils()')" TITLE="getExpectedUtils()">getExpectedUtils</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getExpectedValue(double[])')" TITLE="getExpectedValue(double[])">getExpectedValue</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getExperTable(int[], double[])')" TITLE="getExperTable(int[], double[])">getExperTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getInputIndex(java.lang.String)')" TITLE="getInputIndex(String)">getInputIndex</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getInputName(int)')" TITLE="getInputName(int)">getInputName</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getKind()')" TITLE="getKind()">getKind</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getLevels()')" TITLE="getLevels()">getLevels</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getNet()')" TITLE="getNet()">getNet</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getNumStates()')" TITLE="getNumStates()">getNumStates</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getParents()')" TITLE="getParents()">getParents</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getRealFuncTable(int[], double[])')" TITLE="getRealFuncTable(int[], double[])">getRealFuncTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getRelatedNodes(norsys.netica.NodeList, java.lang.String)')" TITLE="getRelatedNodes(NodeList, String)">getRelatedNodes</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getStateFuncTable(int[], int[])')" TITLE="getStateFuncTable(int[], int[])">getStateFuncTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','getType()')" TITLE="getType()">getType</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','hasTable(boolean[])')" TITLE="hasTable(boolean[])">hasTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','isBeliefUpdated()')" TITLE="isBeliefUpdated()">isBeliefUpdated</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','isDeterministic()')" TITLE="isDeterministic()">isDeterministic</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','isInNodeset(java.lang.String)')" TITLE="isInNodeset(String)">isInNodeset</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','isRelated(java.lang.String, norsys.netica.Node)')" TITLE="isRelated(String, Node)">isRelated</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','parentStatesToIndexes(java.lang.String)')" TITLE="parentStatesToIndexes(String)">parentStatesToIndexes</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','removeFromNodeset(java.lang.String)')" TITLE="removeFromNodeset(String)">removeFromNodeset</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','reorderStates(int[])')" TITLE="reorderStates(int[])">reorderStates</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','reverseLink(norsys.netica.Node)')" TITLE="reverseLink(Node)">reverseLink</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setConstructorClass(java.lang.String)')" TITLE="setConstructorClass(String)">setConstructorClass</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setCPTable(int[], float[])')" TITLE="setCPTable(int[], float[])">setCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setCPTable(java.lang.String, float[])')" TITLE="setCPTable(String, float[])">setCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setCPTable(float[])')" TITLE="setCPTable(float[])">setCPTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setEquation(java.lang.String)')" TITLE="setEquation(String)">setEquation</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setExperTable(int[], double)')" TITLE="setExperTable(int[], double)">setExperTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setExperTable(double)')" TITLE="setExperTable(double)">setExperTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setInputName(int, java.lang.String)')" TITLE="setInputName(int, String)">setInputName</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setKind(int)')" TITLE="setKind(int)">setKind</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setLevels(double[])')" TITLE="setLevels(double[])">setLevels</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setRealFuncTable(int[], double)')" TITLE="setRealFuncTable(int[], double)">setRealFuncTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setStateFuncTable(int[], int)')" TITLE="setStateFuncTable(int[], int)">setStateFuncTable</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setStateNames(java.lang.String)')" TITLE="setStateNames(String)">setStateNames</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','state(int)')" TITLE="state(int)">state</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','state(java.lang.String)')" TITLE="state(String)">state</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','switchParent(int, norsys.netica.Node)')" TITLE="switchParent(int, Node)">switchParent</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','visual()')" TITLE="visual()">visual</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setInputDelay(int, int, java.lang.String)')" TITLE="setInputDelay(int, int, String)">setInputDelay</A><br>
+<A HREF="JAVASCRIPT:loadEnhanced('Node','setPersistance(int, java.lang.String)')" TITLE="setPersistance(int, String)">setPersistance</A><br>
+
+</BODY>
+</HTML>
