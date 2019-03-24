@@ -24,6 +24,9 @@ https://www.norsys.com/netica-j/docs/NeticaJ_Man.pdf
 6. Display network
 7. Give possibility to enter input
 
-
+## Current Workflow
+1. Build Utils function within normal java setup under 'src_test/'
+2. Copy into One-file solution for Netica
+3. Compile and run
 
 
