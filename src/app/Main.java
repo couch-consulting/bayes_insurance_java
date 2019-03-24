@@ -3,27 +3,41 @@
  *
  * Test Example use of Netica-J to build a Bayes net and use it for inference.
  * Used for bayes_insurance
+ * Stupid One-File strucutre because Netica build does not allow a different strucutre (as far as we know)
  */
+
+// Import Netica
 
 import norsys.netica.*;
 import norsys.neticaEx.aliases.Node;
 
-public class Main {
+
+
+
+/*
+Main Clas
+ */
+class Main {
 
     public static void main(String[] args) {
-
-        demo_code();
+        NeticaUtils.demo_code();
 
 
     }
 
+
+}
+
+/*
+Netica Demo Code
+ */
+class NeticaUtils {
     public static void demo_code() {
         try {
             System.out.println("\nWelcome to Netica-J !\n");
 
             Node.setConstructorClass("norsys.neticaEx.aliases.Node");
-            //Environ env =
-            new Environ(null);
+            Environ env = new Environ(null);
 
             Net net = new Net();
 
@@ -85,4 +99,3 @@ public class Main {
         }
     }
 }
-
