@@ -1,0 +1,112 @@
+// ~->[DNET-1]->~
+
+// File created by an unlicensed user using Netica 5.04 on Mar 25, 2019 at 22:37:40.
+
+bnet BayesInsurance {
+autoupdate = FALSE;
+
+node Altersgruppe {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (R26bis35, R50bis65, R18bis25, R66bis, R36bis49);
+	parents = ();
+	};
+
+node Geschlecht {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (w, m);
+	parents = ();
+	};
+
+node Verheiratet {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (ja, nein);
+	parents = ();
+	};
+
+node Kinderzahl {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (R0bis1, R1bis4, R4bis8);
+	parents = ();
+	};
+
+node aeltestesKind {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (R0bis7, R7bis25, R25bis52);
+	parents = ();
+	};
+
+node juengstesKind {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (R0bis8, R8bis25, R25bis50);
+	parents = ();
+	};
+
+node Bildungsstand {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Studium, Gymnasium, Lehre, Hauptschule);
+	parents = ();
+	};
+
+node Beruf {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Industrie, Oeffentlicher, Dienst, Handel, Handwerk);
+	parents = ();
+	};
+
+node Familieneinkommen {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (R0bis21482, R21482bis69383, R69383bis141235);
+	parents = ();
+	};
+
+node Wohnverhaeltnis {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Miete, Eigentum);
+	parents = ();
+	};
+
+node Ort {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (urban, laendlich);
+	parents = ();
+	};
+
+node Land {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (BadenWuerttemberg, Hessen, Bayern);
+	parents = ();
+	};
+
+node Aktienbesitz {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (nein, ja);
+	parents = ();
+	};
+
+node TarifB {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (B);
+	parents = (Altersgruppe, Geschlecht, Verheiratet, Kinderzahl, aeltestesKind, juengstesKind, Bildungsstand, Beruf, Familieneinkommen, Wohnverhaeltnis, Ort, Land, Aktienbesitz);
+	};
+
+node TarifA {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (A);
+	parents = (Altersgruppe, Geschlecht, Verheiratet, Kinderzahl, aeltestesKind, juengstesKind, Bildungsstand, Beruf, Familieneinkommen, Wohnverhaeltnis, Ort, Land, Aktienbesitz);
+	};
+};

@@ -1,15 +1,16 @@
 package testpackage;
 
 // Import for CSVUtils
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Collections;
 
 // Import for Main
 import java.nio.file.Paths;
-
 
 
 /*
@@ -208,7 +209,7 @@ public class Tester {
     public static void main(String[] args) {
         String cwd = System.getProperty("user.dir");
         String projectRootPath = new File(cwd).getAbsolutePath();
-        String fullPath = Paths.get(projectRootPath, "data","versicherung_a.csv").toString();
+        String fullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
 
         try {
             List<List<String>> csvdata = CSVUtils.parseCSVFile(fullPath);
@@ -218,10 +219,16 @@ public class Tester {
             // Get possibilities for all Nodes
             List<List<String>> tmp = Utils.extractPossibilities(csvdata);
 
+
             //TODO next setp could be building the network with this data.
-            System.out.println(nodes.size()-1);
+            System.out.println(nodes.size() - 1);
             System.out.println(nodes);
-            System.out.println(tmp);
+            System.out.println(tmp.get(8));
+
+            System.out.println(possibilitiesAreNummbers(tmp.get(8)));
+            getRangesFromPossibilities(tmp.get(8));
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -229,4 +236,127 @@ public class Tester {
 
 
     }
+
+    private static boolean possibilitiesAreNummbers (List<String> possibilities){
+        boolean result = true;
+        for (String value : possibilities) {
+            if(!value.matches("-?\\d+(\\.\\d+)?")){
+                result = false;
+            }
+        }
+        return result;
+    }
+
+
+    /**
+     * // Import for NetBuild
+     * import java.util.Collections;
+     * A custom made function to calculate all important Box Plot values that exit and utilitze them to construct ranges!
+     * Math is based on 4th Semester Descriptive Statistics - Box Plot
+     * Result: 3 Ranges
+     * Constraints: Has to be more than 4 values
+     */
+    private static List<String> getRangesFromPossibilities(List<String> numberPossibilities) {
+        //Convert to double list instead of string list
+        List<Double> numbers = new ArrayList<>();
+        for (String possibility : numberPossibilities) {
+            if (possibility.equalsIgnoreCase("n.a.")) {
+                continue;
+            }
+            numbers.add(Double.parseDouble(possibility));
+        }
+        Collections.sort(numbers);
+        int listLength = numbers.size();
+
+        // Get Max and Min Value
+        double max = numbers.get(listLength - 1);
+        double min = numbers.get(0);
+
+        /* Median and Mean not used for ranges but could be useful to filter out bad ranges
+        // Calculate Median
+        double median = getMedian(numbers);
+
+        // Calculate Mean
+        double sumOfNumbers = 0;
+        for (Double number : numbers) {
+            sumOfNumbers += number;
+        }
+        double mean = sumOfNumbers / listLength;
+        */
+
+        // Get halves
+        List<Double> upperHalve;
+        List<Double> lowerHalve;
+        if (listLength % 2 == 0) {
+            upperHalve = numbers.subList(listLength / 2, listLength);
+            lowerHalve = numbers.subList(0, listLength / 2);
+        } else {
+            upperHalve = numbers.subList(listLength / 2 + 1, listLength);
+            lowerHalve = numbers.subList(0, listLength / 2);
+        }
+        // Get lower and upper quartile
+        double lowerQ = getMedian(lowerHalve);
+        double upperQ = getMedian(upperHalve);
+
+        // Get Lower and upper limit
+        double lowerLimit = lowerQ - 1.5 * (upperQ - lowerQ);
+        if (lowerLimit < 0){
+            lowerLimit = 0;
+        }
+
+        double upperLimit = upperQ + 1.5 * (upperQ - lowerQ);
+
+
+        // Get 3 Ranges
+        String lowerRange;
+        // Math rounding
+        int minI = (int) Math.round(min);
+        int lowerQI = (int) Math.round(lowerQ);
+        int lowerLimitI = (int) Math.round(lowerLimit);
+        int upperQI = (int) Math.round(upperQ);
+        int upperLimitI = (int) Math.round(upperLimit);
+        int maxI = (int) Math.round(max);
+
+        if (minI < lowerLimitI) {
+            lowerRange = minI + "-" + lowerQI;
+        } else {
+            lowerRange = lowerLimitI + "-" + lowerQI;
+        }
+
+        String upperRange;
+        if (maxI > upperLimitI){
+            upperRange = upperQI + "-" + maxI;
+        }else {
+            upperRange = upperQI + "-" + upperLimitI;
+        }
+
+        String midRange =  lowerQI + "-" + upperQI;
+
+        List<String> results = new ArrayList<>();
+        results.add(lowerRange);
+        results.add(midRange);
+        results.add(upperRange);
+        return results;
+
+
+
+
+    }
+
+    private static double getMedian(List<Double> numbers) {
+        double median;
+        int listLength = numbers.size();
+        if (listLength % 2 == 0) {
+            // If length is odd, take numbers around the middle
+            // e.g. if length 14 -> 6 and 7
+            // this transferred into the list index will be 5 and 6
+            median = (numbers.get(listLength / 2 - 1) + numbers.get(listLength / 2)) / 2;
+        } else {
+            median = numbers.get(listLength / 2);
+        }
+
+        return median;
+    }
 }
+
+

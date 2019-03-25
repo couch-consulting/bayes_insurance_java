@@ -35,3 +35,11 @@ https://www.norsys.com/netica-j/docs/NeticaJ_Man.pdf
 * Last column contains evaluation information (e.g. Assigned product A/B)
 * Values separated by semicolon 
 * No usage of quotes 
+* "Empty" values are marked with "n.a."
+* Number values minimum are 0
+
+
+## Docu
+* You have to surround every Netica code with try-catch statements 
+* For state of Nodes: If not a string -> N indicates pure Number, R indicates Range
+* Only Int Numbers and ranges possible due to netica seeing a "." or "," as state separator 
