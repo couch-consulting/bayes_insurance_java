@@ -35,8 +35,8 @@
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="NodeList.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="Sensitivity.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/NodeList.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/Sensitivity.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="RandomGenerator.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>
@@ -93,7 +93,7 @@ A class that manages the generation of random numbers.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD><CODE><B><A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A></B>(java.lang.String&nbsp;seed,
-                <A HREF="Environ.html">Environ</A>&nbsp;env,
+                <A HREF="../../norsys/netica/Environ.html">Environ</A>&nbsp;env,
                 java.lang.String&nbsp;options)</CODE>
 
 <BR>
@@ -129,7 +129,7 @@ A class that manages the generation of random numbers.
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
-<CODE>&nbsp;<A HREF="Environ.html">Environ</A></CODE></FONT></TD>
+<CODE>&nbsp;<A HREF="../../norsys/netica/Environ.html">Environ</A></CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../norsys/netica/RandomGenerator.html#getEnviron()">getEnviron</A></B>()</CODE>
 
 <BR>
@@ -170,8 +170,8 @@ A class that manages the generation of random numbers.
 </TABLE>
 
 <A NAME="RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
-public&nbsp;<span CLASS=PTFnName>RandomGenerator</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>seed</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="Environ.html">Environ</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>env</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>options</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+public&nbsp;<span CLASS=PTFnName>RandomGenerator</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>seed</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="../../norsys/netica/Environ.html">Environ</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>env</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>options</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
+                throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Creates a new object to control the randomized aspects of Netica, or generate pseudo-random numbers.
  <p>For <span CLASS="paramNm">seed</span>, pass a positive (or zero) integer in the form of a string, for example:
@@ -183,9 +183,9 @@ public&nbsp;<span CLASS=PTFnName>RandomGenerator</span>&nbsp;(</td><td NOWRAP cl
  the random sequence will be nondeterministic.
  <p><span CLASS="paramNm">options</span> should either be <span CLASS="reservedWord">null</span> or the string "Nondeterministic".
  
- <p>Netica API behaviour can be made completely deterministic, which is very useful for regression tests and repeatability under debugging.  Under single-threading the only requirement is to not pass "Nondeterministic" to <A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A>.  Under multi-threading, you also have to take into account the varying scheduling of threads, to be sure that if two different threads are operating on the same object that the order in which they do so does not negatively influence the repeatability of the object.  Usually the best way is to limit the number of threads that can access the object (such as a rule of only one thread per Bayes net), or to synchronize their access to the object.  In particular, multiple threads using the same random generator can produce varying pseudo-random sequences.  The solution is to have multiple random generators, usually one for each thread that needs it.  Netica makes that possible by allowing you to associate a random generator with a Bayes net (using <A HREF="Net.html#setRandomGenerator(norsys.netica.RandomGenerator, boolean)"><CODE>Net.setRandomGenerator</CODE></A>), so that operations on the Bayes net will use that random generator, and to pass random generators to some functions (such as <A HREF="Net.html#generateRandomCase(norsys.netica.NodeList, int, double, norsys.netica.RandomGenerator)">generateRandomCase</A>).
+ <p>Netica API behaviour can be made completely deterministic, which is very useful for regression tests and repeatability under debugging.  Under single-threading the only requirement is to not pass "Nondeterministic" to <A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A>.  Under multi-threading, you also have to take into account the varying scheduling of threads, to be sure that if two different threads are operating on the same object that the order in which they do so does not negatively influence the repeatability of the object.  Usually the best way is to limit the number of threads that can access the object (such as a rule of only one thread per Bayes net), or to synchronize their access to the object.  In particular, multiple threads using the same random generator can produce varying pseudo-random sequences.  The solution is to have multiple random generators, usually one for each thread that needs it.  Netica makes that possible by allowing you to associate a random generator with a Bayes net (using <A HREF="../../norsys/netica/Net.html#setRandomGenerator(norsys.netica.RandomGenerator, boolean)"><CODE>Net.setRandomGenerator</CODE></A>), so that operations on the Bayes net will use that random generator, and to pass random generators to some functions (such as <A HREF="../../norsys/netica/Net.html#generateRandomCase(norsys.netica.NodeList, int, double, norsys.netica.RandomGenerator)">generateRandomCase</A>).
  <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">seed</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Determines which pseudo-random sequence generated.</td></tr><tr><td VALIGN="top"><span CLASS="typeNm"><a href="Environ.html">Environ</a></span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">env</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The environment that will contain this generator.</td></tr><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">options</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Controls behavior of the generator.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 3.04 and later have this method.<br>In the C Version of the API, this function is named <b>NewRandomGenerator_ns</b>.
- </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#finalize()">finalize</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">To free the <span CLASS="classType"> RandomGenerator</span> when done with it.</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#getState(java.lang.String)">getState</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">To obtain a seed value.</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#generateRandomNumbers(double[], int, java.lang.String)">generateRandomNumbers</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Use the <span CLASS="classType"> RandomGenerator</span> to make random numbers.</td></tr><tr><td VALIGN="top"><A HREF="Net.html#generateRandomCase(norsys.netica.NodeList, int, double, norsys.netica.RandomGenerator)"><CODE>Net.generateRandomCase</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Use it to control simulation.</td></tr><tr><td VALIGN="top"><A HREF="Net.html#setRandomGenerator(norsys.netica.RandomGenerator, boolean)"><CODE>Net.setRandomGenerator</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Associate a <span CLASS="classType"> RandomGenerator</span> with a net.</td></tr></table><br><b>Example:</b>
+ </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#finalize()">finalize</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">To free the <span CLASS="classType"> RandomGenerator</span> when done with it.</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#getState(java.lang.String)">getState</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">To obtain a seed value.</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#generateRandomNumbers(double[], int, java.lang.String)">generateRandomNumbers</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Use the <span CLASS="classType"> RandomGenerator</span> to make random numbers.</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Net.html#generateRandomCase(norsys.netica.NodeList, int, double, norsys.netica.RandomGenerator)"><CODE>Net.generateRandomCase</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Use it to control simulation.</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Net.html#setRandomGenerator(norsys.netica.RandomGenerator, boolean)"><CODE>Net.setRandomGenerator</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Associate a <span CLASS="classType"> RandomGenerator</span> with a net.</td></tr></table><br><b>Example:</b>
  <pre CLASS="example">
  RandomGenerator randGen = new RandomGenerator ("1", env, null);
  double xr = randGen.generateRandomNumbers (null, 1, null); // creates pseudo-random number xr
@@ -193,7 +193,7 @@ public&nbsp;<span CLASS=PTFnName>RandomGenerator</span>&nbsp;(</td><td NOWRAP cl
  randGen.generateRandomNumbers (xrs, 100, null);            // then generates 100 more random numbers in xrs
  String rstr = randGen.getState (null);    // save the state of rand
  net.setRandomGenerator (randGen, true);  // will affect the operation on net of the methods:  
-                                          // <A HREF="Net.html#generateRandomCase(norsys.netica.NodeList, int, double, norsys.netica.RandomGenerator)">generateRandomCase</A>  <A HREF="Node.html#equationToTable(int, boolean, boolean)">equationToTable</A>  <A HREF="Learner.html#learnCPTs(norsys.netica.NodeList, norsys.netica.Caseset, double)">learnCPTs</A>
+                                          // <A HREF="../../norsys/netica/Net.html#generateRandomCase(norsys.netica.NodeList, int, double, norsys.netica.RandomGenerator)">generateRandomCase</A>  <A HREF="../../norsys/netica/Node.html#equationToTable(int, boolean, boolean)">equationToTable</A>  <A HREF="../../norsys/netica/Learner.html#learnCPTs(norsys.netica.NodeList, norsys.netica.Caseset, double)">learnCPTs</A>
                                           // don't use randGen after this, because it is given to the net
  net.generateRandomCase (net.getNetNodes(), Net.DEFAULT_SAMPLING, 100, null);     // for example
  RandomGenerator randGen2 = new RandomGenerator (rstr, env, null);// create a new generator in the same state that randGen 
@@ -214,10 +214,10 @@ public&nbsp;<span CLASS=PTFnName>RandomGenerator</span>&nbsp;(</td><td NOWRAP cl
 
 <A NAME="finalize()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>finalize</span>&nbsp;(&nbsp;)
-              throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+              throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Removes this RandomGenerator object and frees all its resources (e.g., memory).
-  <p>You must not call this on a <span CLASS="classType"> RandomGenerator</span> that was passed to <A HREF="Net.html#setRandomGenerator(norsys.netica.RandomGenerator, boolean)">setRandomGenerator</A> with <span CLASS="reservedWord">true</span> for the <span CLASS="paramNm">isPrivate</span> argument.
+  <p>You must not call this on a <span CLASS="classType"> RandomGenerator</span> that was passed to <A HREF="../../norsys/netica/Net.html#setRandomGenerator(norsys.netica.RandomGenerator, boolean)">setRandomGenerator</A> with <span CLASS="reservedWord">true</span> for the <span CLASS="paramNm">isPrivate</span> argument.
   <br><br><b>Version:</b><br><div CLASS="version">Versions 3.04 and later have this method.<br>In the C Version of the API, this function is named <b>DeleteRandomGen_ns</b>.
   </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">To create a new <span CLASS="classType"> RandomGenerator</span>.</td></tr></table><br><b>Example:</b>
   <pre CLASS="example">See <A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A>.</pre><DD><DL>
@@ -228,7 +228,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>finalize<
 
 <A NAME="generateRandomNumbers(double[], int, java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>generateRandomNumbers</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;double[&nbsp;]</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>results</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>num</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>options</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                             throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                             throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Generates <span CLASS="paramNm">num</span> pseudo-random numbers using this <span CLASS="classType"> RandomGenerator</span> and puts them in the array <span CLASS="paramNm">results</span>, returning the first one.
   <p>The numbers will be between 0 (inclusive) and 1 (exclusive), that is, from the interval [0,1).
@@ -241,7 +241,7 @@ public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>generat
 <HR>
 
 <A NAME="getEnviron()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
-public&nbsp;<span CLASS=PTFntype><A CLASS=APT HREF="Environ.html">Environ</A></span>&nbsp;<span CLASS=PTFnName>getEnviron</span>&nbsp;(&nbsp;)</td></tr></table></div>
+public&nbsp;<span CLASS=PTFntype><A CLASS=APT HREF="../../norsys/netica/Environ.html">Environ</A></span>&nbsp;<span CLASS=PTFnName>getEnviron</span>&nbsp;(&nbsp;)</td></tr></table></div>
 <DL>
 <DD>Returns this RandomGenerator's environment.
   <br><br><b>Version:</b><br><div CLASS="version">Versions 3.04 and later have this method.
@@ -250,7 +250,7 @@ public&nbsp;<span CLASS=PTFntype><A CLASS=APT HREF="Environ.html">Environ</A></s
 
 <A NAME="getState(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getState</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>options</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                          throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                          throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns a string that can be used as a seed to <A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A> to create a random generator that will produce exactly the same pseudo-random results as this one will.
   <p>So you can save the state of a random generator to later make an equivalent generator.
@@ -289,8 +289,8 @@ public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getStat
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="NodeList.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="Sensitivity.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/NodeList.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/Sensitivity.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="RandomGenerator.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>

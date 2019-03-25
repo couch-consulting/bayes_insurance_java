@@ -1,7 +1,7 @@
 # Docu - Windows
 1. Download
 2. Setup path: https://stackoverflow.com/questions/7709041/javac-is-not-recognized-as-an-internal-or-external-command-operable-program-or
-    * Make sure its the x86 path (for 64 bit)
+    * Make sure its the x86 path (for 32 bit)
 3. Test via:
     1. Go to src folder
     1. Run compile_and_run.bat

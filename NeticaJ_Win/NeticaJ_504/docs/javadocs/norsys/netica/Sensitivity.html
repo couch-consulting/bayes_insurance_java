@@ -35,8 +35,8 @@
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="RandomGenerator.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="State.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/RandomGenerator.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/State.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Sensitivity.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>
@@ -130,8 +130,8 @@ A sensitivity measurer, which determines to what degree a new finding at one nod
 <B>Constructor Summary</B></FONT></TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
-<TD><CODE><B><A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A></B>(<A HREF="Node.html">Node</A>&nbsp;queryNode,
-            <A HREF="NodeList.html">NodeList</A>&nbsp;varyingNodes,
+<TD><CODE><B><A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A></B>(<A HREF="../../norsys/netica/Node.html">Node</A>&nbsp;queryNode,
+            <A HREF="../../norsys/netica/NodeList.html">NodeList</A>&nbsp;varyingNodes,
             int&nbsp;whatFind)</CODE>
 
 <BR>
@@ -158,7 +158,7 @@ A sensitivity measurer, which determines to what degree a new finding at one nod
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;double</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../norsys/netica/Sensitivity.html#getMutualInfo(norsys.netica.Node)">getMutualInfo</A></B>(<A HREF="Node.html">Node</A>&nbsp;varyingNode)</CODE>
+<TD><CODE><B><A HREF="../../norsys/netica/Sensitivity.html#getMutualInfo(norsys.netica.Node)">getMutualInfo</A></B>(<A HREF="../../norsys/netica/Node.html">Node</A>&nbsp;varyingNode)</CODE>
 
 <BR>
 <p>Measures the mutual information between two nodes, which is how much a finding at one node (called the "varying node") is expected to alter the beliefs (measured as decrease in its entropy) at another node (called the "query node").</TD>
@@ -166,7 +166,7 @@ A sensitivity measurer, which determines to what degree a new finding at one nod
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>&nbsp;double</CODE></FONT></TD>
-<TD><CODE><B><A HREF="../../norsys/netica/Sensitivity.html#getVarianceOfReal(norsys.netica.Node)">getVarianceOfReal</A></B>(<A HREF="Node.html">Node</A>&nbsp;varyingNode)</CODE>
+<TD><CODE><B><A HREF="../../norsys/netica/Sensitivity.html#getVarianceOfReal(norsys.netica.Node)">getVarianceOfReal</A></B>(<A HREF="../../norsys/netica/Node.html">Node</A>&nbsp;varyingNode)</CODE>
 
 <BR>
 <p>Measures how much a finding at one node (called the "varying node") is expected to reduce the variance of  another node (called the "query node").</TD>
@@ -232,8 +232,8 @@ public&nbsp;static&nbsp;final&nbsp;<span CLASS=PTFntype> int</span>&nbsp;<span C
 </TABLE>
 
 <A NAME="Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
-public&nbsp;<span CLASS=PTFnName>Sensitivity</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="Node.html">Node</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>queryNode</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="NodeList.html">NodeList</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>varyingNodes</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>whatFind</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-            throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+public&nbsp;<span CLASS=PTFnName>Sensitivity</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="../../norsys/netica/Node.html">Node</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>queryNode</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="../../norsys/netica/NodeList.html">NodeList</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>varyingNodes</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>whatFind</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
+            throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Creates a sensitivity measuring object, which measures how much the beliefs at one node (called the "query node" or "target node") will change if a finding is entered at another node (called the "varying node").  This is sometimes called "utility-free value of information".
   <p>For <span CLASS="paramNm">queryNode</span>, pass the query node, and for <span CLASS="paramNm">varyingNodes</span>, pass a list of all nodes that might later be used as varying nodes.
@@ -268,7 +268,7 @@ public&nbsp;<span CLASS=PTFnName>Sensitivity</span>&nbsp;(</td><td NOWRAP class=
 
 <A NAME="finalize()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>finalize</span>&nbsp;(&nbsp;)
-              throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+              throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Frees all resources this <span CLASS="classType"> Sensitivity</span> is using.
   <p>If memory is short, you may choose to force the early cleanup of native Netica resources by explicitly calling this method rather than waiting, often in vain, for the Java Garbage Collector to get around to doing this.
@@ -284,8 +284,8 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>finalize<
 <HR>
 
 <A NAME="getMutualInfo(norsys.netica.Node)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
-public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMutualInfo</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="Node.html">Node</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>varyingNode</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                     throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMutualInfo</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="../../norsys/netica/Node.html">Node</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>varyingNode</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
+                     throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Measures the mutual information between two nodes, which is how much a finding at one node (called the "varying node") is expected to alter the beliefs (measured as decrease in its entropy) at another node (called the "query node").
   <p>The query node is set by the particular <span CLASS="classType"> Sensitivity</span> created (see&nbsp;<A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A>).  The varying node is passed as <span CLASS="paramNm">findingNode</span>.
@@ -297,13 +297,13 @@ public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMutu
   <p>The first time this method is called by some <span CLASS="classType"> Sensitivity</span> after the findings of a net have changed, it takes longer to return, but after that, for each <span CLASS="paramNm">findingNode</span> passed, it returns quickly.
   <p>This method is available as "Network -&gt; Sensitivity to Finding" in Netica Application.  For more information on it, contact Norsys for the "Sensitivity" document.
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm"><a href="Node.html">Node</a></span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">varyingNode</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The node we pretend to put a finding at.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 2.03 and later have this method.<br>In the C Version of the API, this function is named <b>GetMutualInfo_bn</b>.
-  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Sensitivity.html#getVarianceOfReal(norsys.netica.Node)">getVarianceOfReal</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Use a different measure of sensitivity: variance reduction</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Create the <span CLASS="classType"> Sensitivity</span></td></tr><tr><td VALIGN="top"><A HREF="NetTester.html#getLogLoss(norsys.netica.Node)"><CODE>NetTester.getLogLoss</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Get the "logarithmic loss" score, when testing a Bayes net with case data</td></tr></table><br><b>Example:</b>
+  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Sensitivity.html#getVarianceOfReal(norsys.netica.Node)">getVarianceOfReal</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Use a different measure of sensitivity: variance reduction</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Create the <span CLASS="classType"> Sensitivity</span></td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/NetTester.html#getLogLoss(norsys.netica.Node)"><CODE>NetTester.getLogLoss</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Get the "logarithmic loss" score, when testing a Bayes net with case data</td></tr></table><br><b>Example:</b>
   <pre CLASS="example"><div CLASS=desc>See <A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A>.</div></pre></DL>
 <HR>
 
 <A NAME="getVarianceOfReal(norsys.netica.Node)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
-public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getVarianceOfReal</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="Node.html">Node</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>varyingNode</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                         throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getVarianceOfReal</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="../../norsys/netica/Node.html">Node</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>varyingNode</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
+                         throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Measures how much a finding at one node (called the "varying node") is expected to reduce the variance of  another node (called the "query node").
   <p>The query node is set by the particular <span CLASS="classType"> Sensitivity</span> created (see&nbsp;<A HREF="../../norsys/netica/Sensitivity.html#Sensitivity(norsys.netica.Node, norsys.netica.NodeList, int)">Sensitivity</A>).  The varying node is passed as <span CLASS="paramNm">findingNode</span>.
@@ -343,8 +343,8 @@ public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getVari
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="RandomGenerator.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="State.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/RandomGenerator.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/State.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Sensitivity.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>

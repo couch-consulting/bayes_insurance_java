@@ -35,8 +35,8 @@
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="Streamer.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="Util.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/Streamer.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/Util.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="User.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>
@@ -69,7 +69,7 @@ java.lang.Object
 <P>
 A class that provides facilities for defining and retrieving arbitrary user-defined data.
 <p>Currently only Nets and Nodes possess objects of this class, but other classes may do so in future.
-<p>There is no public constructor for the User class.  Access to an instance of this class is by means of the <A HREF="General.html#user()"><CODE>General.user</CODE></A> method.  For example: &nbsp;&nbsp;<span CLASS="code">node.user().setString ("extraInfo", "This is some extra information.");</span>
+<p>There is no public constructor for the User class.  Access to an instance of this class is by means of the <A HREF="../../norsys/netica/General.html#user()"><CODE>General.user</CODE></A> method.  For example: &nbsp;&nbsp;<span CLASS="code">node.user().setString ("extraInfo", "This is some extra information.");</span>
 <p>A User object contains accessors and mutators for the following data:
 
 <table CLASS="body">
@@ -124,7 +124,7 @@ A class that provides facilities for defining and retrieving arbitrary user-defi
 <TD><CODE><B><A HREF="../../norsys/netica/User.html#getNumber(java.lang.String)">getNumber</A></B>(java.lang.String&nbsp;fieldName)</CODE>
 
 <BR>
-<p>Returns the user-defined Number associated with this <span CLASS="paramNm">fieldName</span>, or <A HREF="Environ.html#UNDEF_DBL"> UNDEF_DBL</A>, if the field was never set.</TD>
+<p>Returns the user-defined Number associated with this <span CLASS="paramNm">fieldName</span>, or <A HREF="../../norsys/netica/Environ.html#UNDEF_DBL"> UNDEF_DBL</A>, if the field was never set.</TD>
 </TR>
 <TR BGCOLOR="white" CLASS="TableRowColor">
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
@@ -233,7 +233,7 @@ A class that provides facilities for defining and retrieving arbitrary user-defi
 
 <A NAME="getBytes(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>byte[&nbsp;]</span>&nbsp;<span CLASS=PTFnName>getBytes</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the user-defined byte array associated with this <span CLASS="paramNm">fieldName</span>, or <span CLASS="reservedWord">null</span>, if the field was never set.  For more information, see <A HREF="../../norsys/netica/User.html#setBytes(java.lang.String, byte[])">setBytes</A>.
   <p>For <span CLASS="paramNm">fieldName</span> pass the name of the field to be read, which was passed to <A HREF="../../norsys/netica/User.html#setBytes(java.lang.String, byte[])">setBytes</A> when the data was set.
@@ -243,10 +243,10 @@ public&nbsp;<span CLASS=PTFntype>byte[&nbsp;]</span>&nbsp;<span CLASS=PTFnName>g
 
 <A NAME="getNumber(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getNumber</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                 throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A>,
+                 throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A>,
                         IOException</td></tr></table></div>
 <DL>
-<DD>Returns the user-defined Number associated with this <span CLASS="paramNm">fieldName</span>, or <A HREF="Environ.html#UNDEF_DBL"> UNDEF_DBL</A>, if the field was never set.  For more information, see <A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A>.
+<DD>Returns the user-defined Number associated with this <span CLASS="paramNm">fieldName</span>, or <A HREF="../../norsys/netica/Environ.html#UNDEF_DBL"> UNDEF_DBL</A>, if the field was never set.  For more information, see <A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A>.
   <p>For <span CLASS="paramNm">fieldName</span> pass the name of the field to be read, which was passed to <A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A> when the data was set.
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">fieldName</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The name of the field to be retrieved.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 2.20 and later have this method.<br>In the C Version of the API, this function is named <b>GetNetUserField_bn and GetNodeUserField_bn</b>.
   </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets it</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getNthFieldName(int)">getNthFieldName</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Retrieve fieldNames by index.  Iterate over field names</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getReference()">getReference</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">For user-managed data which is not saved when object is saved</td></tr></table><br></DL>
@@ -254,7 +254,7 @@ public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getNumb
 
 <A NAME="getNthFieldName(int)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getNthFieldName</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>index</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                                 throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                                 throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the fieldName of the <span CLASS="paramNm">index</span>th user-defined named field; used for iterating through the fieldNames.
   <p>Pass any non-negative integer for <span CLASS="paramNm">index</span>. If it is larger than the largest index, then <span CLASS="reservedWord">null</span> will be returned.
@@ -265,7 +265,7 @@ public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getNthF
 
 <A NAME="getObject(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>Object</span>&nbsp;<span CLASS=PTFnName>getObject</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                           throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                           throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the user-defined Object associated with this <span CLASS="paramNm">fieldName</span>, or <span CLASS="reservedWord">null</span>, if the field was never set.  For more information, see <A HREF="../../norsys/netica/User.html#setObject(java.lang.String, java.io.Serializable)">setObject</A>.
   <p>For <span CLASS="paramNm">fieldName</span> pass the name of the field to be read, which was passed to <A HREF="../../norsys/netica/User.html#setObject(java.lang.String, java.io.Serializable)">setObject</A> when the data was set.
@@ -275,7 +275,7 @@ public&nbsp;<span CLASS=PTFntype>Object</span>&nbsp;<span CLASS=PTFnName>getObje
 
 <A NAME="getReference()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>Object</span>&nbsp;<span CLASS=PTFnName>getReference</span>&nbsp;(&nbsp;)
-                              throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                              throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns a reference to information previously attached to this object using <A HREF="../../norsys/netica/User.html#setReference(java.lang.Object)">setReference</A>, or <span CLASS="reservedWord">null</span> if none has been attached.
   <p>This information is not managed by Netica in any way.  It is understood only by the program using the Netica API.  It may point to whatever is desired, possibly a large structure with many fields.  It is <b>not saved to file</b> when the net is written to file (for that see the the getUser[Bytes|Number|Object|String] suite of methods.
@@ -293,7 +293,7 @@ public&nbsp;<span CLASS=PTFntype>Object</span>&nbsp;<span CLASS=PTFnName>getRefe
 
 <A NAME="getString(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getString</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                           throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                           throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the user-defined String associated with this <span CLASS="paramNm">fieldName</span>, or <span CLASS="reservedWord">null</span>, if the field was never set.  For more information, see <A HREF="../../norsys/netica/User.html#setString(java.lang.String, java.lang.String)">setString</A>.
   <p>For <span CLASS="paramNm">fieldName</span> pass the name of the field to be read, which was passed to <A HREF="../../norsys/netica/User.html#setString(java.lang.String, java.lang.String)">setString</A> when the data was set.
@@ -317,7 +317,7 @@ public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getStri
 
 <A NAME="removeField(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>removeField</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                 throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                 throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Remove the user field named <span CLASS="paramNm">fieldName</span> from this object.
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">fieldName</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The name of the field to be retrieved.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 2.20 and later have this method.<br>In the C Version of the API, this function is named <b>SetNetUserField_bn and SetNodeUserField_bn</b>.
@@ -326,7 +326,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>removeFie
 
 <A NAME="setBytes(java.lang.String, byte[])"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setBytes</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;byte[&nbsp;]</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>bytes</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-              throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+              throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Attaches user-defined byte data to this object under category '<span CLASS="paramNm">fieldName</span>'.  If <span CLASS="paramNm">fieldName</span> was never set before, it will be defined and added to the set of defined fields for this object.  If fieldName was set before, by this or any other setUser[type] method, then the old value will be overwritten with the new value. To remove a field with this fieldName entirely, call <A HREF="../../norsys/netica/User.html#removeField(java.lang.String)">removeField</A>.
   <p>Should this object be written to file, this data will be saved to the file with it, and will be available when this object is read back from file.
@@ -340,7 +340,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setBytes<
 
 <A NAME="setNumber(java.lang.String, double)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setNumber</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;double</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldValue</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-               throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A>,
+               throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A>,
                       IOException</td></tr></table></div>
 <DL>
 <DD>Attaches user-defined numeric data to this object under category '<span CLASS="paramNm">fieldName</span>'.  If <span CLASS="paramNm">fieldName</span> was never set before, it will be defined and added to the set of defined fields for this object.  If fieldName was set before, by this or any other setUser[type] method, then the old value will be overwritten with the new value. To remove a field with this fieldName entirely, call<A HREF="../../norsys/netica/User.html#removeField(java.lang.String)">removeField</A>.
@@ -353,7 +353,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setNumber
 
 <A NAME="setObject(java.lang.String, java.io.Serializable)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setObject</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;Serializable</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldValue</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-               throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+               throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Attaches user-defined object data to this object under category '<span CLASS="paramNm">fieldName</span>'.  If <span CLASS="paramNm">fieldName</span> was never set before, it will be defined and added to the set of defined fields for this object.  If fieldName was set before, by this or any other setUser[type] method, then the old value will be overwritten with the new value. To remove a field with this fieldName entirely, call <A HREF="../../norsys/netica/User.html#removeField(java.lang.String)">removeField</A>.
   <p>Should this object be written to file, this data will be saved to the file with it, and will be available when this object is read back from file.
@@ -366,13 +366,13 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setObject
 
 <A NAME="setReference(java.lang.Object)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setReference</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;Object</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>obj</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                  throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                  throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Attaches an arbitrary data object to this User object.  The data is <b>not saved to file</b> when the object that owns this User object is saved.
   <p>Only your program needs to be able to understand this data.  It may point to whatever is desired, possibly a large collection of other objects.  This object may later be recovered using <A HREF="../../norsys/netica/User.html#getReference()">getReference</A>.
   <p>Only one object at a time may be made the reference object.
   <p>When the owner of this User object is written to file, this reference data is <b>not</b> included.  For user-defined field-by-field data that gets saved to file, use one of <A HREF="../../norsys/netica/User.html#setBytes(java.lang.String, byte[])">setBytes</A>, <A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A>, <A HREF="../../norsys/netica/User.html#setObject(java.lang.String, java.io.Serializable)">setObject</A>, or <A HREF="../../norsys/netica/User.html#setString(java.lang.String, java.lang.String)">setString</A>.
-  <p>Likewise, when objects are duplicated (e.g., <A HREF="Net.html#copyNodes(norsys.netica.NodeList)"><CODE>Net.copyNodes</CODE></A> and <A HREF="Net.html#Net(norsys.netica.Net, java.lang.String, norsys.netica.Environ, java.lang.String)">Net(Net,String,Environ,String)</A>), this reference data is <b>not</b> included.
+  <p>Likewise, when objects are duplicated (e.g., <A HREF="../../norsys/netica/Net.html#copyNodes(norsys.netica.NodeList)"><CODE>Net.copyNodes</CODE></A> and <A HREF="../../norsys/netica/Net.html#Net(norsys.netica.Net, java.lang.String, norsys.netica.Environ, java.lang.String)">Net(Net,String,Environ,String)</A>), this reference data is <b>not</b> included.
   <p>Netica will not modify, free or duplicate the referenced data, even if the net or node is freed.
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">Object</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">obj</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Any Java object</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 2.20 and later have this method.<br>In versions previous to 2.20, this method was handled by General.setUserData.<br>In the C Version of the API, this function is named <b>SetNetUserData_bn and SetNodeUserData_bn</b>.
   </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getReference()">getReference</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Retrieves value</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setBytes(java.lang.String, byte[])">setBytes</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets raw binary data that is saved to file when object is saved</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets numeric data that is saved to file when object is saved</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setObject(java.lang.String, java.io.Serializable)">setObject</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets arbitrary object data that is saved to file when object is saved</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setString(java.lang.String, java.lang.String)">setString</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets text data that is saved to file when object is saved</td></tr></table><br><b>Example:</b>
@@ -388,7 +388,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setRefere
 
 <A NAME="setString(java.lang.String, java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setString</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldName</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>fieldValue</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-               throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+               throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Attaches user-defined text data to this object under category '<span CLASS="paramNm">fieldName</span>'.  If <span CLASS="paramNm">fieldName</span> was never set before, it will be defined and added to the set of defined fields for this object.  If fieldName was set before, by this or any other setUser[type] method, then the old value will be overwritten with the new value. To remove a field with this fieldName entirely, call <A HREF="../../norsys/netica/User.html#removeField(java.lang.String)">removeField</A>.
   <p>Should this object be written to file, this data will be saved to the file with it, and will be available when this object is read back from file.
@@ -397,7 +397,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setString
   <p>All memory management for the internal representation of user-defined fields is managed by Netica.  They are duplicated when nodes are duplicated, and freed when they are freed.
   <p>If you wish to associate user data with an owner object, but not have that data saved to file, then use <A HREF="../../norsys/netica/User.html#setReference(java.lang.Object)">setReference</A> instead.
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">fieldName</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The name of the field to be set.</td></tr><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">fieldValue</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The value of the field to be set.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 2.20 and later have this method.
-  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="Util.html#isAscii(java.lang.String)"><CODE>Util.isAscii</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Tests whether a string contains only Ascii characters</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getString(java.lang.String)">getString</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Retrieves value</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setBytes(java.lang.String, byte[])">setBytes</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets raw binary data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets numeric data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setObject(java.lang.String, java.io.Serializable)">setObject</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets arbitrary object data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getNthFieldName(int)">getNthFieldName</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Retrieve fieldNames by index.  Iterate over field names</td></tr></table><br><b>Example:</b>
+  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Util.html#isAscii(java.lang.String)"><CODE>Util.isAscii</CODE></A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Tests whether a string contains only Ascii characters</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getString(java.lang.String)">getString</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Retrieves value</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setBytes(java.lang.String, byte[])">setBytes</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets raw binary data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setNumber(java.lang.String, double)">setNumber</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets numeric data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#setObject(java.lang.String, java.io.Serializable)">setObject</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Sets arbitrary object data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/User.html#getNthFieldName(int)">getNthFieldName</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Retrieve fieldNames by index.  Iterate over field names</td></tr></table><br><b>Example:</b>
   <pre CLASS="example">
   /** 
    *  Set a user field to an ascii string.  
@@ -443,8 +443,8 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setString
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="Streamer.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="Util.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/Streamer.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/Util.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="User.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>

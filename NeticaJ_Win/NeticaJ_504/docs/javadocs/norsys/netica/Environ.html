@@ -35,8 +35,8 @@
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="DatabaseManager.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="General.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/DatabaseManager.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/General.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Environ.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>
@@ -390,7 +390,7 @@ public&nbsp;static&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFn
 
 <A NAME="Environ(java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFnName>Environ</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>license</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-        throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+        throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Constructs an initialized Netica environment.
  <p>For <span CLASS="paramNm">license</span> pass the license string provided to you when you purchased Netica, or <span CLASS="reservedWord">null</span> if you don't have one.  The behavior of the Netica system may be limited by the license you use.
@@ -419,7 +419,7 @@ public&nbsp;<span CLASS=PTFnName>Environ</span>&nbsp;(</td><td NOWRAP class=PT><
 
 <A NAME="controlConcurrency(java.lang.String, java.lang.String)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>controlConcurrency</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>command</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;String</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>value</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                                    throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                                    throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>This function is used to control how Netica operates in multi-threaded environments.
   <p>You can call it repeatedly with different values of <span CLASS="paramNm">command</span> and <span CLASS="paramNm">value</span> to make several settings.
@@ -434,12 +434,12 @@ public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>control
   
   
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">command</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The concurrency control parameter whose value is to be set.</td></tr><tr><td VALIGN="top"><span CLASS="typeNm">String</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">value</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The value of the supplied command.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 5.02 and greater have this method.<br>In the C Version of the API, this function is named <b>ControlConcurrency_ns</b>.
-  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">In multi-thread environments, can be used to make software deterministic, by having a separate random generator for each thread</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#setMemoryUsageLimit(double)">setMemoryUsageLimit</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">May want to allocate more memory in a multi-threaded environment</td></tr></table><br></DL>
+  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/RandomGenerator.html#RandomGenerator(java.lang.String, norsys.netica.Environ, java.lang.String)">RandomGenerator</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">In multi-thread environments, can be used to make software deterministic, by having a separate random generator for each thread</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#setMemoryUsageLimit(double)">setMemoryUsageLimit</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">May want to allocate more memory in a multi-threaded environment</td></tr></table><br></DL>
 <HR>
 
 <A NAME="finalize()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>finalize</span>&nbsp;(&nbsp;)
-              throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+              throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Closes down Netica and frees all its resources (e.g., memory).
  
@@ -461,7 +461,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>finalize<
 
 <A NAME="getArgumentChecking()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>int</span>&nbsp;<span CLASS=PTFnName>getArgumentChecking</span>&nbsp;(&nbsp;)
-                        throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                        throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the current argument checking level, which is the degree to which Netica checks method call arguments.
   <p>The value returned will be one of <A HREF="../../norsys/netica/Environ.html#NO_CHECK"> NO_CHECK</A>, <A HREF="../../norsys/netica/Environ.html#QUICK_CHECK"> QUICK_CHECK</A>, <A HREF="../../norsys/netica/Environ.html#REGULAR_CHECK"> REGULAR_CHECK</A>, or <A HREF="../../norsys/netica/Environ.html#COMPLETE_CHECK"> COMPLETE_CHECK</A>.  For more information, see <A HREF="../../norsys/netica/Environ.html#setArgumentChecking(int)">setArgumentChecking</A>.
@@ -471,7 +471,7 @@ public&nbsp;<span CLASS=PTFntype>int</span>&nbsp;<span CLASS=PTFnName>getArgumen
 
 <A NAME="getCaseFileDelimChar()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>char</span>&nbsp;<span CLASS=PTFnName>getCaseFileDelimChar</span>&nbsp;(&nbsp;)
-                          throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                          throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Gets the character to use as a delimeter when creating case files.  For more information, see <A HREF="../../norsys/netica/Environ.html#setCaseFileDelimChar(char)">setCaseFileDelimChar</A>.
   <br><br><b>Version:</b><br><div CLASS="version">This method is available in all versions.<br>In the C Version of the API, this function is named <b>SetCaseFileDelimChar_ns</b>.
@@ -486,12 +486,12 @@ public&nbsp;static&nbsp;<span CLASS=PTFntype><A CLASS=APT HREF="../../norsys/net
  <p>If an <span CLASS="classType"> Environ</span> has yet to be constructed, then <span CLASS="reservedWord">null</span> will be returned.
  <p>Use <A HREF="../../norsys/netica/Environ.html#Environ(java.lang.String)">Environ</A> to construct a new <span CLASS="classType"> Environ</span>.
  <br><br><b>Version:</b><br><div CLASS="version">This method is available in all versions.
- </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="Streamer.html#Streamer(java.lang.String)">Streamer(String)</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Constructs a <span CLASS="classType"> Streamer</span> in the default <span CLASS="classType"> Environ</span></td></tr><tr><td VALIGN="top"><A HREF="Net.html#Net()">Net()</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Constructs a <span CLASS="classType"> Net</span> in the default <span CLASS="classType"> Environ</span></td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#Environ(java.lang.String)">Environ</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Constructs an <span CLASS="classType"> Environ</span>, making it the default one</td></tr></table><br></DL>
+ </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Streamer.html#Streamer(java.lang.String)">Streamer(String)</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Constructs a <span CLASS="classType"> Streamer</span> in the default <span CLASS="classType"> Environ</span></td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Net.html#Net()">Net()</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Constructs a <span CLASS="classType"> Net</span> in the default <span CLASS="classType"> Environ</span></td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#Environ(java.lang.String)">Environ</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Constructs an <span CLASS="classType"> Environ</span>, making it the default one</td></tr></table><br></DL>
 <HR>
 
 <A NAME="getMemoryUsageLimit()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMemoryUsageLimit</span>&nbsp;(&nbsp;)
-                           throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                           throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the current limit on memory that Netica is permitted to allocate for tables.  See <A HREF="../../norsys/netica/Environ.html#setMemoryUsageLimit(double)">setMemoryUsageLimit</A> for further documentation.
   <br><br><b>Version:</b><br><div CLASS="version">Versions 2.15 and later have this method.<br>In versions previous to 2.26, this method was named <b>getMaxMemoryUsage</b>.<br>In the C Version of the API, this function is named <b>LimitMemoryUsage_ns</b>.
@@ -500,7 +500,7 @@ public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMemo
 
 <A NAME="getMissingDataChar()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>char</span>&nbsp;<span CLASS=PTFnName>getMissingDataChar</span>&nbsp;(&nbsp;)
-                        throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                        throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Gets the character used to indicate missing data when creating case files.  For more information, see <A HREF="../../norsys/netica/Environ.html#setMissingDataChar(char)">setMissingDataChar</A>.
   <br><br><b>Version:</b><br><div CLASS="version">This method is available in all versions.<br>In the C Version of the API, this function is named <b>SetMissingDataChar_ns</b>.
@@ -521,7 +521,7 @@ public&nbsp;<span CLASS=PTFntype>Class</span>&nbsp;<span CLASS=PTFnName>getNodeC
 
 <A NAME="getVersion()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>int</span>&nbsp;<span CLASS=PTFnName>getVersion</span>&nbsp;(&nbsp;)
-               throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+               throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns the version number of Netica, multiplied by 100.  For example, if the version of Netica currently running is 1.21, then 121 is returned.
   
@@ -534,7 +534,7 @@ public&nbsp;<span CLASS=PTFntype>int</span>&nbsp;<span CLASS=PTFnName>getVersion
 
 <A NAME="getVersionString()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getVersionString</span>&nbsp;(&nbsp;)
-                                  throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                                  throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns a String consisting of the full version number, a space, a code for the type of machine or OS it is running on, a comma, the name of the program, and finally a code indicating some build information (in parentheses).  An example is:  &nbsp;&nbsp;<span CLASS="code"> 2.06 Win, Netica-J (AB)</span>.
   
@@ -547,7 +547,7 @@ public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>getVers
 
 <A NAME="setArgumentChecking(int)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setArgumentChecking</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>setting</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                         throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                         throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Sets the level to which Netica checks all arguments you pass it (one of <A HREF="../../norsys/netica/Environ.html#NO_CHECK"> NO_CHECK</A>, <A HREF="../../norsys/netica/Environ.html#QUICK_CHECK"> QUICK_CHECK</A>, <A HREF="../../norsys/netica/Environ.html#REGULAR_CHECK"> REGULAR_CHECK</A>, <A HREF="../../norsys/netica/Environ.html#COMPLETE_CHECK"> COMPLETE_CHECK</A>). <p>Whenever a Netica API method is called, its arguments may be automatically checked for validity.  Call this method anytime to adjust the degree of checking Netica does until it is called next.
   <p><span CLASS="paramNm">setting</span> should be one of:
@@ -567,7 +567,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setArgume
 
 <A NAME="setCaseFileDelimChar(char)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setCaseFileDelimChar</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;char</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>newChar</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                          throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                          throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Sets the symbol used to separate data fields in a case file being created by Netica.
   <p>For <span CLASS="paramNm">newchar</span>, pass one of tab ('&#092;t'), space (' ') or comma (',').
@@ -575,7 +575,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setCaseFi
   <p><span CLASS="paramNm">newchar</span> will only be used by Netica for creating case files; while reading them it will understand any of the above choices.
   
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">char</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">newchar</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The new character to be used.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 1.18 and later have this method.<br>In the C Version of the API, this function is named <b>SetCaseFileDelimChar_ns</b>.
-  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#setMissingDataChar(char)">setMissingDataChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Set the character used to indicate missing data</td></tr><tr><td VALIGN="top"><A HREF="Net.html#writeFindings(norsys.netica.Streamer, norsys.netica.NodeList, long, double)">writeFindings</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The method that uses the file delimiter character</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#getCaseFileDelimChar()">getCaseFileDelimChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">(inverse method) Get the current character used for this purpose</td></tr></table><br><b>Example:</b>
+  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#setMissingDataChar(char)">setMissingDataChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Set the character used to indicate missing data</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Net.html#writeFindings(norsys.netica.Streamer, norsys.netica.NodeList, long, double)">writeFindings</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The method that uses the file delimiter character</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#getCaseFileDelimChar()">getCaseFileDelimChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">(inverse method) Get the current character used for this purpose</td></tr></table><br><b>Example:</b>
   <pre CLASS="example">
   Environ env = Environ.getDefaultEnviron();
   char oldDelim = env.getCaseFileDelimChar();
@@ -589,7 +589,7 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setCaseFi
 
 <A NAME="setMemoryUsageLimit(double)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setMemoryUsageLimit</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;double</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>maxMem</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                         throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                         throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Call this method anytime to adjust the amount of memory that Netica is permitted to allocate for tables.
   <p>For <span CLASS="paramNm">maxMem</span> pass the number of bytes allowed.  For example, to limit memory usage to 100 Megabytes, pass 100e6.
@@ -604,34 +604,34 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setMemory
 
 <A NAME="setMissingDataChar(char)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setMissingDataChar</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;char</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>newChar</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                        throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                        throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Sets the symbol to be used for indicating missing data fields in a case file created by Netica.  Data is "missing" when Netica has to provide the value for a node, and that node doesn't have a finding entered.
   <p>For <span CLASS="paramNm">newchar</span>, pass one of asterisk  ('*'), question mark ('?'), space (' '), or absent ((char) 0).  It cannot be space or absent unless the delimiter symbol is a comma (see&nbsp;<A HREF="../../norsys/netica/Environ.html#setCaseFileDelimChar(char)">setCaseFileDelimChar</A>).
   <p><span CLASS="paramNm">newchar</span> will only be used by Netica for creating case files; while reading them it will understand any of the above choices.
   
   <br><br><b>Parameters:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><span CLASS="typeNm">char</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top"><span CLASS="paramNm">newchar</span></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The new character to be used.</td></tr></table><br><b>Version:</b><br><div CLASS="version">Versions 1.18 and later have this method.<br>In the C Version of the API, this function is named <b>SetMissingDataChar_ns</b>.
-  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#setCaseFileDelimChar(char)">setCaseFileDelimChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Set the character used to separate data entries</td></tr><tr><td VALIGN="top"><A HREF="Net.html#writeFindings(norsys.netica.Streamer, norsys.netica.NodeList, long, double)">writeFindings</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The method that uses the missing data character</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#getMissingDataChar()">getMissingDataChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">(inverse method) Get the current character used for this purpose</td></tr></table><br><b>Example:</b>
+  </div><b>See Also:</b><br><table CELLSPACING=0 CELLPADDING=0 CLASS="seeAlso"><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#setCaseFileDelimChar(char)">setCaseFileDelimChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">Set the character used to separate data entries</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Net.html#writeFindings(norsys.netica.Streamer, norsys.netica.NodeList, long, double)">writeFindings</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">The method that uses the missing data character</td></tr><tr><td VALIGN="top"><A HREF="../../norsys/netica/Environ.html#getMissingDataChar()">getMissingDataChar</A></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td VALIGN="top">(inverse method) Get the current character used for this purpose</td></tr></table><br><b>Example:</b>
   <pre CLASS="example"><div CLASS=desc>See <A HREF="../../norsys/netica/Environ.html#setCaseFileDelimChar(char)">setCaseFileDelimChar</A></div></pre></DL>
 <HR>
 
 <A NAME="setNetClass(java.lang.Class)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setNetClass</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;Class</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>netClass</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                 throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                 throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 </DL>
 <HR>
 
 <A NAME="setNodeClass(java.lang.Class)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setNodeClass</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;Class</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>nodeClass</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                  throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                  throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 </DL>
 <HR>
 
 <A NAME="getMaxMemoryUsage()"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMaxMemoryUsage</span>&nbsp;(&nbsp;)
-                         throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                         throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD><B>Deprecated.</B>&nbsp;<I>use <A HREF="../../norsys/netica/Environ.html#getMemoryUsageLimit()"><CODE>getMemoryUsageLimit()</CODE></A> instead.</I>
 <P>
@@ -640,7 +640,7 @@ public&nbsp;<span CLASS=PTFntype>double</span>&nbsp;<span CLASS=PTFnName>getMaxM
 
 <A NAME="setMaxMemoryUsage(double)"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setMaxMemoryUsage</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;double</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>maxMem</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                       throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+                       throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD><B>Deprecated.</B>&nbsp;<I>use <A HREF="../../norsys/netica/Environ.html#setMemoryUsageLimit(double)"><CODE>setMemoryUsageLimit (maxMem)</CODE></A> instead.</I>
 <P>
@@ -673,8 +673,8 @@ public&nbsp;<span CLASS=PTFntype>void</span>&nbsp;<span CLASS=PTFnName>setMaxMem
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="DatabaseManager.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="General.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/DatabaseManager.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/General.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="Environ.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>

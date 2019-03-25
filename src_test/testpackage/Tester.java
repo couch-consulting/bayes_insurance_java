@@ -1,12 +1,15 @@
 package testpackage;
 
 // Import for CSVUtils
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+// Import for Main
+import java.nio.file.Paths;
+
 
 
 /*
@@ -203,10 +206,12 @@ public class Tester {
 
 
     public static void main(String[] args) {
-        String file = "C:\\Users\\Lennart\\IdeaProjects\\bayes_insurance_java\\data\\versicherung_a.csv";
+        String cwd = System.getProperty("user.dir");
+        String projectRootPath = new File(cwd).getAbsolutePath();
+        String fullPath = Paths.get(projectRootPath, "data","versicherung_a.csv").toString();
 
         try {
-            List<List<String>> csvdata = CSVUtils.parseCSVFile(file);
+            List<List<String>> csvdata = CSVUtils.parseCSVFile(fullPath);
 
             // Get Nodes
             List<String> nodes = Utils.extractNodes(csvdata);

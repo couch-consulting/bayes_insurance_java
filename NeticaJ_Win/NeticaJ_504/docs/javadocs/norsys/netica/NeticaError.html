@@ -35,8 +35,8 @@
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="Net.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="NeticaEvent.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/Net.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/NeticaEvent.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="NeticaError.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>
@@ -68,7 +68,7 @@ java.lang.Object
 
 <P>
 A class that holds information on errors that occurred while Netica was attempting some operation (which become part of the <span CLASS="classType"> NeticaException</span> thrown), or on warnings or other status reports of successful Netica operations.
-<p>This class has no public constructor.  You obtain instances from a NeticaException by calling <A HREF="NeticaException.html#getNeticaErrors()"><CODE>NeticaException.getNeticaErrors</CODE></A>, or, in the case of warnings, by calling the static method <A HREF="../../norsys/netica/NeticaError.html#getWarnings(int, norsys.netica.Environ)"><CODE>NeticaError.getWarnings</CODE></A>.
+<p>This class has no public constructor.  You obtain instances from a NeticaException by calling <A HREF="../../norsys/netica/NeticaException.html#getNeticaErrors()"><CODE>NeticaException.getNeticaErrors</CODE></A>, or, in the case of warnings, by calling the static method <A HREF="../../norsys/netica/NeticaError.html#getWarnings(int, norsys.netica.Environ)"><CODE>NeticaError.getWarnings</CODE></A>.
 <P>
 <DL>
 <DT><B>Since: </B><DD>2.08</DD>
@@ -217,7 +217,7 @@ A class that holds information on errors that occurred while Netica was attempti
 <TD ALIGN="right" VALIGN="top" WIDTH="1%"><FONT SIZE="-1">
 <CODE>static&nbsp;java.util.Vector</CODE></FONT></TD>
 <TD><CODE><B><A HREF="../../norsys/netica/NeticaError.html#getWarnings(int, norsys.netica.Environ)">getWarnings</A></B>(int&nbsp;severity,
-            <A HREF="Environ.html">Environ</A>&nbsp;env)</CODE>
+            <A HREF="../../norsys/netica/Environ.html">Environ</A>&nbsp;env)</CODE>
 
 <BR>
 <p>Returns a vector of all the NeticaErrors in <span CLASS="paramNm">env</span> that are at the severity level <span CLASS="paramNm">severity</span> or higher.</TD>
@@ -327,7 +327,7 @@ public&nbsp;static&nbsp;final&nbsp;<span CLASS=PTFntype> int</span>&nbsp;<span C
 <A NAME="OUT_OF_MEMORY_CND"></A><div CLASS=PT><table CLASS=PT><tr><td NOWRAP class=PT>
 public&nbsp;static&nbsp;final&nbsp;<span CLASS=PTFntype> int</span>&nbsp;<span CLASS=PTFnName>OUT_OF_MEMORY_CND</span>&nbsp;</td></tr></table></div>
 <DL>
-<DD>System did not have enough memory to complete operation.  See <A HREF="../../norsys/netica/NeticaError.html#isInCategory(int)">isInCategory</A> and <A HREF="Environ.html#setMemoryUsageLimit(double)"><CODE>Environ.setMemoryUsageLimit</CODE></A>.
+<DD>System did not have enough memory to complete operation.  See <A HREF="../../norsys/netica/NeticaError.html#isInCategory(int)">isInCategory</A> and <A HREF="../../norsys/netica/Environ.html#setMemoryUsageLimit(double)"><CODE>Environ.setMemoryUsageLimit</CODE></A>.
   <br><br></DL>
 <HR>
 
@@ -390,8 +390,8 @@ public&nbsp;<span CLASS=PTFntype>int</span>&nbsp;<span CLASS=PTFnName>getSeverit
 <HR>
 
 <A NAME="getWarnings(int, norsys.netica.Environ)"></A><div CLASS=PT><table CLASS=PT><tr valign=top><td NOWRAP class=PT>
-public&nbsp;static&nbsp;<span CLASS=PTFntype>Vector</span>&nbsp;<span CLASS=PTFnName>getWarnings</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>severity</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="Environ.html">Environ</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>env</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
-                                    throws&nbsp;<A CLASS=APT HREF="NeticaException.html">NeticaException</A></td></tr></table></div>
+public&nbsp;static&nbsp;<span CLASS=PTFntype>Vector</span>&nbsp;<span CLASS=PTFnName>getWarnings</span>&nbsp;(</td><td NOWRAP class=PT><table class=PTParamTable border=0 cellspacing=0 cellpadding=0><tr VALIGN=top><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;int</span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>severity</span>,&nbsp;</td></tr><tr><td NOWRAP class=PT><span CLASS=PTParamType>&nbsp;<A CLASS=APT HREF="../../norsys/netica/Environ.html">Environ</A></span></td><td NOWRAP class=PT>&nbsp;&nbsp;<span CLASS=PTParamName>env</span>&nbsp;</td></tr></table></td><td NOWRAP class=PT>)
+                                    throws&nbsp;<A CLASS=APT HREF="../../norsys/netica/NeticaException.html">NeticaException</A></td></tr></table></div>
 <DL>
 <DD>Returns a vector of all the NeticaErrors in <span CLASS="paramNm">env</span> that are at the severity level <span CLASS="paramNm">severity</span> or higher.
   <p>For <span CLASS="paramNm">severity</span> pass one of: <A HREF="../../norsys/netica/NeticaError.html#REPORT_ERR"> REPORT_ERR</A>, <A HREF="../../norsys/netica/NeticaError.html#NOTICE_ERR"> NOTICE_ERR</A>, or <A HREF="../../norsys/netica/NeticaError.html#WARNING_ERR"> WARNING_ERR</A>.
@@ -502,8 +502,8 @@ public&nbsp;<span CLASS=PTFntype>String</span>&nbsp;<span CLASS=PTFnName>toStrin
 
 <TR>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
-&nbsp;<A HREF="Net.html"><B>PREV CLASS</B></A>&nbsp;
-&nbsp;<A HREF="NeticaEvent.html"><B>NEXT CLASS</B></A></FONT></TD>
+&nbsp;<A HREF="../../norsys/netica/Net.html"><B>PREV CLASS</B></A>&nbsp;
+&nbsp;<A HREF="../../norsys/netica/NeticaEvent.html"><B>NEXT CLASS</B></A></FONT></TD>
 <TD BGCOLOR="white" CLASS="NavBarCell2"><FONT SIZE="-2">
   <A HREF="../../index.html" TARGET="_top"><B>FRAMES</B></A>  &nbsp;
 &nbsp;<A HREF="NeticaError.html" TARGET="_top"><B>NO FRAMES</B></A></FONT></TD>
