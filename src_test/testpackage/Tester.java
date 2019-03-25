@@ -219,7 +219,7 @@ public class Tester {
             List<List<String>> tmp = Utils.extractPossibilities(csvdata);
 
             //TODO next setp could be building the network with this data.
-
+            System.out.println(nodes.size()-1);
             System.out.println(nodes);
             System.out.println(tmp);
 

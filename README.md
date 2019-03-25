@@ -1,7 +1,7 @@
 # Docu - Windows
 1. Download
-2. Setup path: https://stackoverflow.com/questions/7709041/javac-is-not-recognized-as-an-internal-or-external-command-operable-program-or
-    * Make sure its the x86 path (for 32 bit)
+2. Setup path: https://stackoverflow.com/a/8518438
+    * Make sure its the x86 path (for 32 bit). Thus you will need a 32 bit JDK. 
 3. Test via:
     1. Go to src folder
     1. Run compile_and_run.bat
@@ -30,3 +30,8 @@ https://www.norsys.com/netica-j/docs/NeticaJ_Man.pdf
 3. Compile and run
 
 
+## CSV File Assumptions
+* First lines contains column headers 
+* Last column contains evaluation information (e.g. Assigned product A/B)
+* Values separated by semicolon 
+* No usage of quotes 
