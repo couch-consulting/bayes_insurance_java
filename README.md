@@ -19,6 +19,7 @@
 3. Connect nodes correctly [DONE]
     * Node connection setup has to be given as Input file 
 4. Learn CPTs 
+    * Map Input to ranges and normalized possibilities 
 5. Save Network [DONE]
     * Basic Write to File
 6. Display network [FAKE DONE]
