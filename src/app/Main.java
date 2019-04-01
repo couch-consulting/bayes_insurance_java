@@ -32,18 +32,28 @@ class Main {
     private static final String projectRootPath = new File(System.getProperty("user.dir")).getParentFile().getAbsolutePath();
 
     public static void main(String[] args) {
-        String fullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
+        // Build paths
+        String inputFullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
+        String connectionFullPath = Paths.get(projectRootPath, "data", "netConnections.csv").toString();
+        String outputpath = Paths.get(projectRootPath, "data", "BayesInsurance.dne").toString();
 
         try {
-            List<List<String>> csvdata = CSVUtils.parseCSVFile(fullPath);
+            // Get data from csv files
+            List<List<String>> csvdata = CSVUtils.parseCSVFile(inputFullPath);
+            List<List<String>> connectionData = CSVUtils.parseCSVFile(connectionFullPath);
 
+            System.out.println("Getting nodes and possibilities....");
             // Get Nodes
             List<String> nodes = Utils.extractNodes(csvdata);
             // Get possibilities for all Nodes
             List<List<String>> possibilities = Utils.extractPossibilities(csvdata);
+            System.out.println("Done!");
 
+
+            System.out.println("Build network");
             //build network
-            NeticaNetBuilder.build_net(nodes, possibilities);
+            NeticaNetBuilder.build_net(nodes, possibilities, connectionData, outputpath);
+            System.out.println("Done!");
 
 
         } catch (Exception e) {
@@ -56,69 +66,40 @@ class Main {
 
 
 class NeticaNetBuilder {
-    private static final String projectRootPath = new File(System.getProperty("user.dir")).getParentFile().getAbsolutePath();
     private static List<Node> nodesList = new ArrayList<>();
-    private static List<Node> finalNodesList = new ArrayList<>();
     private static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
 
-    public static void build_net(List<String> tmpNodes, List<List<String>> tmpPossibilities) {
+
+    public static void build_net(List<String> tmpNodes, List<List<String>> tmpPossibilities, List<List<String>> connectionData, String outputpath) {
         try {
 
             // Init
-            Node.setConstructorClass("norsys.neticaEx.aliases.Node");
-            Environ env = new Environ(null);
-            Net net = new Net();
-            net.setName("BayesInsurance");
+            Net net = NeticaUtils.initNetica("BayesInsurance");
             nodes = tmpNodes;
             possibilities = tmpPossibilities;
-
 
             // Build nodes
             build_nodes(net);
             //Add Links
-            add_links();
+            add_links(net, connectionData);
+
+            NeticaUtils.writeNetIntoFile(net, outputpath);
+            NeticaUtils.deconstructNeticaNet(net);
 
 
-            System.out.println(nodesList);
-            System.out.println(finalNodesList);
 
-
-            /*
-
-            // Set Title for Nodes
-            visitAsia.setTitle("Visit to Asia");
-            cancer.setTitle("Lung Cancer");
-            tbOrCa.setTitle("Tuberculosis or Cancer");
-
-            // Set Title for Node possiblities
-            visitAsia.state("visit").setTitle("Visited Asia within the last 3 years");
-
-            // Add Links between nodes
-            tuberculosis.addLink(visitAsia); // link from visitAsia to tuberculosis
-            cancer.addLink(smoking);
-            tbOrCa.addLink(tuberculosis);
-            tbOrCa.addLink(cancer);
-            xRay.addLink(tbOrCa);
-            dyspnea.addLink(tbOrCa);
-            bronchitis.addLink(smoking);
-            dyspnea.addLink(bronchitis);
-
-            // Build CPTs
-            */
-
-
-            // Write Net into File
-            String outputpath = Paths.get(projectRootPath, "data", "BayesInsurance.dne").toString();
-            Streamer stream = new Streamer(outputpath);
-            net.write(stream);
-
-            net.finalize();  // free resources immediately and safely; not strictly necessary, but a good habit
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Fill a given network with newly build nodes. Modif input possiblites to be a range for numbers only.
+     * Every Input will be transformed to a valid strucutre (String with alphabetical first letter)
+     *
+     * @param net a Network of the Netica API
+     */
     private static void build_nodes(Net net) {
         try {
             // Build nodes
@@ -126,64 +107,49 @@ class NeticaNetBuilder {
             int listLength = nodes.size() - 1;
             for (String node : nodes) {
 
-                // Build Final nodes for each possibility of final node
-                if (index == listLength) {
-                    for (String finalePossibility : possibilities.get(index)) {
-                        //Format String
-                        finalePossibility = finalePossibility.replace("-", "").trim();
-                        // Check if String is a nubmer
-                        if (finalePossibility.matches("-?\\d+(\\.\\d+)?")) {
-                            finalePossibility = "N" + finalePossibility;
-                        }
-                        Node tmpNode = new Node(node + finalePossibility, finalePossibility, net);
-                        finalNodesList.add(tmpNode);
-                    }
 
-                } else {
-                    // Build string from array
-                    StringBuilder builder = new StringBuilder();
-                    boolean first = true;
+                // Build string from array
+                StringBuilder builder = new StringBuilder();
+                boolean first = true;
 
-                    // Check if possibilities are  a set of numbers and if they are a set, transfrom into 3 Ranges instead
-                    List<String> currentPossibilites = new ArrayList<>(possibilities.get(index));
-                    if (possibilitiesAreNummbers(currentPossibilites)){
-                        currentPossibilites = getRangesFromPossibilities(currentPossibilites);
-                    }
-
-                    for (String value : currentPossibilites) {
-                        //TODO find out why "-" is an illegal character
-                        // Eliminate illegal char "-"
-                        if (value.contains("-")) {
-                            // For a number replace to "bis"
-                            if (value.replace("-", "").trim().matches("-?\\d+(\\.\\d+)?")) {
-                                value = "R" + value.replace("-", "bis").trim();
-                            } else {
-                                value = value.replace("-", "").trim();
-                            }
-                        }
-
-                        // Check if String is a nubmer
-                        if (value.matches("-?\\d+(\\.\\d+)?")) {
-                            value = "R" + value;
-                        }
-
-                        //Only append "," if it is not the first value
-                        if (first) {
-                            builder.append(value);
-                            first = false;
-                        } else {
-                            builder.append("," + value);
-                        }
-                    }
-                    String tmpPossib = builder.toString();
-                    System.out.println(tmpPossib);
-
-
-                    //Cread node and add to node list
-                    Node tmpNode = new Node(node, tmpPossib, net);
-                    nodesList.add(tmpNode);
-
+                // Check if possibilities are  a set of numbers and if they are a set, transfrom into 3 Ranges instead
+                List<String> currentPossibilites = new ArrayList<>(possibilities.get(index));
+                if (possibilitiesAreNummbers(currentPossibilites)) {
+                    currentPossibilites = getRangesFromPossibilities(currentPossibilites);
                 }
+
+                // Modif possibilites
+                for (String value : currentPossibilites) {
+                    //TODO find out why "-" is an illegal character
+                    // Eliminate illegal char "-"
+                    if (value.contains("-")) {
+                        // For a number replace to "bis"
+                        if (value.replace("-", "").trim().matches("-?\\d+(\\.\\d+)?")) {
+                            value = "R" + value.replace("-", "bis").trim();
+                        } else {
+                            value = value.replace("-", "").trim();
+                        }
+                    }
+
+                    // Check if String is a nubmer
+                    if (value.matches("-?\\d+(\\.\\d+)?")) {
+                        value = "R" + value;
+                    }
+
+                    //Only append "," if it is not the first value
+                    if (first) {
+                        builder.append(value);
+                        first = false;
+                    } else {
+                        builder.append("," + value);
+                    }
+                }
+                // Build One String for Netica API
+                String tmpPossib = builder.toString();
+
+                //Create node and add to node list
+                Node tmpNode = new Node(node, tmpPossib, net);
+                nodesList.add(tmpNode);
 
 
                 index++;
@@ -194,33 +160,34 @@ class NeticaNetBuilder {
     }
 
     /**
-     * Tests if each String in the String list can be transformed to a number
-     * @param possibilities List of String
-     * @return True or False
+     * A auotmatic link builder which utilizes data which represent the connections to add the links between nodes of the given net
+     *
+     * @param net:            A netica Network filled with nodes
+     * @param connectionData: A List of String Lists filled accordingly to documentation to represent connections.
      */
-    private static boolean possibilitiesAreNummbers (List<String> possibilities){
-        boolean result = true;
-        for (String value : possibilities) {
-            if(!value.matches("-?\\d+(\\.\\d+)?")){
-                result = false;
-            }
-        }
-        return result;
-    }
-
-
-    private static void add_links() {
+    private static void add_links(Net net, List<List<String>> connectionData) {
         try {
+            for (List<String> nodeConnections : connectionData) {
 
-            // Build Links (Every node will link to both final nodes)
-            for (Node finalNode : finalNodesList) {
-                for (Node node : nodesList) {
-                    finalNode.addLink(node);
+                // Get target node and pointer nodes
+                String targetNode = nodeConnections.get(0);
+                int listLength = nodeConnections.size();
+                List<String> pointerNodes = nodeConnections.subList(1, listLength);
+
+                // Add Links from each pointer node to target node
+                for (String pointerNode : pointerNodes) {
+                    // Can not be refactored to only get the target node once because of Netica Node vs aliases.Node error!
+                    net.getNode(targetNode).addLink(net.getNode(pointerNode));
                 }
+
             }
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     /**
@@ -273,7 +240,7 @@ class NeticaNetBuilder {
 
         // Get Lower and upper limit
         double lowerLimit = lowerQ - 1.5 * (upperQ - lowerQ);
-        if (lowerLimit < 0){
+        if (lowerLimit < 0) {
             lowerLimit = 0;
         }
 
@@ -297,13 +264,13 @@ class NeticaNetBuilder {
         }
 
         String upperRange;
-        if (maxI > upperLimitI){
+        if (maxI > upperLimitI) {
             upperRange = upperQI + "-" + maxI;
-        }else {
+        } else {
             upperRange = upperQI + "-" + upperLimitI;
         }
 
-        String midRange =  lowerQI + "-" + upperQI;
+        String midRange = lowerQI + "-" + upperQI;
 
         List<String> results = new ArrayList<>();
         results.add(lowerRange);
@@ -312,10 +279,30 @@ class NeticaNetBuilder {
         return results;
 
 
-
-
     }
 
+    /**
+     * Tests if each String in the String list can be transformed to a number
+     *
+     * @param possibilities List of String
+     * @return True or False
+     */
+    private static boolean possibilitiesAreNummbers(List<String> possibilities) {
+        boolean result = true;
+        for (String value : possibilities) {
+            if (!value.matches("-?\\d+(\\.\\d+)?")) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Short function to calculate the median of a list of numbers
+     *
+     * @param numbers List of numbers (doubles)
+     * @return A median of the list (double)
+     */
     private static double getMedian(List<Double> numbers) {
         double median;
         int listLength = numbers.size();
@@ -523,9 +510,57 @@ class Utils {
 
 
 /*
-Netica Demo Code - stored for later
+Netica Utils Code
  */
 class NeticaUtils {
 
+    /**
+     * Init Netica and a Netica Net
+     * @param netName: Name for the Network
+     * @return Netica Net
+     */
+    public static Net initNetica(String netName) {
+        Net net = null;
+        try {
+            // Init
+            Node.setConstructorClass("norsys.neticaEx.aliases.Node");
+            Environ env = new Environ(null);
+            net = new Net();
+            net.setName(netName);
+            return net;
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return net;
+
+    }
+
+    /**
+     * Write a netica net into a file
+     * @param net: Netica Net
+     * @param outputpath: Path for outputh file
+     */
+    public static void writeNetIntoFile(Net net, String outputpath) {
+        try {
+            // Write Net into File
+            Streamer stream = new Streamer(outputpath);
+            net.write(stream);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Deconstruct Netica Net
+     * @param net: A netica net
+     */
+    public static void deconstructNeticaNet(Net net) {
+        try {
+            net.finalize();  // free resources immediately and safely;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }

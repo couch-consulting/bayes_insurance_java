@@ -1,6 +1,6 @@
 // ~->[DNET-1]->~
 
-// File created by an unlicensed user using Netica 5.04 on Mar 25, 2019 at 22:37:40.
+// File created by an unlicensed user using Netica 5.04 on Apr 01, 2019 at 09:51:32.
 
 bnet BayesInsurance {
 autoupdate = FALSE;
@@ -19,18 +19,18 @@ node Geschlecht {
 	parents = ();
 	};
 
-node Verheiratet {
-	kind = NATURE;
-	discrete = TRUE;
-	states = (ja, nein);
-	parents = ();
-	};
-
 node Kinderzahl {
 	kind = NATURE;
 	discrete = TRUE;
 	states = (R0bis1, R1bis4, R4bis8);
 	parents = ();
+	};
+
+node Verheiratet {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (ja, nein);
+	parents = (Kinderzahl);
 	};
 
 node aeltestesKind {
@@ -47,18 +47,18 @@ node juengstesKind {
 	parents = ();
 	};
 
-node Bildungsstand {
-	kind = NATURE;
-	discrete = TRUE;
-	states = (Studium, Gymnasium, Lehre, Hauptschule);
-	parents = ();
-	};
-
 node Beruf {
 	kind = NATURE;
 	discrete = TRUE;
 	states = (Industrie, Oeffentlicher, Dienst, Handel, Handwerk);
 	parents = ();
+	};
+
+node Bildungsstand {
+	kind = NATURE;
+	discrete = TRUE;
+	states = (Studium, Gymnasium, Lehre, Hauptschule);
+	parents = (Beruf);
 	};
 
 node Familieneinkommen {
@@ -96,17 +96,10 @@ node Aktienbesitz {
 	parents = ();
 	};
 
-node TarifB {
+node Tarif {
 	kind = NATURE;
 	discrete = TRUE;
-	states = (B);
-	parents = (Altersgruppe, Geschlecht, Verheiratet, Kinderzahl, aeltestesKind, juengstesKind, Bildungsstand, Beruf, Familieneinkommen, Wohnverhaeltnis, Ort, Land, Aktienbesitz);
-	};
-
-node TarifA {
-	kind = NATURE;
-	discrete = TRUE;
-	states = (A);
+	states = (B, A);
 	parents = (Altersgruppe, Geschlecht, Verheiratet, Kinderzahl, aeltestesKind, juengstesKind, Bildungsstand, Beruf, Familieneinkommen, Wohnverhaeltnis, Ort, Land, Aktienbesitz);
 	};
 };
