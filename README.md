@@ -37,6 +37,7 @@
 * GO through code, refactor if possible and comment if additional is needed 
 * See if our solution fits to task completion 
 * Display Network in normal Workflow/App but not afterwards
+* find out why "-" is an illegal character
 
 
 ## Current Workflow

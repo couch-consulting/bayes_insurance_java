@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.HashMap;
 
 // Import for Main
 import java.nio.file.Paths;
@@ -35,7 +36,7 @@ class Main {
         // Build paths
         String inputFullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
         String connectionFullPath = Paths.get(projectRootPath, "data", "netConnections.csv").toString();
-        String outputpath = Paths.get(projectRootPath, "data", "BayesInsurance.dne").toString();
+        String outputpath = Paths.get(projectRootPath, "data").toString();
 
         try {
             // Get data from csv files
@@ -70,10 +71,13 @@ class NeticaNetBuilder {
     private static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
     private static List<List<String>> newPossibilities = new ArrayList<>();
-
+    private static Map modifiedFlagMap = new HashMap();
 
     public static void build_net(List<String> tmpNodes, List<List<String>> tmpPossibilities, List<List<String>> connectionData, String outputpath) {
         try {
+            // Build paths
+            String outputpathNetFile = Paths.get(outputpath, "BayesInsurance.dne").toString();
+            String outputpathCaseFile = Paths.get(outputpath, "insuranceCaseFile.txt").toString();
 
             // Init
             Net net = NeticaUtils.initNetica("BayesInsurance");
@@ -85,9 +89,12 @@ class NeticaNetBuilder {
             //Add Links
             add_links(net, connectionData);
             //learn CPTs
-            learn_cpts(net);
+            NeticaUtils.writeCaseFile(nodes, newPossibilities, modifiedFlagMap, outputpathCaseFile);
 
-            NeticaUtils.writeNetIntoFile(net, outputpath);
+
+
+
+            NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
             NeticaUtils.deconstructNeticaNet(net);
 
 
@@ -124,24 +131,26 @@ class NeticaNetBuilder {
                     currentPossibilites = Utils.getRangesFromPossibilities(currentPossibilites);
                 }
 
+
                 // Modif possibilites
+                int modification = -1;
                 for (String value : currentPossibilites) {
-                    //TODO find out why "-" is an illegal character
                     // Eliminate illegal char "-"
                     if (value.contains("-")) {
-                        // For a number replace to "bis"
+                        // For a number replace to "bis" and check if string is a number
                         if (value.replace("-", "").trim().matches("-?\\d+(\\.\\d+)?")) {
                             value = "R" + value.replace("-", "bis").trim();
+                            modification = 0;
                         } else {
                             value = value.replace("-", "").trim();
+                            modification = 1;
                         }
-                    }
+                    } else if (value.matches("-?\\d+(\\.\\d+)?")) {
+                        // Check if String is a nubmer and add "N" infront if that is the case
+                        value = "N" + value;
+                        modification = 2;
 
-                    // Check if String is a nubmer
-                    if (value.matches("-?\\d+(\\.\\d+)?")) {
-                        value = "R" + value;
                     }
-
 
                     //Only append "," if it is not the first value
                     if (first) {
@@ -153,10 +162,17 @@ class NeticaNetBuilder {
                         tmpNewPosi.add(value);
                     }
                 }
+
+                // Save modification for later
+                if(modification != -1){
+                    modifiedFlagMap.put(node, modification);
+                }
+                // Save to new possibilites
+                newPossibilities.add(tmpNewPosi);
+
+
                 // Build One String for Netica API
                 String tmpPossib = builder.toString();
-                // Add to new possibilites storage
-                newPossibilities.add(tmpNewPosi);
                 //Create node and add to node list
                 Node tmpNode = new Node(node, tmpPossib, net);
                 nodesList.add(tmpNode);
@@ -204,19 +220,7 @@ class NeticaNetBuilder {
     private static void learn_cpts(Net net) {
 
 
-        System.out.println(newPossibilities);
-        System.out.println(nodes);
-        // ad flags where something was changed that indicate what was changed!
 
-
-
-
-        //Problem: cas file is strange and different from csv (may translate csv file)
-        // Translate csv file to case file (Test with txt)
-        /*
-        The case file is an ascii text file with each case on one row, and the first row being the list of nodes as column headings.
-        Each entry is separated by a comma, space or tab. Such a format is quite common; it can be produced by a spreadsheet program like Excel, or by the Netica method writeFindings.
-         */
 
         //         possibilities - nodes
 
@@ -627,5 +631,31 @@ class NeticaUtils {
             e.printStackTrace();
         }
 
+    }
+
+    public static void writeCaseFile(List<String> nodes, List<List<String>> newPossibilities, Map modifiedFlagMap, String outputpath){
+
+
+
+        System.out.println(newPossibilities);
+        System.out.println(nodes);
+        System.out.println(modifiedFlagMap);
+        // 0: "R" at start and "-" replace with "bis"
+        // 1: "-" replaced with ""
+        // 2: "N" at start
+        System.out.println(outputpath);
+
+
+
+        // ad flags where something was changed that indicate what was changed!
+        // do via https://stackoverflow.com/questions/1540673/java-equivalent-to-python-dictionaries
+
+
+        //Problem: cas file is strange and different from csv (may translate csv file)
+        // Translate csv file to case file (Test with txt)
+        /*
+        The case file is an ascii text file with each case on one row, and the first row being the list of nodes as column headings.
+        Each entry is separated by a comma, space or tab. Such a format is quite common; it can be produced by a spreadsheet program like Excel, or by the Netica method writeFindings.
+         */
     }
 }
