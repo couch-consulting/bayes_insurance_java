@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.HashMap;
+import java.util.Map;
+
 
 // Import for Main
 import java.nio.file.Paths;
@@ -71,7 +73,7 @@ class NeticaNetBuilder {
     private static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
     private static List<List<String>> newPossibilities = new ArrayList<>();
-    private static Map modifiedFlagMap = new HashMap();
+    private static Map<String,Integer> modifiedFlagMap = new HashMap<>();
 
     public static void build_net(List<String> tmpNodes, List<List<String>> tmpPossibilities, List<List<String>> connectionData, String outputpath) {
         try {
