@@ -11,14 +11,16 @@
 import norsys.netica.*;
 import norsys.neticaEx.aliases.Node;
 
-// Import for CSVUtils
-import java.io.File;
-import java.io.FileNotFoundException;
+// Import for Java
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.rmi.UnexpectedException;
 
 
 // Import for Main
@@ -45,17 +47,9 @@ class Main {
             List<List<String>> csvdata = CSVUtils.parseCSVFile(inputFullPath);
             List<List<String>> connectionData = CSVUtils.parseCSVFile(connectionFullPath);
 
-            System.out.println("Getting nodes and possibilities....");
-            // Get Nodes
-            List<String> nodes = Utils.extractNodes(csvdata);
-            // Get possibilities for all Nodes
-            List<List<String>> possibilities = Utils.extractPossibilities(csvdata);
-            System.out.println("Done!");
-
-
-            System.out.println("Build network");
+            System.out.println("Building network...");
             //build network
-            NeticaNetBuilder.build_net(nodes, possibilities, connectionData, outputpath);
+            NeticaNetBuilder.build_net(connectionData, csvdata, outputpath);
             System.out.println("Done!");
 
 
@@ -73,9 +67,9 @@ class NeticaNetBuilder {
     private static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
     private static List<List<String>> newPossibilities = new ArrayList<>();
-    private static Map<String,Integer> modifiedFlagMap = new HashMap<>();
+    private static Map<String, Integer> modifiedFlagMap = new HashMap<>();
 
-    public static void build_net(List<String> tmpNodes, List<List<String>> tmpPossibilities, List<List<String>> connectionData, String outputpath) {
+    public static void build_net(List<List<String>> connectionData, List<List<String>> csvdata, String outputpath) {
         try {
             // Build paths
             String outputpathNetFile = Paths.get(outputpath, "BayesInsurance.dne").toString();
@@ -83,19 +77,29 @@ class NeticaNetBuilder {
 
             // Init
             Net net = NeticaUtils.initNetica("BayesInsurance");
-            nodes = tmpNodes;
-            possibilities = tmpPossibilities;
 
+            // Get Nodes
+            nodes = Utils.extractNodes(csvdata);
+            // Get possibilities for all Nodes
+            possibilities = Utils.extractPossibilities(csvdata);
+
+            System.out.println("Setup Nodes and Links...");
             // Build nodes
             build_nodes(net);
             //Add Links
             add_links(net, connectionData);
+
+            System.out.println("Learning CPTs...");
+            // Build Cases from inputData
+            List<List<String>> cases = buildCaseinputData(newPossibilities, modifiedFlagMap, csvdata);
+            // Build case File
+            NeticaUtils.writeCaseFile(nodes, cases, outputpathCaseFile);
+
             //learn CPTs
-            NeticaUtils.writeCaseFile(nodes, newPossibilities, modifiedFlagMap, outputpathCaseFile);
+            learn_cpts(net, outputpathCaseFile);
 
 
-
-
+            System.out.println("Saving Network into a File...");
             NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
             NeticaUtils.deconstructNeticaNet(net);
 
@@ -126,32 +130,38 @@ class NeticaNetBuilder {
                 // Build string from array
                 StringBuilder builder = new StringBuilder();
                 boolean first = true;
-
+                int modification = -1;
                 // Check if possibilities are  a set of numbers and if they are a set, transfrom into 3 Ranges instead
                 List<String> currentPossibilites = new ArrayList<>(possibilities.get(index));
                 if (Utils.possibilitiesAreNummbers(currentPossibilites)) {
                     currentPossibilites = Utils.getRangesFromPossibilities(currentPossibilites);
+                    modification = 0;
                 }
 
 
                 // Modif possibilites
-                int modification = -1;
+
                 for (String value : currentPossibilites) {
                     // Eliminate illegal char "-"
                     if (value.contains("-")) {
                         // For a number replace to "bis" and check if string is a number
                         if (value.replace("-", "").trim().matches("-?\\d+(\\.\\d+)?")) {
                             value = "R" + value.replace("-", "bis").trim();
-                            modification = 0;
+                            if (modification != 0) {
+                                modification = 1;
+                            }
                         } else {
                             value = value.replace("-", "").trim();
-                            modification = 1;
+                            modification = 2;
                         }
                     } else if (value.matches("-?\\d+(\\.\\d+)?")) {
                         // Check if String is a nubmer and add "N" infront if that is the case
                         value = "N" + value;
-                        modification = 2;
+                        modification = 3;
 
+                    } else if (value.contains(" ")) {
+                        value = value.replace(" ", "").trim();
+                        modification = 4;
                     }
 
                     //Only append "," if it is not the first value
@@ -166,7 +176,7 @@ class NeticaNetBuilder {
                 }
 
                 // Save modification for later
-                if(modification != -1){
+                if (modification != -1) {
                     modifiedFlagMap.put(node, modification);
                 }
                 // Save to new possibilites
@@ -218,42 +228,141 @@ class NeticaNetBuilder {
 
     }
 
-
-    private static void learn_cpts(Net net) {
-
-
-
-
-        //         possibilities - nodes
-
-
-        /*
+    /**
+     * Learns CPTs for the Network
+     *
+     * @param net:            Netica net
+     * @param pathToCasefile: Path to case file
+     */
+    private static void learn_cpts(Net net, String pathToCasefile) {
         try {
 
-
+            // Remove CPTables of nodes in net, so new ones can be learned.
+            // Not really needed right now but done anyway
             NodeList nodes = net.getNodes();
             int numNodes = nodes.size();
-
-            // Remove CPTables of nodes in net, so new ones can be learned.
             for (int n = 0; n < numNodes; n++) {
                 Node node = (Node) nodes.get(n);
                 node.deleteTables();
             }
 
-
-            // Read in the case file created by the the SimulateCases.java
-            // example program, and learn new CPTables.
-            Streamer caseFile = new Streamer("Data Files/ChestClinic.cas");
+            // Read in the case file
+            Streamer caseFile = new Streamer(pathToCasefile);
+            // Learn the case file
             net.reviseCPTsByCaseFile(caseFile, nodes, 1.0);
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        */
+
 
     }
 
+    /**
+     * Transforms the given csv data into case file format (e.g. the modifed format of values we use for the net)
+     *
+     * @param newPossibilities: Modifed possibilities
+     * @param modifiedFlagMap:  Map with flags for nodes where action needs to be taken
+     * @param csvdata:          Raw csv input data
+     * @throws UnexpectedException
+     * @return: Cases data
+     */
+    public static List<List<String>> buildCaseinputData(List<List<String>> newPossibilities, Map<String, Integer> modifiedFlagMap, List<List<String>> csvdata) throws UnexpectedException {
+        // Get Nodes again
+        List<String> nodes = Utils.extractNodes(csvdata);
+
+        // Translate Data
+        List<List<String>> inputData = new ArrayList<>(csvdata);
+        inputData.remove(0);
+        int index = 0;
+        for (String node : nodes) {
+            Integer checkValueTest = modifiedFlagMap.get(node);
+            if (checkValueTest != null) {
+                int checkValue = modifiedFlagMap.get(node);
+                // Change Input data for this node
+                for (List<String> inputLine : inputData) {
+                    String newInputData = "Unexpected Error";
+                    String currValue = inputLine.get(index);
+                    if (checkValue == 0) {
+                        // 0: "R" at start and "-" replace with "bis" for a set of numbers
+                        List<String> ranges = newPossibilities.get(index);
+                        String inRange = null;
+                        if (currValue.equals("n.a.")) {
+                            // Build for empty field
+
+                            boolean start = true;
+                            int tmpLowestEnd = 0;
+                            // Find lowest Range
+                            for (String range : ranges) {
+                                // Get values
+                                String tmpRange = new String(range.substring(1));
+                                String[] numbers = tmpRange.split(Pattern.quote("bis"));
+                                int lowerEnd = Integer.parseInt(numbers[0]);
+
+                                // Set tmp Lowest initally. This has to be done because it is possible that the lowest value is not zero. Thus it has to be one of the range vars initaliy.
+                                if (start == true) {
+                                    start = false;
+
+                                    tmpLowestEnd = lowerEnd;
+                                }
+
+                                // Get loweset range
+                                if (lowerEnd <= tmpLowestEnd) {
+                                    inRange = range;
+                                    tmpLowestEnd = lowerEnd;
+                                }
+                            }
+
+
+                        } else {
+                            // Build for actual number
+                            for (String range : ranges) {
+                                // Get values
+                                String tmpRange = new String(range.substring(1));
+
+                                String[] numbers = tmpRange.split(Pattern.quote("bis"));
+                                int lowerEnd = Integer.parseInt(numbers[0]);
+                                int upperEnd = Integer.parseInt(numbers[1]);
+                                // Check if in range
+                                int intCurrValue = Integer.parseInt(currValue);
+                                if ((lowerEnd <= intCurrValue) && (intCurrValue < upperEnd)) {
+                                    inRange = range;
+                                }
+                            }
+                        }
+
+                        // Check range value
+                        if (inRange == null) {
+                            throw new UnexpectedException("Range is an unexpected value. Range is null.");
+                        }
+                        newInputData = inRange;
+                    } else if (checkValue == 1) {
+                        // 1: "R" at start and "-" replace with "bis" for strings
+                        newInputData = "R" + currValue.replace("-", "bis").trim();
+                    } else if (checkValue == 2) {
+                        // 2: "-" replaced with ""
+                        newInputData = currValue.replace("-", "").trim();
+                    } else if (checkValue == 3) {
+                        // 3: "N" at start
+                        newInputData = "N" + currValue;
+                    } else if (checkValue == 4) {
+                        // 4: whitepsace within the string
+                        newInputData = currValue.replace(" ", "").trim();
+                    } else {
+                        throw new UnexpectedException("CheckValue is an unexpected value" + checkValue);
+                    }
+
+                    // Replace Input Data with fitting input typ for modifed possibilities
+                    inputLine.set(index, newInputData);
+
+                }
+
+            }
+            index++;
+        }
+        return inputData;
+    }
 
 }
 
@@ -261,12 +370,20 @@ class NeticaNetBuilder {
   CVS Reader Class
  Original source Taken from: https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
  Slightly modified to return a ist of String Lists from the csv file where each string list equals one line
- */
+  */
 class CSVUtils {
 
+    // Default vars adpated to our csv file format mentioned in the documentation
     private static final char DEFAULT_SEPARATOR = ';';
     private static final char DEFAULT_QUOTE = '"';
 
+    /**
+     * Parses a CSVFile into a List of String lists
+     *
+     * @param csvFile: Path to csvFile
+     * @return CSV data as a list of string list whereby each string list equals one row
+     * @throws FileNotFoundException
+     */
     public static List<List<String>> parseCSVFile(String csvFile) throws FileNotFoundException {
         List<List<String>> lines = new ArrayList<>();
 
@@ -282,10 +399,16 @@ class CSVUtils {
         return lines;
     }
 
+    /**
+     * Original Function - No changes
+     */
     public static List<String> parseLine(String cvsLine) {
         return parseLine(cvsLine, DEFAULT_SEPARATOR, DEFAULT_QUOTE);
     }
 
+    /**
+     * Original Function - No changes
+     */
     public static List<String> parseLine(String cvsLine, char separators, char customQuote) {
 
         List<String> result = new ArrayList<>();
@@ -415,7 +538,6 @@ class Utils {
         return possibilites;
     }
 
-
     /**
      * This function shall loop through all input data for a give node (index) and return all distinct values that are present
      *
@@ -435,7 +557,7 @@ class Utils {
                 nodePossibilities.add(entry);
             }
 
-            //TODO Think about additional feature extraction for just numbers and not categories
+            //TODO think about refactoring number range creation to here or own function
 
         }
 
@@ -520,7 +642,7 @@ class Utils {
 
         String upperRange;
         if (maxI > upperLimitI) {
-            upperRange = upperQI + "-" + maxI;
+            upperRange = upperQI + "-" + maxI + 1;
         } else {
             upperRange = upperQI + "-" + upperLimitI;
         }
@@ -575,7 +697,6 @@ class Utils {
 
 
 }
-
 
 /*
 Netica Utils Code
@@ -635,29 +756,53 @@ class NeticaUtils {
 
     }
 
-    public static void writeCaseFile(List<String> nodes, List<List<String>> newPossibilities, Map modifiedFlagMap, String outputpath){
+    /**
+     * Builds a Netica Case file
+     * <p>
+     * From Netica:
+     * The case file is an ascii text file with each case on one row, and the first row being the list of nodes as column headings.
+     * Each entry is separated by a comma, space or tab.
+     *
+     * @param nodes:      header line node data
+     * @param cases:      CSV file data transformed for case file format and modifed accordingly to possibilities
+     * @param outputpath: Path and file name + ending where to write the file
+     */
+    public static void writeCaseFile(List<String> nodes, List<List<String>> cases, String outputpath) {
+
+        //Build header lines
+        StringBuilder nodesBuilder = new StringBuilder();
+        nodesBuilder.append("IDnum");
+        for (String node : nodes) {
+            nodesBuilder.append("," + node);
+        }
+        String headerLine = nodesBuilder.toString();
 
 
+        // Write Casefile
+        try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputpath), StandardCharsets.UTF_8))) {
+            // Write header line
+            writer.append(headerLine + "\n");
 
-        System.out.println(newPossibilities);
-        System.out.println(nodes);
-        System.out.println(modifiedFlagMap);
-        // 0: "R" at start and "-" replace with "bis"
-        // 1: "-" replaced with ""
-        // 2: "N" at start
-        System.out.println(outputpath);
+            // Write data
+            int index = 0;
+            for (List<String> inputLine : cases) {
+
+                // Build line data
+                StringBuilder lineBuilder = new StringBuilder();
+                lineBuilder.append(index);
+                for (String element : inputLine) {
+                    lineBuilder.append("," + element);
+                }
+                String buildInputLine = lineBuilder.toString();
+                // Append at end
+                writer.append(buildInputLine + "\n");
+                index++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-
-        // ad flags where something was changed that indicate what was changed!
-        // do via https://stackoverflow.com/questions/1540673/java-equivalent-to-python-dictionaries
-
-
-        //Problem: cas file is strange and different from csv (may translate csv file)
-        // Translate csv file to case file (Test with txt)
-        /*
-        The case file is an ascii text file with each case on one row, and the first row being the list of nodes as column headings.
-        Each entry is separated by a comma, space or tab. Such a format is quite common; it can be produced by a spreadsheet program like Excel, or by the Netica method writeFindings.
-         */
     }
+
 }

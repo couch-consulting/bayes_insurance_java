@@ -18,14 +18,14 @@
     * possibilities will be normalized (to String) and sets of numbers will be transformed into ranges
 3. Connect nodes correctly [DONE]
     * Node connection setup has to be given as Input file 
-4. Learn CPTs 
-    * Map Input to ranges and normalized possibilities 
+4. Learn CPTs [DONE]
+    * Map Input to ranges and normalized possibilities (via CaseFile)
 5. Save Network [DONE]
     * Basic Write to File
 6. Display network [FAKE DONE]
     * This functionality is given by a Netviewer from Netica itself. 
     * This can only be done afterwards 
-7. Give possibility to enter input 
+7. Give possibility to enter input and get prediction 
     * CSV file or CLI?
 
 ## Next Todos
@@ -38,6 +38,7 @@
 * See if our solution fits to task completion 
 * Display Network in normal Workflow/App but not afterwards
 * find out why "-" is an illegal character
+* Look at todos
 
 
 ## Current Workflow
@@ -50,6 +51,7 @@
 2. Run compile_and_run_netviewer.bat
 
 ## Docu
+* Network file itself can not be pushed to Source control because it is to big (ca. 270 MB) but the code will create the same network file everytime
 * You have to surround every Netica code with try-catch statements 
 * For state of Nodes: If not a string -> N indicates pure Number, R indicates Range
 * Only Int Numbers and ranges possible due to netica seeing a "." or "," as state separator 

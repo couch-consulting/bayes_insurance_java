@@ -2,8 +2,9 @@ package testpackage;
 
 // Import for CSVUtils
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -207,6 +208,12 @@ public class Tester {
 
 
     public static void main(String[] args) {
+
+
+
+
+
+
         String cwd = System.getProperty("user.dir");
         String projectRootPath = new File(cwd).getAbsolutePath();
         String fullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
@@ -227,8 +234,6 @@ public class Tester {
 
             System.out.println(possibilitiesAreNummbers(tmp.get(8)));
             getRangesFromPossibilities(tmp.get(8));
-
-
 
         } catch (Exception e) {
             e.printStackTrace();
