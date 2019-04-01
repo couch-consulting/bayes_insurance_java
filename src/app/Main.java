@@ -69,6 +69,7 @@ class NeticaNetBuilder {
     private static List<Node> nodesList = new ArrayList<>();
     private static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
+    private static List<List<String>> newPossibilities = new ArrayList<>();
 
 
     public static void build_net(List<String> tmpNodes, List<List<String>> tmpPossibilities, List<List<String>> connectionData, String outputpath) {
@@ -83,16 +84,18 @@ class NeticaNetBuilder {
             build_nodes(net);
             //Add Links
             add_links(net, connectionData);
+            //learn CPTs
+            learn_cpts(net);
 
             NeticaUtils.writeNetIntoFile(net, outputpath);
             NeticaUtils.deconstructNeticaNet(net);
-
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     /**
      * Fill a given network with newly build nodes. Modif input possiblites to be a range for numbers only.
@@ -105,8 +108,11 @@ class NeticaNetBuilder {
             // Build nodes
             int index = 0;
             int listLength = nodes.size() - 1;
+
             for (String node : nodes) {
 
+                // List to caputre modifed possibilities
+                List<String> tmpNewPosi = new ArrayList<>();
 
                 // Build string from array
                 StringBuilder builder = new StringBuilder();
@@ -114,8 +120,8 @@ class NeticaNetBuilder {
 
                 // Check if possibilities are  a set of numbers and if they are a set, transfrom into 3 Ranges instead
                 List<String> currentPossibilites = new ArrayList<>(possibilities.get(index));
-                if (possibilitiesAreNummbers(currentPossibilites)) {
-                    currentPossibilites = getRangesFromPossibilities(currentPossibilites);
+                if (Utils.possibilitiesAreNummbers(currentPossibilites)) {
+                    currentPossibilites = Utils.getRangesFromPossibilities(currentPossibilites);
                 }
 
                 // Modif possibilites
@@ -136,17 +142,21 @@ class NeticaNetBuilder {
                         value = "R" + value;
                     }
 
+
                     //Only append "," if it is not the first value
                     if (first) {
                         builder.append(value);
+                        tmpNewPosi.add(value);
                         first = false;
                     } else {
                         builder.append("," + value);
+                        tmpNewPosi.add(value);
                     }
                 }
                 // Build One String for Netica API
                 String tmpPossib = builder.toString();
-
+                // Add to new possibilites storage
+                newPossibilities.add(tmpNewPosi);
                 //Create node and add to node list
                 Node tmpNode = new Node(node, tmpPossib, net);
                 nodesList.add(tmpNode);
@@ -190,133 +200,55 @@ class NeticaNetBuilder {
 
     }
 
-    /**
-     * A custom made function to calculate all important Box Plot values that exit and utilitze them to construct ranges!
-     * Math is based on 4th Semester Descriptive Statistics - Box Plot
-     * Result: 3 Ranges
-     * Constraints: Has to be more than 4 values
-     */
-    private static List<String> getRangesFromPossibilities(List<String> numberPossibilities) {
-        //Convert to double list instead of string list
-        List<Double> numbers = new ArrayList<>();
-        for (String possibility : numberPossibilities) {
-            if (possibility.equalsIgnoreCase("n.a.")) {
-                continue;
+
+    private static void learn_cpts(Net net) {
+
+
+        System.out.println(newPossibilities);
+        System.out.println(nodes);
+        // ad flags where something was changed that indicate what was changed!
+
+
+
+
+        //Problem: cas file is strange and different from csv (may translate csv file)
+        // Translate csv file to case file (Test with txt)
+        /*
+        The case file is an ascii text file with each case on one row, and the first row being the list of nodes as column headings.
+        Each entry is separated by a comma, space or tab. Such a format is quite common; it can be produced by a spreadsheet program like Excel, or by the Netica method writeFindings.
+         */
+
+        //         possibilities - nodes
+
+
+        /*
+        try {
+
+
+            NodeList nodes = net.getNodes();
+            int numNodes = nodes.size();
+
+            // Remove CPTables of nodes in net, so new ones can be learned.
+            for (int n = 0; n < numNodes; n++) {
+                Node node = (Node) nodes.get(n);
+                node.deleteTables();
             }
-            numbers.add(Double.parseDouble(possibility));
+
+
+            // Read in the case file created by the the SimulateCases.java
+            // example program, and learn new CPTables.
+            Streamer caseFile = new Streamer("Data Files/ChestClinic.cas");
+            net.reviseCPTsByCaseFile(caseFile, nodes, 1.0);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        Collections.sort(numbers);
-        int listLength = numbers.size();
-
-        // Get Max and Min Value
-        double max = numbers.get(listLength - 1);
-        double min = numbers.get(0);
-
-        /* Median and Mean not used for ranges but could be useful to filter out bad ranges
-        // Calculate Median
-        double median = getMedian(numbers);
-
-        // Calculate Mean
-        double sumOfNumbers = 0;
-        for (Double number : numbers) {
-            sumOfNumbers += number;
-        }
-        double mean = sumOfNumbers / listLength;
         */
 
-        // Get halves
-        List<Double> upperHalve;
-        List<Double> lowerHalve;
-        if (listLength % 2 == 0) {
-            upperHalve = numbers.subList(listLength / 2, listLength);
-            lowerHalve = numbers.subList(0, listLength / 2);
-        } else {
-            upperHalve = numbers.subList(listLength / 2 + 1, listLength);
-            lowerHalve = numbers.subList(0, listLength / 2);
-        }
-        // Get lower and upper quartile
-        double lowerQ = getMedian(lowerHalve);
-        double upperQ = getMedian(upperHalve);
-
-        // Get Lower and upper limit
-        double lowerLimit = lowerQ - 1.5 * (upperQ - lowerQ);
-        if (lowerLimit < 0) {
-            lowerLimit = 0;
-        }
-
-        double upperLimit = upperQ + 1.5 * (upperQ - lowerQ);
-
-
-        // Get 3 Ranges
-        String lowerRange;
-        // Math rounding
-        int minI = (int) Math.round(min);
-        int lowerQI = (int) Math.round(lowerQ);
-        int lowerLimitI = (int) Math.round(lowerLimit);
-        int upperQI = (int) Math.round(upperQ);
-        int upperLimitI = (int) Math.round(upperLimit);
-        int maxI = (int) Math.round(max);
-
-        if (minI < lowerLimitI) {
-            lowerRange = minI + "-" + lowerQI;
-        } else {
-            lowerRange = lowerLimitI + "-" + lowerQI;
-        }
-
-        String upperRange;
-        if (maxI > upperLimitI) {
-            upperRange = upperQI + "-" + maxI;
-        } else {
-            upperRange = upperQI + "-" + upperLimitI;
-        }
-
-        String midRange = lowerQI + "-" + upperQI;
-
-        List<String> results = new ArrayList<>();
-        results.add(lowerRange);
-        results.add(midRange);
-        results.add(upperRange);
-        return results;
-
-
     }
 
-    /**
-     * Tests if each String in the String list can be transformed to a number
-     *
-     * @param possibilities List of String
-     * @return True or False
-     */
-    private static boolean possibilitiesAreNummbers(List<String> possibilities) {
-        boolean result = true;
-        for (String value : possibilities) {
-            if (!value.matches("-?\\d+(\\.\\d+)?")) {
-                result = false;
-            }
-        }
-        return result;
-    }
 
-    /**
-     * Short function to calculate the median of a list of numbers
-     *
-     * @param numbers List of numbers (doubles)
-     * @return A median of the list (double)
-     */
-    private static double getMedian(List<Double> numbers) {
-        double median;
-        int listLength = numbers.size();
-        if (listLength % 2 == 0) {
-            // If length is odd, take numbers around the middle
-            // e.g. if length 14 -> 6 and 7
-            // this transferred into the list index will be 5 and 6
-            median = (numbers.get(listLength / 2 - 1) + numbers.get(listLength / 2)) / 2;
-        } else {
-            median = numbers.get(listLength / 2);
-        }
-
-        return median;
-    }
 }
 
 /*
@@ -438,7 +370,7 @@ class CSVUtils {
 
 /*
   Utils Class
-  Contains several non-specific utility functions
+  Contains several non-class-specific utility functions
  */
 class Utils {
 
@@ -506,6 +438,136 @@ class Utils {
 
 
     }
+
+    /**
+     * A custom made function to calculate all important Box Plot values that exit and utilitze them to construct ranges!
+     * Math is based on 4th Semester Descriptive Statistics - Box Plot
+     * Result: 3 Ranges
+     * Constraints: Has to be more than 4 values
+     */
+    public static List<String> getRangesFromPossibilities(List<String> numberPossibilities) {
+        //Convert to double list instead of string list
+        List<Double> numbers = new ArrayList<>();
+        for (String possibility : numberPossibilities) {
+            if (possibility.equalsIgnoreCase("n.a.")) {
+                continue;
+            }
+            numbers.add(Double.parseDouble(possibility));
+        }
+        Collections.sort(numbers);
+        int listLength = numbers.size();
+
+        // Get Max and Min Value
+        double max = numbers.get(listLength - 1);
+        double min = numbers.get(0);
+
+        /* Median and Mean not used for ranges but could be useful to filter out bad ranges
+        // Calculate Median
+        double median = Utils.getMedian(numbers);
+
+        // Calculate Mean
+        double sumOfNumbers = 0;
+        for (Double number : numbers) {
+            sumOfNumbers += number;
+        }
+        double mean = sumOfNumbers / listLength;
+        */
+
+        // Get halves
+        List<Double> upperHalve;
+        List<Double> lowerHalve;
+        if (listLength % 2 == 0) {
+            upperHalve = numbers.subList(listLength / 2, listLength);
+            lowerHalve = numbers.subList(0, listLength / 2);
+        } else {
+            upperHalve = numbers.subList(listLength / 2 + 1, listLength);
+            lowerHalve = numbers.subList(0, listLength / 2);
+        }
+        // Get lower and upper quartile
+        double lowerQ = Utils.getMedian(lowerHalve);
+        double upperQ = Utils.getMedian(upperHalve);
+
+        // Get Lower and upper limit
+        double lowerLimit = lowerQ - 1.5 * (upperQ - lowerQ);
+        if (lowerLimit < 0) {
+            lowerLimit = 0;
+        }
+
+        double upperLimit = upperQ + 1.5 * (upperQ - lowerQ);
+
+
+        // Get 3 Ranges
+        String lowerRange;
+        // Math rounding
+        int minI = (int) Math.round(min);
+        int lowerQI = (int) Math.round(lowerQ);
+        int lowerLimitI = (int) Math.round(lowerLimit);
+        int upperQI = (int) Math.round(upperQ);
+        int upperLimitI = (int) Math.round(upperLimit);
+        int maxI = (int) Math.round(max);
+
+        if (minI < lowerLimitI) {
+            lowerRange = minI + "-" + lowerQI;
+        } else {
+            lowerRange = lowerLimitI + "-" + lowerQI;
+        }
+
+        String upperRange;
+        if (maxI > upperLimitI) {
+            upperRange = upperQI + "-" + maxI;
+        } else {
+            upperRange = upperQI + "-" + upperLimitI;
+        }
+
+        String midRange = lowerQI + "-" + upperQI;
+
+        List<String> results = new ArrayList<>();
+        results.add(lowerRange);
+        results.add(midRange);
+        results.add(upperRange);
+        return results;
+
+
+    }
+
+    /**
+     * Tests if each String in the String list can be transformed to a number
+     *
+     * @param possibilities List of String
+     * @return True or False
+     */
+    public static boolean possibilitiesAreNummbers(List<String> possibilities) {
+        boolean result = true;
+        for (String value : possibilities) {
+            if (!value.matches("-?\\d+(\\.\\d+)?")) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Short function to calculate the median of a list of numbers
+     *
+     * @param numbers List of numbers (doubles)
+     * @return A median of the list (double)
+     */
+    public static double getMedian(List<Double> numbers) {
+        double median;
+        int listLength = numbers.size();
+        if (listLength % 2 == 0) {
+            // If length is odd, take numbers around the middle
+            // e.g. if length 14 -> 6 and 7
+            // this transferred into the list index will be 5 and 6
+            median = (numbers.get(listLength / 2 - 1) + numbers.get(listLength / 2)) / 2;
+        } else {
+            median = numbers.get(listLength / 2);
+        }
+
+        return median;
+    }
+
+
 }
 
 
@@ -516,6 +578,7 @@ class NeticaUtils {
 
     /**
      * Init Netica and a Netica Net
+     *
      * @param netName: Name for the Network
      * @return Netica Net
      */
@@ -538,7 +601,8 @@ class NeticaUtils {
 
     /**
      * Write a netica net into a file
-     * @param net: Netica Net
+     *
+     * @param net:        Netica Net
      * @param outputpath: Path for outputh file
      */
     public static void writeNetIntoFile(Net net, String outputpath) {
@@ -553,6 +617,7 @@ class NeticaUtils {
 
     /**
      * Deconstruct Netica Net
+     *
      * @param net: A netica net
      */
     public static void deconstructNeticaNet(Net net) {
