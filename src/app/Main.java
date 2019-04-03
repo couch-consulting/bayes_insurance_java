@@ -40,14 +40,14 @@ class Main {
         // Build paths
         String inputFullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
         String connectionFullPath = Paths.get(projectRootPath, "data", "netConnections.csv").toString();
-        String classifyFullPath = Paths.get(projectRootPath, "data", "versicherung_a_classify.csv").toString();
+        String testFullPath = Paths.get(projectRootPath, "data", "versicherung_a_classify.csv").toString();
         String outputpathNetFile = Paths.get(projectRootPath, "data", "BayesInsurance.dne").toString();
 
         try {
             // Get data from csv files
             List<List<String>> csvdata = CSVUtils.parseCSVFile(inputFullPath);
             List<List<String>> connectionData = CSVUtils.parseCSVFile(connectionFullPath);
-            List<List<String>> classifyData = CSVUtils.parseCSVFile(classifyFullPath);
+            List<List<String>> testData = CSVUtils.parseCSVFile(testFullPath);
 
             // Init
             Net net = NeticaUtils.initNetica("BayesInsurance");
@@ -58,17 +58,18 @@ class Main {
             System.out.println("Done!");
 
 
-            // Modifed Classify Data
-            List<List<String>> classifyCases = NeticaNetBuilder.buildCaseinputData(classifyData);
+            // Modifed Test Data
+            List<List<String>> testCases = NeticaNetBuilder.buildCaseinputData(testData);
 
+            // Make Decisions about test data
+            //NeticaMakeDecision.makeDecision(net, NeticaNetBuilder.nodes, testCases);
 
             //Classify
-            //NeticaClassifyData.classifyData(net, NeticaNetBuilder.nodes, classifyCases);
+            NeticaClassifyData.classifyData(net, NeticaNetBuilder.nodes, testCases);
 
 
             // End
             System.out.println("Saving Network into a File...");
-
             NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
             NeticaUtils.deconstructNeticaNet(net);
 
@@ -257,17 +258,21 @@ class NeticaNetBuilder {
 
             // Remove CPTables of nodes in net, so new ones can be learned.
             // Not really needed right now but done anyway
-            NodeList nodes = net.getNodes();
-            int numNodes = nodes.size();
+
+            NodeList nodesList = net.getNodes();
+            int numNodes = nodesList.size() - 1;
             for (int n = 0; n < numNodes; n++) {
-                Node node = (Node) nodes.get(n);
+                Node node = (Node) nodesList.get(n);
                 node.deleteTables();
             }
+
+
+
 
             // Read in the case file
             Streamer caseFile = new Streamer(pathToCasefile);
             // Learn the case file
-            net.reviseCPTsByCaseFile(caseFile, nodes, 1.0);
+            net.reviseCPTsByCaseFile(caseFile, nodesList, 1.0);
 
 
         } catch (Exception e) {
@@ -823,27 +828,30 @@ class NeticaUtils {
 }
 
 
-// TODO LOOK INTO MAKE DECISION INSTEAD
+// TODO get test data via one file and filter somehow, talk about possibility to enter something via cli? further enhancements
 
-/*
-BROKEN OR NOT WORKING CORRECTLY - NOT THE ONE WE NEED FOR FINAL USE CASE JUST CHECKING
 
+
+/**
 Class for Classification of Data
  */
 class NeticaClassifyData {
 
+    /**
+     * Classifies a given Dataset
+     * @param net: Netica net
+     * @param nodes: Nodes for the given data set
+     * @param classifyCases: data to classify
+     */
     public static void classifyData(Net net, List<String> nodes, List<List<String>> classifyCases) {
         try {
-            System.out.println(nodes);
-            System.out.println(classifyCases);
-
+            // Reset net
+            NodeList nodesList = net.getNodes();
+            for (int n = 0; n < nodesList.size(); n++) {
+                nodesList.getNode(n).finding().clear();
+            }
+            int caseNr = 0;
             for (List<String> classifyCase : classifyCases) {
-
-                // Reset net
-                NodeList nodesList = net.getNodes();
-                for (int n = 0; n < nodesList.size(); n++) {
-                    nodesList.getNode(n).finding().clear();
-                }
 
                 // Go through each node for this set and enter findings
                 int index = 0;
@@ -865,19 +873,22 @@ class NeticaClassifyData {
                 String lastNode = nodes.get(listLength);
                 String lastValue = classifyCase.get(listLength);
 
-                float belief = net.getNode(lastNode).getBelief(lastValue);
-                System.out.println("\n Actual last value was: "+ lastValue);
-                System.out.println ("\nThe probability of last value is " + belief);
+                // Get Beliefes for all values
+                float[] beliefs = net.getNode(lastNode).getBeliefs();
 
+                System.out.print("For case " + caseNr + ", ");
+                System.out.println("the belief of " + net.getNode(lastNode).state(0) + " is " + beliefs[0] +
+                        ", of " + net.getNode(lastNode).state(1) + " is " + beliefs[1] + ". The correct answere is: " + lastValue + "\n");
+
+                caseNr++;
+
+                // Reset net
+                NodeList nodesList = net.getNodes();
+                for (int n = 0; n < nodesList.size(); n++) {
+                    nodesList.getNode(n).finding().clear();
+                }
             }
 
-            /*
-
-
-
-
-
-             */
         } catch (Exception e) {
             e.printStackTrace();
         }

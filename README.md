@@ -25,8 +25,8 @@
 6. Display network [FAKE DONE]
     * This functionality is given by a Netviewer from Netica itself. 
     * This can only be done afterwards 
-7. Give possibility to enter input and get prediction 
-    * CSV file or CLI?
+7. Give possibility to enter input and get prediction [DONE]
+    * Given CSV File which is a subset of the original dataset 
 
 ## Next Todos
 * Build correct hierarchy 
@@ -74,6 +74,7 @@
 * Synthetic nodes are given
 * Every string uses non utf-8 chars (e.g no "ö" etc)
 * Every pointerNode of a target node has to be unique
+* no trailing ";"
 
 ### NetViewer Workflow
 * Sadly the Netviewer from netica is not working properly. Thus the following has to be done to see the net correctly.
