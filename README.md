@@ -58,6 +58,7 @@
 * "-" is a invalid character thus it will be replaced by "bis"
 * Any input/output files is stored in the "data/" directory. 
 * Code is stored in the "src/" directory. 
+* Ranges are excluding upper limit and including lower limit
 
 ### Input CSV File Assumptions
 * First lines contains column headers 
@@ -72,6 +73,7 @@
 * Everything is string and separated by ";"
 * Synthetic nodes are given
 * Every string uses non utf-8 chars (e.g no "ö" etc)
+* Every pointerNode of a target node has to be unique
 
 ### NetViewer Workflow
 * Sadly the Netviewer from netica is not working properly. Thus the following has to be done to see the net correctly.

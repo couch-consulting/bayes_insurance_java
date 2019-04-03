@@ -40,18 +40,37 @@ class Main {
         // Build paths
         String inputFullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
         String connectionFullPath = Paths.get(projectRootPath, "data", "netConnections.csv").toString();
-        String outputpath = Paths.get(projectRootPath, "data").toString();
+        String classifyFullPath = Paths.get(projectRootPath, "data", "versicherung_a_classify.csv").toString();
+        String outputpathNetFile = Paths.get(projectRootPath, "data", "BayesInsurance.dne").toString();
 
         try {
             // Get data from csv files
             List<List<String>> csvdata = CSVUtils.parseCSVFile(inputFullPath);
             List<List<String>> connectionData = CSVUtils.parseCSVFile(connectionFullPath);
+            List<List<String>> classifyData = CSVUtils.parseCSVFile(classifyFullPath);
+
+            // Init
+            Net net = NeticaUtils.initNetica("BayesInsurance");
 
             System.out.println("Building network...");
             //build network
-            NeticaNetBuilder.build_net(connectionData, csvdata, outputpath);
+            NeticaNetBuilder.build_net(net, connectionData, csvdata, projectRootPath);
             System.out.println("Done!");
 
+
+            // Modifed Classify Data
+            List<List<String>> classifyCases = NeticaNetBuilder.buildCaseinputData(classifyData);
+
+
+            //Classify
+            //NeticaClassifyData.classifyData(net, NeticaNetBuilder.nodes, classifyCases);
+
+
+            // End
+            System.out.println("Saving Network into a File...");
+
+            NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
+            NeticaUtils.deconstructNeticaNet(net);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,19 +82,15 @@ class Main {
 
 
 class NeticaNetBuilder {
-    private static List<String> nodes = new ArrayList<>();
+    public static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
     private static List<List<String>> newPossibilities = new ArrayList<>();
     private static Map<String, Integer> modifiedFlagMap = new HashMap<>();
 
-    public static void build_net(List<List<String>> connectionData, List<List<String>> csvdata, String outputpath) {
+    public static void build_net(Net net, List<List<String>> connectionData, List<List<String>> csvdata, String rootpath) {
         try {
             // Build paths
-            String outputpathNetFile = Paths.get(outputpath, "BayesInsurance.dne").toString();
-            String outputpathCaseFile = Paths.get(outputpath, "insuranceCaseFile.txt").toString();
-
-            // Init
-            Net net = NeticaUtils.initNetica("BayesInsurance");
+            String outputpathCaseFile = Paths.get(rootpath, "tmp_data", "insuranceCaseFile.txt").toString();
 
             // Get Nodes
             nodes = Utils.extractNodes(csvdata);
@@ -85,26 +100,17 @@ class NeticaNetBuilder {
             System.out.println("Setup Nodes and Links...");
             // Build nodes
             build_nodes(net);
-            // Pre processing build synthetic nodes
-            build_syntheticNodes(net, connectionData);
             //Add Links
             add_links(net, connectionData);
 
             System.out.println("Learning CPTs...");
             // Build Cases from inputData
-            List<List<String>> cases = buildCaseinputData(newPossibilities, modifiedFlagMap, csvdata);
+            List<List<String>> cases = buildCaseinputData(csvdata);
             // Build case File
             NeticaUtils.writeCaseFile(nodes, cases, outputpathCaseFile);
 
             //learn CPTs
             learn_cpts(net, outputpathCaseFile);
-
-
-            System.out.println("Saving Network into a File...");
-            NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
-            NeticaUtils.deconstructNeticaNet(net);
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,8 +130,6 @@ class NeticaNetBuilder {
             int listLength = nodes.size() - 1;
 
             for (String node : nodes) {
-
-
 
 
                 // List to caputre modifed possibilities
@@ -206,20 +210,30 @@ class NeticaNetBuilder {
      * @param net:            A netica Network filled with nodes
      * @param connectionData: A List of String Lists filled accordingly to documentation to represent connections.
      */
-    private static void add_links(Net net, List<List<String>> connectionData) {
+    private static void add_links(Net net, List<List<String>> connectionData) throws UnexpectedException {
         try {
 
             for (List<String> nodeConnections : connectionData) {
-
                 // Get target node and pointer nodes
                 String targetNode = nodeConnections.get(0);
                 int listLength = nodeConnections.size();
                 List<String> pointerNodes = nodeConnections.subList(1, listLength);
 
+                //Track Duplicates and throw error
+                List<String> alreadyConnected = new ArrayList<>();
+
+
                 // Add Links from each pointer node to target node
                 for (String pointerNode : pointerNodes) {
+                    // Check for dupliacte
+                    for (String duplicate : alreadyConnected) {
+                        if (pointerNode.equals(duplicate)) {
+                            throw new UnexpectedException("The same node is pointing twice to a node! For targetnode: " + targetNode + " and pointerNode: " + pointerNode);
+                        }
+                    }
                     // Can not be refactored to only get the target node once because of Netica Node vs aliases.Node error!
                     net.getNode(targetNode).addLink(net.getNode(pointerNode));
+                    alreadyConnected.add(pointerNode);
                 }
 
             }
@@ -230,46 +244,6 @@ class NeticaNetBuilder {
         }
 
 
-    }
-
-    /**
-     * Pre processing build synthetic nodes for network but do not add to node list
-     *
-     * @param net:            Netica Net
-     * @param connectionData: Data from connect csv file
-     */
-    private static void build_syntheticNodes(Net net, List<List<String>> connectionData) {
-        try {
-
-            for (List<String> nodeConnections : connectionData) {
-                // Get target node and pointer nodes
-                String targetNode = nodeConnections.get(0);
-                boolean nodeIsSynthetic = true;
-                // Check if node does alreday exist
-                for (String node : nodes) {
-                    if (node.equals(targetNode)) {
-                        nodeIsSynthetic = false;
-                    }
-                }
-                // add node
-                if (nodeIsSynthetic) {
-                    Node tmpNode = new Node(targetNode, 4, net);
-                }
-
-
-            }
-            /*  TODO filter out 2 of the nods or do something else
-                            if(node.equals("aeltestesKind")){
-                    continue;
-                }
-                if(node.equals("juengstesKind")){
-                    continue;
-                }
-             */
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -312,10 +286,7 @@ class NeticaNetBuilder {
      * @throws UnexpectedException
      * @return: Cases data
      */
-    public static List<List<String>> buildCaseinputData(List<List<String>> newPossibilities, Map<String, Integer> modifiedFlagMap, List<List<String>> csvdata) throws UnexpectedException {
-        // Get Nodes again
-        List<String> nodes = Utils.extractNodes(csvdata);
-
+    public static List<List<String>> buildCaseinputData(List<List<String>> csvdata) throws UnexpectedException {
         // Translate Data
         List<List<String>> inputData = new ArrayList<>(csvdata);
         inputData.remove(0);
@@ -852,82 +823,66 @@ class NeticaUtils {
 }
 
 
-// TODO
+// TODO LOOK INTO MAKE DECISION INSTEAD
 
 /*
-Classification
+BROKEN OR NOT WORKING CORRECTLY - NOT THE ONE WE NEED FOR FINAL USE CASE JUST CHECKING
 
-public class ClassifyData {
+Class for Classification of Data
+ */
+class NeticaClassifyData {
 
-    public static void main (String[] args){
+    public static void classifyData(Net net, List<String> nodes, List<List<String>> classifyCases) {
         try {
-            Environ env = new Environ (null);
-            env.setCaseFileDelimChar (','); //because file BreastCancer.cas is comma-delimited
+            System.out.println(nodes);
+            System.out.println(classifyCases);
 
-            Net net = new Net (new Streamer ("Data Files/BreastCancer.dne"));
+            for (List<String> classifyCase : classifyCases) {
 
-            Node malignancy               = net.getNode ("Malignancy");
-            Node clumpThickness           = net.getNode ("ClumpThickness");
-            Node uniformityOfCellSize     = net.getNode ("UniformityOfCellSize");
-            Node uniformityOfCellShape    = net.getNode ("UniformityOfCellShape");
-            Node marginalAdhesion         = net.getNode ("MarginalAdhesion");
-            Node singleEpithelialCellSize = net.getNode ("SingleEpithelialCellSize");
-            Node bareNuclei               = net.getNode ("BareNuclei");
-            Node blandChromatin           = net.getNode ("BlandChromatin");
-            Node normalNucleoli           = net.getNode ("NormalNucleoli");
-            Node mitoses                  = net.getNode ("Mitoses");
+                // Reset net
+                NodeList nodesList = net.getNodes();
+                for (int n = 0; n < nodesList.size(); n++) {
+                    nodesList.getNode(n).finding().clear();
+                }
 
-            //-- Clear any CPT data
-            NodeList nodes = net.getNodes();
-            for (int n=0; n<nodes.size(); n++) {
-                nodes.getNode(n).deleteTables();
+                // Go through each node for this set and enter findings
+                int index = 0;
+                int listLength = nodes.size() - 1;
+                for (String node : nodes) {
+                    // break for last column because it is the evaluation node
+                    if (index == listLength) {
+                        continue;
+                    }
+                    // Set state for given input
+                    net.getNode(node).finding().enterState(classifyCase.get(index));
+                    index++;
+                }
+
+                // Compile net
+                net.compile();
+
+                // Results
+                String lastNode = nodes.get(listLength);
+                String lastValue = classifyCase.get(listLength);
+
+                float belief = net.getNode(lastNode).getBelief(lastValue);
+                System.out.println("\n Actual last value was: "+ lastValue);
+                System.out.println ("\nThe probability of last value is " + belief);
+
             }
 
-            //-- Train net based on database of Wisconsin breast cancer study obtained
-            //-- from Dr. William H. Wolberg, University of Wisconsin Hospitals, Madison, Wisconsin, USA;
-            //-- Dataset archived at: ftp://ftp.ics.uci.edu/pub/machine-learning-databases/breast-cancer-wisconsin/
-            //-- Citation: William H. Wolberg and O.L. Mangasarian: "Multisurface method of
-            //-- pattern separation for medical diagnosis applied to breast cytology",
-            //-- Proceedings of the National Academy of Sciences, U.S.A., Volume 87,
-            //-- December 1990, pp 9193-9196.
+            /*
 
 
-            net.reviseCPTsByCaseFile (new Streamer ("Data Files/BreastCancer.cas"), nodes, 1.0);
 
-            //-- Now perform a classification for a particular case:  10,3,3,2,2,10,4,1,2
 
-            // clear current findings, calculated from learning
 
-            for (int n=0; n<nodes.size(); n++) {
-                nodes.getNode(n).finding().clear();
-            }
-
-            clumpThickness.finding().enterReal (10.0);
-            uniformityOfCellSize.finding().enterReal (3.0);
-            uniformityOfCellShape.finding().enterReal (3.0);
-            marginalAdhesion.finding().enterReal (2.0);
-            singleEpithelialCellSize.finding().enterReal (2.0);
-            bareNuclei.finding().enterReal (10.0);
-            blandChromatin.finding().enterReal (4.0);
-            normalNucleoli.finding().enterReal (1.0);
-            mitoses.finding().enterReal (2.0);
-
-            net.compile ();
-
-            float belief = malignancy.getBelief("Malignant");
-            System.out.println ("\nThe probability of this cell being malignant is " + belief);
-
-            net.finalize ();   // not strictly necessary, but a good habit
-        }
-        catch (Exception e) {
+             */
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }
 
-/*
-LearnLatent
-
-MakeDecision
-
- */
