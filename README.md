@@ -10,7 +10,7 @@
 ## Netica Docu
 * https://www.norsys.com/netica-j/docs/NeticaJ_Man.pdf
 * HTML FIles under "NeticaJ_WIn/NeticaJ_504/docs/javadocs"
-
+* Free Version of netic only suppports 15 nodes (our initial solution had 17). Thus we are not using made up nodes and only the given 14. 
 
 # General TODOS and project plan   
 1. Extract all possible nodes + values (possibilities) from CSV Input file [DONE]
@@ -69,6 +69,9 @@
 
 ### "netConnections" CSV File
 * First element is target, rest of row are elements that point to the first element
+* Everything is string and separated by ";"
+* Synthetic nodes are given
+* Every string uses non utf-8 chars (e.g no "ö" etc)
 
 ### NetViewer Workflow
 * Sadly the Netviewer from netica is not working properly. Thus the following has to be done to see the net correctly.
