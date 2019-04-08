@@ -25,8 +25,8 @@
 6. Display network [FAKE DONE]
     * This functionality is given by a Netviewer from Netica itself. 
     * This can only be done afterwards 
-7. Give possibility to enter input and get prediction 
-    * CSV file or CLI?
+7. Give possibility to enter input and get prediction [DONE]
+    * Given CSV File which is a subset of the original dataset 
 
 ## Next Todos
 * Build correct hierarchy 
@@ -58,10 +58,15 @@
 * "-" is a invalid character thus it will be replaced by "bis"
 * Any input/output files is stored in the "data/" directory. 
 * Code is stored in the "src/" directory. 
+* Ranges are excluding upper limit and including lower limit
+* System out println used instead of logger on purpose 
+* decided against synthetic node because we could only use one extra node and learning a new node is not working correctly 
+* using Counting Learning as cpt learn algo (see netica_J manual)
+* example data is almost everytime b (not enough a)
 
 ### Input CSV File Assumptions
 * First lines contains column headers 
-* Last column contains evaluation information (e.g. Assigned product A/B)
+* Last column contains evaluation information (e.g. Assigned product A/B). Only two evaluation results exist (e.g. A and B)
 * Values separated by semicolon 
 * No usage of quotes 
 * "Empty" values are marked with "n.a."
@@ -72,6 +77,9 @@
 * Everything is string and separated by ";"
 * Synthetic nodes are given
 * Every string uses non utf-8 chars (e.g no "ö" etc)
+* Every pointerNode of a target node has to be unique
+* no trailing ";"
+* different names for different net results with these connections on all data
 
 ### NetViewer Workflow
 * Sadly the Netviewer from netica is not working properly. Thus the following has to be done to see the net correctly.
@@ -81,4 +89,23 @@
     * A circle object should appear in the left top corner 
 4. Drag and drop one of the circles to the middle/bottom left of the screen 
 5. In the row "Node styles" select "Auto Select"
-6. Now you can see the Network. Move the Boxe (drag and drop) accordingly to create a better view of the network. 
+6. Now you can see the Network. Move the Boxe (drag and drop) accordingly to create a better view of the network.
+
+#### Input
+* CSV not cli and additionally the Netviewer can work as  a GUI to enter cases etc.
+* CSV with same assumption as input csv file 
+
+### Learning/Training
+ (for connection tests)
+* Learning on data: everyting
+* test on data: everything
+* In our test the ratio for a was always worse than the b ratio because the input data just has not enough data on cases with result A
+    ````
+    189 of 199 cases are correct! Ratio: 94.97488 %
+    For cases with result B: 173 of 177 cases are correct! Ratio: 97.74011 %
+    For cases with result A: 16 of 22 cases are correct! Ratio: 72.72727 %
+    88.94472 % of all cases are with the result B
+    11.055277 % of all cases are with the result A
+    ````
+    Here you can see that our test data has not enough A cases!
+* for reality data should be: used with k-folding or other input data! 

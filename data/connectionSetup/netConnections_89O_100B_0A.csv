@@ -1,0 +1,8 @@
+Bildungsstand;Altersgruppe
+Beruf;Altersgruppe;Geschlecht;Kinderzahl
+Familieneinkommen;Aktienbesitz;Bildungsstand;Beruf;Verheiratet;Kinderzahl;Wohnverhaeltnis
+Kinderzahl;Altersgruppe;Geschlecht;aeltestesKind;juengstesKind
+Verheiratet;Geschlecht
+Ort;Land
+Wohnverhaeltnis;Ort;Kinderzahl
+Tarif;Kinderzahl;Familieneinkommen

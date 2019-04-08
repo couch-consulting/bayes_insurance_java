@@ -3,11 +3,19 @@
  *
  * Test Example use of Netica-J to build a Bayes net and use it for inference.
  * Used for bayes_insurance
- * Stupid One-File strucutre because Netica build does not allow a different strucutre (as far as we know)
+ * Stupid One-File structure because Netica build does not allow a different structure (as far as we know)
  */
+
+/*
+
+ TODO get test data via one file and filter somehow, furher enhancements
+TODO get multiple file solution and find out why this is now working for my ide
+*/
+
 
 // Import Netica
 
+import javafx.util.Pair;
 import norsys.netica.*;
 import norsys.neticaEx.aliases.Node;
 
@@ -30,28 +38,46 @@ import java.nio.file.Paths;
 import java.util.Collections;
 
 /*
-Main Clas
+Main Class
  */
 class Main {
 
-    private static final String projectRootPath = new File(System.getProperty("user.dir")).getParentFile().getAbsolutePath();
+    private static final String PROJECTROOTPATH = new File(System.getProperty("user.dir")).getParentFile().getAbsolutePath();
 
     public static void main(String[] args) {
         // Build paths
-        String inputFullPath = Paths.get(projectRootPath, "data", "versicherung_a.csv").toString();
-        String connectionFullPath = Paths.get(projectRootPath, "data", "netConnections.csv").toString();
-        String outputpath = Paths.get(projectRootPath, "data").toString();
+        String inputFullPath = Paths.get(PROJECTROOTPATH, "data", "versicherung_a.csv").toString();
+        String connectionFullPath = Paths.get(PROJECTROOTPATH, "data", "connectionSetup", "netConnections.csv").toString();
+        String testFullPath = Paths.get(PROJECTROOTPATH, "data", "versicherung_a_classify.csv").toString();
+        String outputpathNetFile = Paths.get(PROJECTROOTPATH, "data", "BayesInsurance.dne").toString();
 
         try {
             // Get data from csv files
             List<List<String>> csvdata = CSVUtils.parseCSVFile(inputFullPath);
             List<List<String>> connectionData = CSVUtils.parseCSVFile(connectionFullPath);
+            List<List<String>> testData = CSVUtils.parseCSVFile(testFullPath);
+
+
+            // Init
+            Net net = NeticaUtils.initNetica("BayesInsurance");
 
             System.out.println("Building network...");
             //build network
-            NeticaNetBuilder.build_net(connectionData, csvdata, outputpath);
+            NeticaNetBuilder.buildNet(net, connectionData, csvdata, PROJECTROOTPATH);
             System.out.println("Done!");
 
+
+            // Modifed Test Data
+            List<List<String>> testCases = NeticaNetBuilder.buildCaseinputData(testData);
+
+            //Classify
+            NeticaClassifyData.classifyData(net, NeticaNetBuilder.nodes, testCases);
+
+
+            // End
+            System.out.println("\n\nSaving Network into a File...");
+            NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
+            NeticaUtils.deconstructNeticaNet(net);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,21 +87,34 @@ class Main {
     }
 }
 
-
+/*
+Class to build a full Netica net
+ */
 class NeticaNetBuilder {
-    private static List<String> nodes = new ArrayList<>();
+    static List<String> nodes = new ArrayList<>();
     private static List<List<String>> possibilities = new ArrayList<>();
     private static List<List<String>> newPossibilities = new ArrayList<>();
     private static Map<String, Integer> modifiedFlagMap = new HashMap<>();
 
-    public static void build_net(List<List<String>> connectionData, List<List<String>> csvdata, String outputpath) {
+    /**
+     * Private constructor for false calling
+     */
+    private NeticaNetBuilder() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Builds Netica Net, adds connections and learns CPTs
+     *
+     * @param net:            Netica net
+     * @param connectionData: Data from connection csv file
+     * @param csvdata:        Data from input csv file
+     * @param rootpath:       Rootpath for this project
+     */
+    static void buildNet(Net net, List<List<String>> connectionData, List<List<String>> csvdata, String rootpath) {
         try {
             // Build paths
-            String outputpathNetFile = Paths.get(outputpath, "BayesInsurance.dne").toString();
-            String outputpathCaseFile = Paths.get(outputpath, "insuranceCaseFile.txt").toString();
-
-            // Init
-            Net net = NeticaUtils.initNetica("BayesInsurance");
+            String outputpathCaseFile = Paths.get(rootpath, "tmp_data", "insuranceCaseFile.txt").toString();
 
             // Get Nodes
             nodes = Utils.extractNodes(csvdata);
@@ -84,27 +123,19 @@ class NeticaNetBuilder {
 
             System.out.println("Setup Nodes and Links...");
             // Build nodes
-            build_nodes(net);
-            // Pre processing build synthetic nodes
-            build_syntheticNodes(net, connectionData);
+            buildNodes(net);
             //Add Links
-            add_links(net, connectionData);
+            addLinks(net, connectionData);
+
 
             System.out.println("Learning CPTs...");
             // Build Cases from inputData
-            List<List<String>> cases = buildCaseinputData(newPossibilities, modifiedFlagMap, csvdata);
+            List<List<String>> cases = buildCaseinputData(csvdata);
             // Build case File
             NeticaUtils.writeCaseFile(nodes, cases, outputpathCaseFile);
 
             //learn CPTs
-            learn_cpts(net, outputpathCaseFile);
-
-
-            System.out.println("Saving Network into a File...");
-            NeticaUtils.writeNetIntoFile(net, outputpathNetFile);
-            NeticaUtils.deconstructNeticaNet(net);
-
-
+            learnCPTs(net, outputpathCaseFile);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -112,61 +143,42 @@ class NeticaNetBuilder {
 
 
     /**
-     * Fill a given network with newly build nodes. Modif input possiblites to be a range for numbers only.
-     * Every Input will be transformed to a valid strucutre (String with alphabetical first letter)
+     * Fill a given network with newly build nodes. Modify input possibilities to be a range for numbers only.
+     * Every Input will be transformed to a valid structure (String with alphabetical first letter)
      *
      * @param net a Network of the Netica API
      */
-    private static void build_nodes(Net net) {
+    private static void buildNodes(Net net) {
         try {
             // Build nodes
             int index = 0;
-            int listLength = nodes.size() - 1;
 
             for (String node : nodes) {
 
-
-
-
-                // List to caputre modifed possibilities
+                // List to capture modified possibilities
                 List<String> tmpNewPosi = new ArrayList<>();
 
                 // Build string from array
                 StringBuilder builder = new StringBuilder();
                 boolean first = true;
                 int modification = -1;
-                // Check if possibilities are  a set of numbers and if they are a set, transfrom into 3 Ranges instead
+                // Check if possibilities are  a set of numbers and if they are a set, transform into 3 Ranges instead
                 List<String> currentPossibilites = new ArrayList<>(possibilities.get(index));
-                if (Utils.possibilitiesAreNummbers(currentPossibilites)) {
+                if (Utils.possibilitiesAreNumbers(currentPossibilites)) {
                     currentPossibilites = Utils.getRangesFromPossibilities(currentPossibilites);
                     modification = 0;
                 }
 
 
-                // Modif possibilites
-
+                // Modify possibilities
                 for (String value : currentPossibilites) {
-                    // Eliminate illegal char "-"
-                    if (value.contains("-")) {
-                        // For a number replace to "bis" and check if string is a number
-                        if (value.replace("-", "").trim().matches("-?\\d+(\\.\\d+)?")) {
-                            value = "R" + value.replace("-", "bis").trim();
-                            if (modification != 0) {
-                                modification = 1;
-                            }
-                        } else {
-                            value = value.replace("-", "").trim();
-                            modification = 2;
-                        }
-                    } else if (value.matches("-?\\d+(\\.\\d+)?")) {
-                        // Check if String is a nubmer and add "N" infront if that is the case
-                        value = "N" + value;
-                        modification = 3;
+                    // Modify Values
+                    Pair<String, Integer> resutlPair = Utils.modifyValue(value, modification);
 
-                    } else if (value.contains(" ")) {
-                        value = value.replace(" ", "").trim();
-                        modification = 4;
-                    }
+                    // Get value from result pair
+                    value = resutlPair.getKey();
+                    // Get modification from result pair
+                    modification = resutlPair.getValue();
 
                     //Only append "," if it is not the first value
                     if (first) {
@@ -174,10 +186,12 @@ class NeticaNetBuilder {
                         tmpNewPosi.add(value);
                         first = false;
                     } else {
-                        builder.append("," + value);
+                        builder.append(",");
+                        builder.append(value);
                         tmpNewPosi.add(value);
                     }
                 }
+
 
                 // Save modification for later
                 if (modification != -1) {
@@ -206,20 +220,30 @@ class NeticaNetBuilder {
      * @param net:            A netica Network filled with nodes
      * @param connectionData: A List of String Lists filled accordingly to documentation to represent connections.
      */
-    private static void add_links(Net net, List<List<String>> connectionData) {
+    private static void addLinks(Net net, List<List<String>> connectionData) throws UnexpectedException {
         try {
 
             for (List<String> nodeConnections : connectionData) {
-
                 // Get target node and pointer nodes
                 String targetNode = nodeConnections.get(0);
                 int listLength = nodeConnections.size();
                 List<String> pointerNodes = nodeConnections.subList(1, listLength);
 
+                //Track Duplicates and throw error
+                List<String> alreadyConnected = new ArrayList<>();
+
+
                 // Add Links from each pointer node to target node
                 for (String pointerNode : pointerNodes) {
+                    // Check for duplicate
+                    for (String duplicate : alreadyConnected) {
+                        if (pointerNode.equals(duplicate)) {
+                            throw new UnexpectedException("The same node is pointing twice to a node! For targetnode: " + targetNode + " and pointerNode: " + pointerNode);
+                        }
+                    }
                     // Can not be refactored to only get the target node once because of Netica Node vs aliases.Node error!
                     net.getNode(targetNode).addLink(net.getNode(pointerNode));
+                    alreadyConnected.add(pointerNode);
                 }
 
             }
@@ -230,46 +254,6 @@ class NeticaNetBuilder {
         }
 
 
-    }
-
-    /**
-     * Pre processing build synthetic nodes for network but do not add to node list
-     *
-     * @param net:            Netica Net
-     * @param connectionData: Data from connect csv file
-     */
-    private static void build_syntheticNodes(Net net, List<List<String>> connectionData) {
-        try {
-
-            for (List<String> nodeConnections : connectionData) {
-                // Get target node and pointer nodes
-                String targetNode = nodeConnections.get(0);
-                boolean nodeIsSynthetic = true;
-                // Check if node does alreday exist
-                for (String node : nodes) {
-                    if (node.equals(targetNode)) {
-                        nodeIsSynthetic = false;
-                    }
-                }
-                // add node
-                if (nodeIsSynthetic) {
-                    Node tmpNode = new Node(targetNode, 4, net);
-                }
-
-
-            }
-            /*  TODO filter out 2 of the nods or do something else
-                            if(node.equals("aeltestesKind")){
-                    continue;
-                }
-                if(node.equals("juengstesKind")){
-                    continue;
-                }
-             */
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -278,22 +262,22 @@ class NeticaNetBuilder {
      * @param net:            Netica net
      * @param pathToCasefile: Path to case file
      */
-    private static void learn_cpts(Net net, String pathToCasefile) {
+    private static void learnCPTs(Net net, String pathToCasefile) {
         try {
 
             // Remove CPTables of nodes in net, so new ones can be learned.
             // Not really needed right now but done anyway
-            NodeList nodes = net.getNodes();
-            int numNodes = nodes.size();
+            NodeList nodesList = net.getNodes();
+            int numNodes = nodesList.size() - 1;
             for (int n = 0; n < numNodes; n++) {
-                Node node = (Node) nodes.get(n);
+                Node node = (Node) nodesList.get(n);
                 node.deleteTables();
             }
 
             // Read in the case file
             Streamer caseFile = new Streamer(pathToCasefile);
             // Learn the case file
-            net.reviseCPTsByCaseFile(caseFile, nodes, 1.0);
+            net.reviseCPTsByCaseFile(caseFile, nodesList, 1.0);
 
 
         } catch (Exception e) {
@@ -306,16 +290,11 @@ class NeticaNetBuilder {
     /**
      * Transforms the given csv data into case file format (e.g. the modifed format of values we use for the net)
      *
-     * @param newPossibilities: Modifed possibilities
-     * @param modifiedFlagMap:  Map with flags for nodes where action needs to be taken
-     * @param csvdata:          Raw csv input data
-     * @throws UnexpectedException
-     * @return: Cases data
+     * @param csvdata: Raw csv input data
+     * @return Cases data
+     * @throws UnexpectedException: went wrong exception for wrong csv data
      */
-    public static List<List<String>> buildCaseinputData(List<List<String>> newPossibilities, Map<String, Integer> modifiedFlagMap, List<List<String>> csvdata) throws UnexpectedException {
-        // Get Nodes again
-        List<String> nodes = Utils.extractNodes(csvdata);
-
+    static List<List<String>> buildCaseinputData(List<List<String>> csvdata) throws UnexpectedException {
         // Translate Data
         List<List<String>> inputData = new ArrayList<>(csvdata);
         inputData.remove(0);
@@ -326,7 +305,7 @@ class NeticaNetBuilder {
                 int checkValue = modifiedFlagMap.get(node);
                 // Change Input data for this node
                 for (List<String> inputLine : inputData) {
-                    String newInputData = "Unexpected Error";
+                    String newInputData;
                     String currValue = inputLine.get(index);
                     if (checkValue == 0) {
                         // 0: "R" at start and "-" replace with "bis" for a set of numbers
@@ -340,12 +319,12 @@ class NeticaNetBuilder {
                             // Find lowest Range
                             for (String range : ranges) {
                                 // Get values
-                                String tmpRange = new String(range.substring(1));
+                                String tmpRange = range.substring(1);
                                 String[] numbers = tmpRange.split(Pattern.quote("bis"));
                                 int lowerEnd = Integer.parseInt(numbers[0]);
 
                                 // Set tmp Lowest initally. This has to be done because it is possible that the lowest value is not zero. Thus it has to be one of the range vars initaliy.
-                                if (start == true) {
+                                if (start) {
                                     start = false;
 
                                     tmpLowestEnd = lowerEnd;
@@ -363,7 +342,7 @@ class NeticaNetBuilder {
                             // Build for actual number
                             for (String range : ranges) {
                                 // Get values
-                                String tmpRange = new String(range.substring(1));
+                                String tmpRange = range.substring(1);
 
                                 String[] numbers = tmpRange.split(Pattern.quote("bis"));
                                 int lowerEnd = Integer.parseInt(numbers[0]);
@@ -391,7 +370,7 @@ class NeticaNetBuilder {
                         // 3: "N" at start
                         newInputData = "N" + currValue;
                     } else if (checkValue == 4) {
-                        // 4: whitepsace within the string
+                        // 4: whitespace within the string
                         newInputData = currValue.replace(" ", "").trim();
                     } else {
                         throw new UnexpectedException("CheckValue is an unexpected value" + checkValue);
@@ -417,18 +396,25 @@ class NeticaNetBuilder {
   */
 class CSVUtils {
 
-    // Default vars adpated to our csv file format mentioned in the documentation
+    // Default vars adapted to our csv file format mentioned in the documentation
     private static final char DEFAULT_SEPARATOR = ';';
     private static final char DEFAULT_QUOTE = '"';
+
+    /**
+     * Private constructor for false calling
+     */
+    private CSVUtils() {
+        throw new IllegalStateException("Utility class");
+    }
 
     /**
      * Parses a CSVFile into a List of String lists
      *
      * @param csvFile: Path to csvFile
      * @return CSV data as a list of string list whereby each string list equals one row
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException: path wrong
      */
-    public static List<List<String>> parseCSVFile(String csvFile) throws FileNotFoundException {
+    static List<List<String>> parseCSVFile(String csvFile) throws FileNotFoundException {
         List<List<String>> lines = new ArrayList<>();
 
         // Build a List of String Lists from the csv file (Each string list equals one line)
@@ -439,21 +425,20 @@ class CSVUtils {
             }
         }
 
-
         return lines;
     }
 
     /**
      * Original Function - No changes
      */
-    public static List<String> parseLine(String cvsLine) {
+    private static List<String> parseLine(String cvsLine) {
         return parseLine(cvsLine, DEFAULT_SEPARATOR, DEFAULT_QUOTE);
     }
 
     /**
      * Original Function - No changes
      */
-    public static List<String> parseLine(String cvsLine, char separators, char customQuote) {
+    private static List<String> parseLine(String cvsLine, char separators, char customQuote) {
 
         List<String> result = new ArrayList<>();
 
@@ -548,12 +533,19 @@ class CSVUtils {
 class Utils {
 
     /**
+     * Private constructor for false calling
+     */
+    private Utils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
      * Gets first line of csv file, aka column headers!
      *
      * @param data: parsed raw csv data
      * @return List of string that simply are the names of nodes/column headers
      */
-    public static List<String> extractNodes(List<List<String>> data) {
+    static List<String> extractNodes(List<List<String>> data) {
         return data.get(0);
     }
 
@@ -564,7 +556,7 @@ class Utils {
      * @param csvdata - contains parsed csv data as a list of string lists
      * @return List of possibilities (possibilities as a string list)
      */
-    public static List<List<String>> extractPossibilities(List<List<String>> csvdata) {
+    static List<List<String>> extractPossibilities(List<List<String>> csvdata) {
 
         List<List<String>> possibilites = new ArrayList<>();
         // Create Copy of List without First Entry (Names of columns)
@@ -589,7 +581,7 @@ class Utils {
      * @param inputData: The parsed csv data without the first list
      * @return a List of strings with all distinct values that were given in the csv file for this column
      */
-    public static List<String> extractNodePossibilities(int index, List<List<String>> inputData) {
+    private static List<String> extractNodePossibilities(int index, List<List<String>> inputData) {
 
         List<String> nodePossibilities = new ArrayList<>();
         for (List<String> line : inputData) {
@@ -612,12 +604,12 @@ class Utils {
     }
 
     /**
-     * A custom made function to calculate all important Box Plot values that exit and utilitze them to construct ranges!
+     * A custom made function to calculate all important Box Plot values that exit and utilize them to construct ranges!
      * Math is based on 4th Semester Descriptive Statistics - Box Plot
      * Result: 3 Ranges
      * Constraints: Has to be more than 4 values
      */
-    public static List<String> getRangesFromPossibilities(List<String> numberPossibilities) {
+    static List<String> getRangesFromPossibilities(List<String> numberPossibilities) {
         //Convert to double list instead of string list
         List<Double> numbers = new ArrayList<>();
         for (String possibility : numberPossibilities) {
@@ -708,7 +700,7 @@ class Utils {
      * @param possibilities List of String
      * @return True or False
      */
-    public static boolean possibilitiesAreNummbers(List<String> possibilities) {
+    static boolean possibilitiesAreNumbers(List<String> possibilities) {
         boolean result = true;
         for (String value : possibilities) {
             if (!value.matches("-?\\d+(\\.\\d+)?")) {
@@ -724,7 +716,7 @@ class Utils {
      * @param numbers List of numbers (doubles)
      * @return A median of the list (double)
      */
-    public static double getMedian(List<Double> numbers) {
+    private static double getMedian(List<Double> numbers) {
         double median;
         int listLength = numbers.size();
         if (listLength % 2 == 0) {
@@ -739,7 +731,45 @@ class Utils {
         return median;
     }
 
+    /**
+     * Modifies the value and returns an int code for what was modified
+     * <p>
+     * Modification value meaning:
+     * // 0: "R" at start and "-" replace with "bis" for a set of numbers
+     * // 1: "R" at start and "-" replace with "bis" for strings
+     * // 2: "-" replaced with ""
+     * // 3: "N" at start
+     * // 4: whitespace within the string
+     *
+     * @param value:        String value from the csv file
+     * @param modification: current modification value
+     * @return Result pair of String and Integer value
+     */
+    static Pair<String, Integer> modifyValue(String value, int modification) {
+        // Eliminate illegal char "-"
+        if (value.contains("-")) {
+            // For a number replace to "bis" and check if string is a number
+            if (value.replace("-", "").trim().matches("-?\\d+(\\.\\d+)?")) {
+                value = "R" + value.replace("-", "bis").trim();
+                if (modification != 0) {
+                    modification = 1;
+                }
+            } else {
+                value = value.replace("-", "").trim();
+                modification = 2;
+            }
+        } else if (value.matches("-?\\d+(\\.\\d+)?")) {
+            // Check if String is a nubmer and add "N" infront if that is the case
+            value = "N" + value;
+            modification = 3;
 
+        } else if (value.contains(" ")) {
+            value = value.replace(" ", "").trim();
+            modification = 4;
+        }
+
+        return new Pair<>(value, modification);
+    }
 }
 
 /*
@@ -748,12 +778,19 @@ Netica Utils Code
 class NeticaUtils {
 
     /**
+     * Private constructor for false calling
+     */
+    private NeticaUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
      * Init Netica and a Netica Net
      *
      * @param netName: Name for the Network
      * @return Netica Net
      */
-    public static Net initNetica(String netName) {
+    static Net initNetica(String netName) {
         Net net = null;
         try {
             // Init
@@ -776,7 +813,7 @@ class NeticaUtils {
      * @param net:        Netica Net
      * @param outputpath: Path for outputh file
      */
-    public static void writeNetIntoFile(Net net, String outputpath) {
+    static void writeNetIntoFile(Net net, String outputpath) {
         try {
             // Write Net into File
             Streamer stream = new Streamer(outputpath);
@@ -791,9 +828,9 @@ class NeticaUtils {
      *
      * @param net: A netica net
      */
-    public static void deconstructNeticaNet(Net net) {
+    static void deconstructNeticaNet(Net net) {
         try {
-            net.finalize();  // free resources immediately and safely;
+            net.finalize();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -811,13 +848,14 @@ class NeticaUtils {
      * @param cases:      CSV file data transformed for case file format and modifed accordingly to possibilities
      * @param outputpath: Path and file name + ending where to write the file
      */
-    public static void writeCaseFile(List<String> nodes, List<List<String>> cases, String outputpath) {
+    static void writeCaseFile(List<String> nodes, List<List<String>> cases, String outputpath) {
 
         //Build header lines
         StringBuilder nodesBuilder = new StringBuilder();
         nodesBuilder.append("IDnum");
         for (String node : nodes) {
-            nodesBuilder.append("," + node);
+            nodesBuilder.append(",");
+            nodesBuilder.append(node);
         }
         String headerLine = nodesBuilder.toString();
 
@@ -825,7 +863,8 @@ class NeticaUtils {
         // Write Casefile
         try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputpath), StandardCharsets.UTF_8))) {
             // Write header line
-            writer.append(headerLine + "\n");
+            writer.append(headerLine);
+            writer.append("\n");
 
             // Write data
             int index = 0;
@@ -835,11 +874,15 @@ class NeticaUtils {
                 StringBuilder lineBuilder = new StringBuilder();
                 lineBuilder.append(index);
                 for (String element : inputLine) {
-                    lineBuilder.append("," + element);
+                    lineBuilder.append(",");
+                    lineBuilder.append(element);
+
                 }
                 String buildInputLine = lineBuilder.toString();
                 // Append at end
-                writer.append(buildInputLine + "\n");
+                writer.append(buildInputLine);
+                writer.append("\n");
+
                 index++;
             }
         } catch (IOException e) {
@@ -851,83 +894,128 @@ class NeticaUtils {
 
 }
 
-
-// TODO
-
 /*
-Classification
+ * Class for Classification of Data
+ */
+class NeticaClassifyData {
 
-public class ClassifyData {
+    /**
+     * Private constructor for false calling
+     */
+    private NeticaClassifyData() {
+        throw new IllegalStateException("Utility class");
+    }
 
-    public static void main (String[] args){
+
+    /**
+     * Classifies a given Dataset
+     *
+     * @param net:           Netica net
+     * @param nodes:         Nodes for the given data set
+     * @param classifyCases: data to classify
+     */
+    static void classifyData(Net net, List<String> nodes, List<List<String>> classifyCases) {
         try {
-            Environ env = new Environ (null);
-            env.setCaseFileDelimChar (','); //because file BreastCancer.cas is comma-delimited
+            // Reset net
+            NodeList nodesList = net.getNodes();
+            for (int n = 0; n < nodesList.size(); n++) {
+                nodesList.getNode(n).finding().clear();
+            }
+            int caseNr = 0;
+            int caseNrCorrect = 0;
 
-            Net net = new Net (new Streamer ("Data Files/BreastCancer.dne"));
+            // Vars for Result stats
+            int caseNr1 = 0;
+            int caseNr2 = 0;
+            int caseNr1Correct = 0;
+            int caseNr2Correct = 0;
+            String firstResult = "";
+            String secondeResult = "";
 
-            Node malignancy               = net.getNode ("Malignancy");
-            Node clumpThickness           = net.getNode ("ClumpThickness");
-            Node uniformityOfCellSize     = net.getNode ("UniformityOfCellSize");
-            Node uniformityOfCellShape    = net.getNode ("UniformityOfCellShape");
-            Node marginalAdhesion         = net.getNode ("MarginalAdhesion");
-            Node singleEpithelialCellSize = net.getNode ("SingleEpithelialCellSize");
-            Node bareNuclei               = net.getNode ("BareNuclei");
-            Node blandChromatin           = net.getNode ("BlandChromatin");
-            Node normalNucleoli           = net.getNode ("NormalNucleoli");
-            Node mitoses                  = net.getNode ("Mitoses");
+            // TODO bug erstes fällt weg
+            System.out.println(classifyCases.size());
+            System.out.println(classifyCases.get(0));
 
-            //-- Clear any CPT data
-            NodeList nodes = net.getNodes();
-            for (int n=0; n<nodes.size(); n++) {
-                nodes.getNode(n).deleteTables();
+
+            for (List<String> classifyCase : classifyCases) {
+                // Go through each node for this set and enter findings
+                int index = 0;
+                int listLength = nodes.size() - 1;
+                for (String node : nodes) {
+                    // break for last column because it is the evaluation node
+                    if (index == listLength) {
+                        continue;
+                    }
+                    // Set state for given input
+                    net.getNode(node).finding().enterState(classifyCase.get(index));
+                    index++;
+                }
+
+                // Compile net
+                net.compile();
+
+                // Results
+                String lastNode = nodes.get(listLength);
+                String lastValue = classifyCase.get(listLength);
+
+                // Get Beliefes for all values
+                float[] beliefs = net.getNode(lastNode).getBeliefs();
+                firstResult = "" + net.getNode(lastNode).state(0);
+                secondeResult = "" + net.getNode(lastNode).state(1);
+
+                System.out.println("Case " + caseNr + " is:" + classifyCase);
+                System.out.print("For case " + caseNr + ", ");
+
+
+                System.out.println("the belief of " + firstResult + " is " + beliefs[0] +
+                        ", of " + secondeResult + " is " + beliefs[1] + ". The correct answer is: " + lastValue + "\n");
+
+                if (lastValue.equals(firstResult)) {
+                    caseNr1++;
+                    if (beliefs[0] > beliefs[1]) {
+                        caseNrCorrect++;
+                        caseNr1Correct++;
+                    }
+
+                } else if (lastValue.equals(secondeResult)) {
+                    caseNr2++;
+                    if (beliefs[0] < beliefs[1]) {
+                        caseNrCorrect++;
+                        caseNr2Correct++;
+
+                    }
+
+                }
+
+
+                caseNr++;
+
+                // Reset net
+                for (int n = 0; n < nodesList.size(); n++) {
+                    nodesList.getNode(n).finding().clear();
+                }
             }
 
-            //-- Train net based on database of Wisconsin breast cancer study obtained
-            //-- from Dr. William H. Wolberg, University of Wisconsin Hospitals, Madison, Wisconsin, USA;
-            //-- Dataset archived at: ftp://ftp.ics.uci.edu/pub/machine-learning-databases/breast-cancer-wisconsin/
-            //-- Citation: William H. Wolberg and O.L. Mangasarian: "Multisurface method of
-            //-- pattern separation for medical diagnosis applied to breast cytology",
-            //-- Proceedings of the National Academy of Sciences, U.S.A., Volume 87,
-            //-- December 1990, pp 9193-9196.
+            // Print stats
+            float correctRatio = ((float) caseNrCorrect / (float) caseNr) * (float) 100;
+            System.out.println("\n\n" + caseNrCorrect + " of " + caseNr + " cases are correct! Ratio: " + correctRatio + " %");
+
+            float correctRatio1 = ((float) caseNr1Correct / (float) caseNr1) * (float) 100;
+            System.out.println("For cases with result " + firstResult + ": " + caseNr1Correct + " of " + caseNr1 + " cases are correct! Ratio: " + correctRatio1 + " %");
+            float correctRatio2 = ((float) caseNr2Correct / (float) caseNr2) * (float) 100;
+            System.out.println("For cases with result " + secondeResult + ": " + caseNr2Correct + " of " + caseNr2 + " cases are correct! Ratio: " + correctRatio2 + " %");
+
+            float ratio1 = ((float) caseNr1 / (float) caseNr) * (float) 100;
+            float ratio2 = ((float) caseNr2 / (float) caseNr) * (float) 100;
+            System.out.println(ratio1 + " % of all cases are with the result " + firstResult);
+            System.out.println(ratio2 + " % of all cases are with the result " + secondeResult);
 
 
-            net.reviseCPTsByCaseFile (new Streamer ("Data Files/BreastCancer.cas"), nodes, 1.0);
-
-            //-- Now perform a classification for a particular case:  10,3,3,2,2,10,4,1,2
-
-            // clear current findings, calculated from learning
-
-            for (int n=0; n<nodes.size(); n++) {
-                nodes.getNode(n).finding().clear();
-            }
-
-            clumpThickness.finding().enterReal (10.0);
-            uniformityOfCellSize.finding().enterReal (3.0);
-            uniformityOfCellShape.finding().enterReal (3.0);
-            marginalAdhesion.finding().enterReal (2.0);
-            singleEpithelialCellSize.finding().enterReal (2.0);
-            bareNuclei.finding().enterReal (10.0);
-            blandChromatin.finding().enterReal (4.0);
-            normalNucleoli.finding().enterReal (1.0);
-            mitoses.finding().enterReal (2.0);
-
-            net.compile ();
-
-            float belief = malignancy.getBelief("Malignant");
-            System.out.println ("\nThe probability of this cell being malignant is " + belief);
-
-            net.finalize ();   // not strictly necessary, but a good habit
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }
 
-/*
-LearnLatent
-
-MakeDecision
-
- */
