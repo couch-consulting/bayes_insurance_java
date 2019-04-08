@@ -311,7 +311,8 @@ class NeticaNetBuilder {
                     // Replace values correctly
                     String newInputData;
                     String currValue = inputLine.get(index);
-                    if(currValue.equals("")){
+                    // If input line is just empty (for test data) skip rest
+                    if (currValue.equals("")) {
                         continue;
                     }
 
@@ -400,6 +401,7 @@ class NeticaNetBuilder {
     }
 
 }
+
 
 /*
   CVS Reader Class
@@ -967,7 +969,7 @@ class NeticaClassifyData {
                 String lastNode = nodes.get(listLength);
                 String lastValue = classifyCase.get(listLength);
 
-                // Get Beliefes for all values
+                // Get values for output and do output
                 float[] beliefs = net.getNode(lastNode).getBeliefs();
                 firstResult = "" + net.getNode(lastNode).state(0);
                 secondeResult = "" + net.getNode(lastNode).state(1);
@@ -975,16 +977,16 @@ class NeticaClassifyData {
                 System.out.println("Case " + caseNr + " is:" + classifyCase);
                 System.out.print("For case " + caseNr + ", ");
 
-                if(lastValue.equals("")){
+                if (lastValue.equals("")) {
                     System.out.println("the belief of " + firstResult + " is " + beliefs[0] +
                             ", of " + secondeResult + " is " + beliefs[1] + ". The controll answer is not given.\n");
-                }else{
+                } else {
                     System.out.println("the belief of " + firstResult + " is " + beliefs[0] +
                             ", of " + secondeResult + " is " + beliefs[1] + ". The controll answer is: " + lastValue + "\n");
 
                 }
 
-
+                // Update Counters
                 if (lastValue.equals(firstResult)) {
                     caseNr1++;
                     caseNr++;
@@ -999,13 +1001,10 @@ class NeticaClassifyData {
                     if (beliefs[0] < beliefs[1]) {
                         caseNrCorrect++;
                         caseNr2Correct++;
-
                     }
-
-                }else {
+                } else {
                     caseNrNA++;
                 }
-
 
 
                 // Reset net
