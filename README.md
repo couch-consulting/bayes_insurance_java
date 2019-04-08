@@ -29,17 +29,19 @@
     * Given CSV File which is a subset of the original dataset 
 
 ## Next Todos
-* Build correct hierarchy 
-* Create another file structure where it is not a one-file solution and easier to read/inspect
-* Save Network in a better fashion (if possible)
-* Create complete documentation 
-* Maybe create tests
-* GO through code, refactor if possible and comment if additional is needed 
-* See if our solution fits to task completion 
-* Display Network in normal Workflow/App but not afterwards
-* find out why "-" is an illegal character
-* Look at todos
+* Write up connection setup
+* Think about: Build correct hierarchy (not one file)
+    * Create another file structure where it is not a one-file solution and easier to read/inspect
+    
 
+
+* Test data input file
+    * find out how to leave out "any" vars of current case line 
+    * give possibility to not give "tarif" in the case line 
+* Create complete documentation 
+    * Warum Netica, Warum java etc.... + warum so gebaut 
+    * Eigene test bewertungen mit input data (an 1-2 beispielen)
+    * Doku Read.me in leserlich 
 
 ## Current Workflow
 1. Build Utils function within normal java setup under 'src_test/' (or directly within the one-file java class)
@@ -49,6 +51,18 @@
 ### Netviewer
 1. Go to "src/netviewer"
 2. Run compile_and_run_netviewer.bat
+
+* allows for own case stuff and look into cpts
+
+#### NetViewer Workflow
+* Sadly the Netviewer from netica is not working properly. Thus the following has to be done to see the net correctly. (Saved default not centered )
+1. Start the Netviewer (USe it in full screen)
+2. Click on "File" -> "Open" and select the correct net file (".dne") and click open again
+3. In the row "Node Styles" select "Circle"
+    * A circle object should appear in the left top corner 
+4. Drag and drop one of the circles to the middle/bottom left of the screen 
+5. In the row "Node styles" select "Auto Select"
+6. Now you can see the Network. Move the Boxe (drag and drop) accordingly to create a better view of the network.
 
 ## Docu
 * Network file itself can not be pushed to Source control because it is to big (ca. 270 MB) but the code will create the same network file everytime
@@ -81,19 +95,11 @@
 * no trailing ";"
 * different names for different net results with these connections on all data
 
-### NetViewer Workflow
-* Sadly the Netviewer from netica is not working properly. Thus the following has to be done to see the net correctly.
-1. Start the Netviewer (USe it in full screen)
-2. Click on "File" -> "Open" and select the correct net file (".dne") and click open again
-3. In the row "Node Styles" select "Circle"
-    * A circle object should appear in the left top corner 
-4. Drag and drop one of the circles to the middle/bottom left of the screen 
-5. In the row "Node styles" select "Auto Select"
-6. Now you can see the Network. Move the Boxe (drag and drop) accordingly to create a better view of the network.
 
 #### Input
 * CSV not cli and additionally the Netviewer can work as  a GUI to enter cases etc.
 * CSV with same assumption as input csv file 
+* n.a for some
 
 ### Learning/Training
  (for connection tests)

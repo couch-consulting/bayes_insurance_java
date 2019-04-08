@@ -6,12 +6,6 @@
  * Stupid One-File structure because Netica build does not allow a different structure (as far as we know)
  */
 
-/*
-
- TODO get test data via one file and filter somehow, furher enhancements
-TODO get multiple file solution and find out why this is now working for my ide
-*/
-
 
 // Import Netica
 
@@ -593,8 +587,6 @@ class Utils {
                 nodePossibilities.add(entry);
             }
 
-            //TODO think about refactoring number range creation to here or own function
-
         }
 
 
@@ -931,11 +923,6 @@ class NeticaClassifyData {
             int caseNr2Correct = 0;
             String firstResult = "";
             String secondeResult = "";
-
-            // TODO bug erstes fällt weg
-            System.out.println(classifyCases.size());
-            System.out.println(classifyCases.get(0));
-
 
             for (List<String> classifyCase : classifyCases) {
                 // Go through each node for this set and enter findings

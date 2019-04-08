@@ -1,10 +1,10 @@
 // ~->[DNET-1]->~
 
-// File created by an unlicensed user using Netica 5.04 on Apr 08, 2019 at 14:53:41.
+// File created by an unlicensed user using Netica 5.04 on Apr 08, 2019 at 15:32:02.
 
 bnet BayesInsurance {
 autoupdate = FALSE;
-whenchanged = 1554728021;
+whenchanged = 1554730322;
 
 node Altersgruppe {
 	kind = NATURE;
@@ -16,7 +16,7 @@ node Altersgruppe {
 		// R26bis35     R50bis65     R18bis25     R66bis       R36bis49     
 		  (0.2097561,   0.2390244,   0.2585366,   0.1951219,   0.09756097);
 	numcases = 205;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Bildungsstand {
@@ -39,7 +39,7 @@ node Bildungsstand {
 		   56,           // R18bis25     
 		   43,           // R66bis       
 		   23);          // R36bis49     ;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Geschlecht {
@@ -52,7 +52,7 @@ node Geschlecht {
 		// w            m            
 		  (0.4603961,   0.5396039);
 	numcases = 202;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node aeltestesKind {
@@ -65,7 +65,7 @@ node aeltestesKind {
 		// R0bis7       R7bis25      R25bis52     
 		  (0.6059113,   0.2463054,   0.1477832);
 	numcases = 203;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node juengstesKind {
@@ -78,7 +78,7 @@ node juengstesKind {
 		// R0bis8       R8bis25      R25bis50     
 		  (0.6305419,   0.2413793,   0.1280788);
 	numcases = 203;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Kinderzahl {
@@ -271,7 +271,7 @@ node Kinderzahl {
 		   3,            // R36bis49     m          R25bis52      R0bis8        
 		   3,            // R36bis49     m          R25bis52      R8bis25       
 		   3);           // R36bis49     m          R25bis52      R25bis50      ;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Beruf {
@@ -344,7 +344,7 @@ node Beruf {
 		   5,            // R36bis49     m          R0bis1     
 		   14,           // R36bis49     m          R1bis4     
 		   4);           // R36bis49     m          R4bis8     ;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Aktienbesitz {
@@ -357,7 +357,7 @@ node Aktienbesitz {
 		// nein         ja           
 		  (0.7475247,   0.2524753);
 	numcases = 202;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Verheiratet {
@@ -374,7 +374,404 @@ node Verheiratet {
 		                 // Geschlecht 
 		  (94,           // w          
 		   110);         // m          ;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
+	};
+
+node Familieneinkommen {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (R0bis21482, R21482bis69383, R69383bis141235);
+	parents = (Aktienbesitz, Bildungsstand, Beruf, Verheiratet, Kinderzahl);
+	probs = 
+		// R0bis21482   R21482bis69383 R69383bis141235  // Aktienbesitz Bildungsstand Beruf            Verheiratet Kinderzahl 
+		  (0.125,       0.375,       0.5,          // nein         Studium       Industrie        ja          R0bis1     
+		   0.05555556,  0.3333333,   0.6111111,    // nein         Studium       Industrie        ja          R1bis4     
+		   0.2,         0.2,         0.6,          // nein         Studium       Industrie        ja          R4bis8     
+		   0.07692308,  0.5384616,   0.3846154,    // nein         Studium       Industrie        nein        R0bis1     
+		   0.2,         0.4,         0.4,          // nein         Studium       Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R0bis1     
+		   0.1428571,   0.4285714,   0.4285714,    // nein         Studium       OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R4bis8     
+		   0.1111111,   0.5555556,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R0bis1     
+		   0.25,        0.5,         0.25,         // nein         Studium       OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R0bis1     
+		   0.07692308,  0.4615385,   0.4615385,    // nein         Studium       Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R4bis8     
+		   0.07692308,  0.4615385,   0.4615385,    // nein         Studium       Handel           nein        R0bis1     
+		   0.1428571,   0.7142857,   0.1428571,    // nein         Studium       Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R0bis1     
+		   0.7777778,   0.1111111,   0.1111111,    // nein         Gymnasium     Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R4bis8     
+		   0.6666667,   0.1666667,   0.1666667,    // nein         Gymnasium     Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Gymnasium     OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Gymnasium     Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Gymnasium     Handwerk         ja          R0bis1     
+		   0.6,         0.2,         0.2,          // nein         Gymnasium     Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         ja          R4bis8     
+		   0.6666667,   0.1666667,   0.1666667,    // nein         Gymnasium     Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R4bis8     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Industrie        ja          R0bis1     
+		   0.3333333,   0.5833333,   0.08333334,   // nein         Lehre         Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        ja          R4bis8     
+		   0.2,         0.6,         0.2,          // nein         Lehre         Industrie        nein        R0bis1     
+		   0.4,         0.4,         0.2,          // nein         Lehre         Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R0bis1     
+		   0.375,       0.5,         0.125,        // nein         Lehre         OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         OeffentlicherDie nein        R0bis1     
+		   0.25,        0.5,         0.25,         // nein         Lehre         OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie nein        R4bis8     
+		   0.25,        0.5,         0.25,         // nein         Lehre         Handel           ja          R0bis1     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           ja          R4bis8     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Handel           nein        R0bis1     
+		   0.5,         0.25,        0.25,         // nein         Lehre         Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R0bis1     
+		   0.4117647,   0.5294118,   0.05882353,   // nein         Lehre         Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R4bis8     
+		   0.3,         0.6,         0.1,          // nein         Lehre         Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R0bis1     
+		   0.6666667,   0.1666667,   0.1666667,    // nein         Hauptschule   Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R4bis8     
+		   0.6,         0.2,         0.2,          // nein         Hauptschule   Industrie        nein        R0bis1     
+		   0.5,         0.25,        0.25,         // nein         Hauptschule   Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R0bis1     
+		   0.6,         0.2,         0.2,          // nein         Hauptschule   Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Hauptschule   Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R0bis1     
+		   0.5,         0.25,        0.25,         // nein         Hauptschule   Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R4bis8     
+		   0.1666667,   0.6666667,   0.1666667,    // ja           Studium       Industrie        ja          R0bis1     
+		   0.08333334,  0.6666667,   0.25,         // ja           Studium       Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        ja          R4bis8     
+		   0.05882353,  0.5882353,   0.3529412,    // ja           Studium       Industrie        nein        R0bis1     
+		   0.1666667,   0.6666667,   0.1666667,    // ja           Studium       Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R0bis1     
+		   0.2,         0.6,         0.2,          // ja           Studium       OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R4bis8     
+		   0.1111111,   0.4444444,   0.4444444,    // ja           Studium       OeffentlicherDie nein        R0bis1     
+		   0.2,         0.4,         0.4,          // ja           Studium       OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie nein        R4bis8     
+		   0.25,        0.25,        0.5,          // ja           Studium       Handel           ja          R0bis1     
+		   0.2,         0.2,         0.6,          // ja           Studium       Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           ja          R4bis8     
+		   0.1666667,   0.3333333,   0.5,          // ja           Studium       Handel           nein        R0bis1     
+		   0.25,        0.5,         0.25,         // ja           Studium       Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Gymnasium     Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Lehre         Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Hauptschule   Industrie        ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Hauptschule   Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333);   // ja           Hauptschule   Handwerk         nein        R4bis8     ;
+	numcases = 
+		                 // Aktienbesitz Bildungsstand Beruf            Verheiratet Kinderzahl 
+		  (8,            // nein         Studium       Industrie        ja          R0bis1     
+		   18,           // nein         Studium       Industrie        ja          R1bis4     
+		   5,            // nein         Studium       Industrie        ja          R4bis8     
+		   13,           // nein         Studium       Industrie        nein        R0bis1     
+		   5,            // nein         Studium       Industrie        nein        R1bis4     
+		   3,            // nein         Studium       Industrie        nein        R4bis8     
+		   3,            // nein         Studium       OeffentlicherDie ja          R0bis1     
+		   7,            // nein         Studium       OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Studium       OeffentlicherDie ja          R4bis8     
+		   9,            // nein         Studium       OeffentlicherDie nein        R0bis1     
+		   4,            // nein         Studium       OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Studium       OeffentlicherDie nein        R4bis8     
+		   3,            // nein         Studium       Handel           ja          R0bis1     
+		   13,           // nein         Studium       Handel           ja          R1bis4     
+		   3,            // nein         Studium       Handel           ja          R4bis8     
+		   13,           // nein         Studium       Handel           nein        R0bis1     
+		   7,            // nein         Studium       Handel           nein        R1bis4     
+		   3,            // nein         Studium       Handel           nein        R4bis8     
+		   3,            // nein         Studium       Handwerk         ja          R0bis1     
+		   3,            // nein         Studium       Handwerk         ja          R1bis4     
+		   3,            // nein         Studium       Handwerk         ja          R4bis8     
+		   3,            // nein         Studium       Handwerk         nein        R0bis1     
+		   3,            // nein         Studium       Handwerk         nein        R1bis4     
+		   3,            // nein         Studium       Handwerk         nein        R4bis8     
+		   3,            // nein         Gymnasium     Industrie        ja          R0bis1     
+		   9,            // nein         Gymnasium     Industrie        ja          R1bis4     
+		   3,            // nein         Gymnasium     Industrie        ja          R4bis8     
+		   6,            // nein         Gymnasium     Industrie        nein        R0bis1     
+		   3,            // nein         Gymnasium     Industrie        nein        R1bis4     
+		   3,            // nein         Gymnasium     Industrie        nein        R4bis8     
+		   3,            // nein         Gymnasium     OeffentlicherDie ja          R0bis1     
+		   3,            // nein         Gymnasium     OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Gymnasium     OeffentlicherDie ja          R4bis8     
+		   4,            // nein         Gymnasium     OeffentlicherDie nein        R0bis1     
+		   3,            // nein         Gymnasium     OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Gymnasium     OeffentlicherDie nein        R4bis8     
+		   3,            // nein         Gymnasium     Handel           ja          R0bis1     
+		   3,            // nein         Gymnasium     Handel           ja          R1bis4     
+		   3,            // nein         Gymnasium     Handel           ja          R4bis8     
+		   4,            // nein         Gymnasium     Handel           nein        R0bis1     
+		   3,            // nein         Gymnasium     Handel           nein        R1bis4     
+		   3,            // nein         Gymnasium     Handel           nein        R4bis8     
+		   4,            // nein         Gymnasium     Handwerk         ja          R0bis1     
+		   5,            // nein         Gymnasium     Handwerk         ja          R1bis4     
+		   3,            // nein         Gymnasium     Handwerk         ja          R4bis8     
+		   6,            // nein         Gymnasium     Handwerk         nein        R0bis1     
+		   3,            // nein         Gymnasium     Handwerk         nein        R1bis4     
+		   3,            // nein         Gymnasium     Handwerk         nein        R4bis8     
+		   6,            // nein         Lehre         Industrie        ja          R0bis1     
+		   12,           // nein         Lehre         Industrie        ja          R1bis4     
+		   3,            // nein         Lehre         Industrie        ja          R4bis8     
+		   5,            // nein         Lehre         Industrie        nein        R0bis1     
+		   5,            // nein         Lehre         Industrie        nein        R1bis4     
+		   3,            // nein         Lehre         Industrie        nein        R4bis8     
+		   3,            // nein         Lehre         OeffentlicherDie ja          R0bis1     
+		   8,            // nein         Lehre         OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Lehre         OeffentlicherDie ja          R4bis8     
+		   6,            // nein         Lehre         OeffentlicherDie nein        R0bis1     
+		   4,            // nein         Lehre         OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Lehre         OeffentlicherDie nein        R4bis8     
+		   4,            // nein         Lehre         Handel           ja          R0bis1     
+		   6,            // nein         Lehre         Handel           ja          R1bis4     
+		   3,            // nein         Lehre         Handel           ja          R4bis8     
+		   6,            // nein         Lehre         Handel           nein        R0bis1     
+		   4,            // nein         Lehre         Handel           nein        R1bis4     
+		   3,            // nein         Lehre         Handel           nein        R4bis8     
+		   3,            // nein         Lehre         Handwerk         ja          R0bis1     
+		   17,           // nein         Lehre         Handwerk         ja          R1bis4     
+		   3,            // nein         Lehre         Handwerk         ja          R4bis8     
+		   10,           // nein         Lehre         Handwerk         nein        R0bis1     
+		   3,            // nein         Lehre         Handwerk         nein        R1bis4     
+		   3,            // nein         Lehre         Handwerk         nein        R4bis8     
+		   3,            // nein         Hauptschule   Industrie        ja          R0bis1     
+		   6,            // nein         Hauptschule   Industrie        ja          R1bis4     
+		   3,            // nein         Hauptschule   Industrie        ja          R4bis8     
+		   5,            // nein         Hauptschule   Industrie        nein        R0bis1     
+		   4,            // nein         Hauptschule   Industrie        nein        R1bis4     
+		   3,            // nein         Hauptschule   Industrie        nein        R4bis8     
+		   3,            // nein         Hauptschule   OeffentlicherDie ja          R0bis1     
+		   3,            // nein         Hauptschule   OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Hauptschule   OeffentlicherDie ja          R4bis8     
+		   3,            // nein         Hauptschule   OeffentlicherDie nein        R0bis1     
+		   3,            // nein         Hauptschule   OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Hauptschule   OeffentlicherDie nein        R4bis8     
+		   3,            // nein         Hauptschule   Handel           ja          R0bis1     
+		   5,            // nein         Hauptschule   Handel           ja          R1bis4     
+		   3,            // nein         Hauptschule   Handel           ja          R4bis8     
+		   4,            // nein         Hauptschule   Handel           nein        R0bis1     
+		   3,            // nein         Hauptschule   Handel           nein        R1bis4     
+		   3,            // nein         Hauptschule   Handel           nein        R4bis8     
+		   3,            // nein         Hauptschule   Handwerk         ja          R0bis1     
+		   4,            // nein         Hauptschule   Handwerk         ja          R1bis4     
+		   3,            // nein         Hauptschule   Handwerk         ja          R4bis8     
+		   3,            // nein         Hauptschule   Handwerk         nein        R0bis1     
+		   3,            // nein         Hauptschule   Handwerk         nein        R1bis4     
+		   3,            // nein         Hauptschule   Handwerk         nein        R4bis8     
+		   6,            // ja           Studium       Industrie        ja          R0bis1     
+		   12,           // ja           Studium       Industrie        ja          R1bis4     
+		   3,            // ja           Studium       Industrie        ja          R4bis8     
+		   17,           // ja           Studium       Industrie        nein        R0bis1     
+		   6,            // ja           Studium       Industrie        nein        R1bis4     
+		   3,            // ja           Studium       Industrie        nein        R4bis8     
+		   3,            // ja           Studium       OeffentlicherDie ja          R0bis1     
+		   5,            // ja           Studium       OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Studium       OeffentlicherDie ja          R4bis8     
+		   9,            // ja           Studium       OeffentlicherDie nein        R0bis1     
+		   5,            // ja           Studium       OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Studium       OeffentlicherDie nein        R4bis8     
+		   4,            // ja           Studium       Handel           ja          R0bis1     
+		   5,            // ja           Studium       Handel           ja          R1bis4     
+		   3,            // ja           Studium       Handel           ja          R4bis8     
+		   6,            // ja           Studium       Handel           nein        R0bis1     
+		   4,            // ja           Studium       Handel           nein        R1bis4     
+		   3,            // ja           Studium       Handel           nein        R4bis8     
+		   3,            // ja           Studium       Handwerk         ja          R0bis1     
+		   3,            // ja           Studium       Handwerk         ja          R1bis4     
+		   3,            // ja           Studium       Handwerk         ja          R4bis8     
+		   3,            // ja           Studium       Handwerk         nein        R0bis1     
+		   3,            // ja           Studium       Handwerk         nein        R1bis4     
+		   3,            // ja           Studium       Handwerk         nein        R4bis8     
+		   3,            // ja           Gymnasium     Industrie        ja          R0bis1     
+		   3,            // ja           Gymnasium     Industrie        ja          R1bis4     
+		   3,            // ja           Gymnasium     Industrie        ja          R4bis8     
+		   3,            // ja           Gymnasium     Industrie        nein        R0bis1     
+		   3,            // ja           Gymnasium     Industrie        nein        R1bis4     
+		   3,            // ja           Gymnasium     Industrie        nein        R4bis8     
+		   3,            // ja           Gymnasium     OeffentlicherDie ja          R0bis1     
+		   3,            // ja           Gymnasium     OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Gymnasium     OeffentlicherDie ja          R4bis8     
+		   3,            // ja           Gymnasium     OeffentlicherDie nein        R0bis1     
+		   3,            // ja           Gymnasium     OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Gymnasium     OeffentlicherDie nein        R4bis8     
+		   3,            // ja           Gymnasium     Handel           ja          R0bis1     
+		   3,            // ja           Gymnasium     Handel           ja          R1bis4     
+		   3,            // ja           Gymnasium     Handel           ja          R4bis8     
+		   3,            // ja           Gymnasium     Handel           nein        R0bis1     
+		   3,            // ja           Gymnasium     Handel           nein        R1bis4     
+		   3,            // ja           Gymnasium     Handel           nein        R4bis8     
+		   3,            // ja           Gymnasium     Handwerk         ja          R0bis1     
+		   3,            // ja           Gymnasium     Handwerk         ja          R1bis4     
+		   3,            // ja           Gymnasium     Handwerk         ja          R4bis8     
+		   4,            // ja           Gymnasium     Handwerk         nein        R0bis1     
+		   3,            // ja           Gymnasium     Handwerk         nein        R1bis4     
+		   3,            // ja           Gymnasium     Handwerk         nein        R4bis8     
+		   3,            // ja           Lehre         Industrie        ja          R0bis1     
+		   3,            // ja           Lehre         Industrie        ja          R1bis4     
+		   3,            // ja           Lehre         Industrie        ja          R4bis8     
+		   3,            // ja           Lehre         Industrie        nein        R0bis1     
+		   3,            // ja           Lehre         Industrie        nein        R1bis4     
+		   3,            // ja           Lehre         Industrie        nein        R4bis8     
+		   3,            // ja           Lehre         OeffentlicherDie ja          R0bis1     
+		   3,            // ja           Lehre         OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Lehre         OeffentlicherDie ja          R4bis8     
+		   3,            // ja           Lehre         OeffentlicherDie nein        R0bis1     
+		   3,            // ja           Lehre         OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Lehre         OeffentlicherDie nein        R4bis8     
+		   3,            // ja           Lehre         Handel           ja          R0bis1     
+		   3,            // ja           Lehre         Handel           ja          R1bis4     
+		   3,            // ja           Lehre         Handel           ja          R4bis8     
+		   3,            // ja           Lehre         Handel           nein        R0bis1     
+		   3,            // ja           Lehre         Handel           nein        R1bis4     
+		   3,            // ja           Lehre         Handel           nein        R4bis8     
+		   3,            // ja           Lehre         Handwerk         ja          R0bis1     
+		   3,            // ja           Lehre         Handwerk         ja          R1bis4     
+		   3,            // ja           Lehre         Handwerk         ja          R4bis8     
+		   4,            // ja           Lehre         Handwerk         nein        R0bis1     
+		   3,            // ja           Lehre         Handwerk         nein        R1bis4     
+		   3,            // ja           Lehre         Handwerk         nein        R4bis8     
+		   4,            // ja           Hauptschule   Industrie        ja          R0bis1     
+		   3,            // ja           Hauptschule   Industrie        ja          R1bis4     
+		   3,            // ja           Hauptschule   Industrie        ja          R4bis8     
+		   3,            // ja           Hauptschule   Industrie        nein        R0bis1     
+		   3,            // ja           Hauptschule   Industrie        nein        R1bis4     
+		   3,            // ja           Hauptschule   Industrie        nein        R4bis8     
+		   3,            // ja           Hauptschule   OeffentlicherDie ja          R0bis1     
+		   3,            // ja           Hauptschule   OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Hauptschule   OeffentlicherDie ja          R4bis8     
+		   3,            // ja           Hauptschule   OeffentlicherDie nein        R0bis1     
+		   3,            // ja           Hauptschule   OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Hauptschule   OeffentlicherDie nein        R4bis8     
+		   3,            // ja           Hauptschule   Handel           ja          R0bis1     
+		   3,            // ja           Hauptschule   Handel           ja          R1bis4     
+		   3,            // ja           Hauptschule   Handel           ja          R4bis8     
+		   4,            // ja           Hauptschule   Handel           nein        R0bis1     
+		   3,            // ja           Hauptschule   Handel           nein        R1bis4     
+		   3,            // ja           Hauptschule   Handel           nein        R4bis8     
+		   3,            // ja           Hauptschule   Handwerk         ja          R0bis1     
+		   3,            // ja           Hauptschule   Handwerk         ja          R1bis4     
+		   3,            // ja           Hauptschule   Handwerk         ja          R4bis8     
+		   3,            // ja           Hauptschule   Handwerk         nein        R0bis1     
+		   3,            // ja           Hauptschule   Handwerk         nein        R1bis4     
+		   3);           // ja           Hauptschule   Handwerk         nein        R4bis8     ;
+	whenchanged = 1554730322;
 	};
 
 node Land {
@@ -387,7 +784,7 @@ node Land {
 		// BadenWuerttember Hessen   Bayern       
 		  (0.5566502,   0.1231527,   0.320197);
 	numcases = 203;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Ort {
@@ -406,7 +803,7 @@ node Ort {
 		  (114,          // BadenWuerttember 
 		   26,           // Hessen           
 		   66);          // Bayern           ;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Wohnverhaeltnis {
@@ -431,788 +828,7 @@ node Wohnverhaeltnis {
 		   29,           // laendlich R0bis1     
 		   49,           // laendlich R1bis4     
 		   2);           // laendlich R4bis8     ;
-	whenchanged = 1554728021;
-	};
-
-node Familieneinkommen {
-	kind = NATURE;
-	discrete = TRUE;
-	chance = CHANCE;
-	states = (R0bis21482, R21482bis69383, R69383bis141235);
-	parents = (Aktienbesitz, Bildungsstand, Beruf, Verheiratet, Kinderzahl, Wohnverhaeltnis);
-	probs = 
-		// R0bis21482   R21482bis69383 R69383bis141235  // Aktienbesitz Bildungsstand Beruf            Verheiratet Kinderzahl Wohnverhaeltnis 
-		  (0.1666667,   0.5,         0.3333333,    // nein         Studium       Industrie        ja          R0bis1     Miete           
-		   0.2,         0.2,         0.6,          // nein         Studium       Industrie        ja          R0bis1     Eigentum        
-		   0.07692308,  0.3846154,   0.5384616,    // nein         Studium       Industrie        ja          R1bis4     Miete           
-		   0.125,       0.25,        0.625,        // nein         Studium       Industrie        ja          R1bis4     Eigentum        
-		   0.25,        0.25,        0.5,          // nein         Studium       Industrie        ja          R4bis8     Miete           
-		   0.25,        0.25,        0.5,          // nein         Studium       Industrie        ja          R4bis8     Eigentum        
-		   0.08333334,  0.5833333,   0.3333333,    // nein         Studium       Industrie        nein        R0bis1     Miete           
-		   0.25,        0.25,        0.5,          // nein         Studium       Industrie        nein        R0bis1     Eigentum        
-		   0.2,         0.4,         0.4,          // nein         Studium       Industrie        nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.2,         0.4,         0.4,          // nein         Studium       OeffentlicherDie ja          R1bis4     Miete           
-		   0.2,         0.4,         0.4,          // nein         Studium       OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.1428571,   0.5714286,   0.2857143,    // nein         Studium       OeffentlicherDie nein        R0bis1     Miete           
-		   0.2,         0.4,         0.4,          // nein         Studium       OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R1bis4     Miete           
-		   0.25,        0.5,         0.25,         // nein         Studium       OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R0bis1     Eigentum        
-		   0.1111111,   0.5555556,   0.3333333,    // nein         Studium       Handel           ja          R1bis4     Miete           
-		   0.1428571,   0.2857143,   0.5714286,    // nein         Studium       Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R4bis8     Eigentum        
-		   0.125,       0.375,       0.5,          // nein         Studium       Handel           nein        R0bis1     Miete           
-		   0.125,       0.5,         0.375,        // nein         Studium       Handel           nein        R0bis1     Eigentum        
-		   0.2,         0.6,         0.2,          // nein         Studium       Handel           nein        R1bis4     Miete           
-		   0.2,         0.6,         0.2,          // nein         Studium       Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R0bis1     Eigentum        
-		   0.7777778,   0.1111111,   0.1111111,    // nein         Gymnasium     Industrie        ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R4bis8     Eigentum        
-		   0.6666667,   0.1666667,   0.1666667,    // nein         Gymnasium     Industrie        nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // nein         Gymnasium     OeffentlicherDie nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // nein         Gymnasium     Handel           nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // nein         Gymnasium     Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         ja          R0bis1     Eigentum        
-		   0.6,         0.2,         0.2,          // nein         Gymnasium     Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         ja          R4bis8     Eigentum        
-		   0.6666667,   0.1666667,   0.1666667,    // nein         Gymnasium     Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R4bis8     Eigentum        
-		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Industrie        ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        ja          R0bis1     Eigentum        
-		   0.3333333,   0.5833333,   0.08333334,   // nein         Lehre         Industrie        ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        ja          R4bis8     Eigentum        
-		   0.25,        0.5,         0.25,         // nein         Lehre         Industrie        nein        R0bis1     Miete           
-		   0.25,        0.5,         0.25,         // nein         Lehre         Industrie        nein        R0bis1     Eigentum        
-		   0.4,         0.4,         0.2,          // nein         Lehre         Industrie        nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.2857143,   0.5714286,   0.1428571,    // nein         Lehre         OeffentlicherDie ja          R1bis4     Miete           
-		   0.5,         0.25,        0.25,         // nein         Lehre         OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         OeffentlicherDie nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.25,        0.5,         0.25,         // nein         Lehre         OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.25,        0.5,         0.25,         // nein         Lehre         Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           ja          R0bis1     Eigentum        
-		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Handel           ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           ja          R4bis8     Eigentum        
-		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Handel           nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           nein        R0bis1     Eigentum        
-		   0.5,         0.25,        0.25,         // nein         Lehre         Handel           nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R0bis1     Eigentum        
-		   0.375,       0.5625,      0.0625,       // nein         Lehre         Handwerk         ja          R1bis4     Miete           
-		   0.5,         0.25,        0.25,         // nein         Lehre         Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R4bis8     Eigentum        
-		   0.3333333,   0.5555556,   0.1111111,    // nein         Lehre         Handwerk         nein        R0bis1     Miete           
-		   0.25,        0.5,         0.25,         // nein         Lehre         Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R0bis1     Eigentum        
-		   0.6666667,   0.1666667,   0.1666667,    // nein         Hauptschule   Industrie        ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R4bis8     Eigentum        
-		   0.6,         0.2,         0.2,          // nein         Hauptschule   Industrie        nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        nein        R1bis4     Miete           
-		   0.5,         0.25,        0.25,         // nein         Hauptschule   Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R0bis1     Eigentum        
-		   0.6,         0.2,         0.2,          // nein         Hauptschule   Handel           ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // nein         Hauptschule   Handel           nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R0bis1     Eigentum        
-		   0.5,         0.25,        0.25,         // nein         Hauptschule   Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R4bis8     Eigentum        
-		   0.2,         0.6,         0.2,          // ja           Studium       Industrie        ja          R0bis1     Miete           
-		   0.25,        0.5,         0.25,         // ja           Studium       Industrie        ja          R0bis1     Eigentum        
-		   0.125,       0.625,       0.25,         // ja           Studium       Industrie        ja          R1bis4     Miete           
-		   0.1428571,   0.5714286,   0.2857143,    // ja           Studium       Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        ja          R4bis8     Eigentum        
-		   0.0625,      0.625,       0.3125,       // ja           Studium       Industrie        nein        R0bis1     Miete           
-		   0.25,        0.25,        0.5,          // ja           Studium       Industrie        nein        R0bis1     Eigentum        
-		   0.25,        0.5,         0.25,         // ja           Studium       Industrie        nein        R1bis4     Miete           
-		   0.2,         0.6,         0.2,          // ja           Studium       Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.25,        0.5,         0.25,         // ja           Studium       OeffentlicherDie ja          R1bis4     Miete           
-		   0.25,        0.5,         0.25,         // ja           Studium       OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.125,       0.5,         0.375,        // ja           Studium       OeffentlicherDie nein        R0bis1     Miete           
-		   0.25,        0.25,        0.5,          // ja           Studium       OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.2,         0.4,         0.4,          // ja           Studium       OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           ja          R0bis1     Miete           
-		   0.25,        0.25,        0.5,          // ja           Studium       Handel           ja          R0bis1     Eigentum        
-		   0.25,        0.25,        0.5,          // ja           Studium       Handel           ja          R1bis4     Miete           
-		   0.25,        0.25,        0.5,          // ja           Studium       Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           ja          R4bis8     Eigentum        
-		   0.2,         0.4,         0.4,          // ja           Studium       Handel           nein        R0bis1     Miete           
-		   0.25,        0.25,        0.5,          // ja           Studium       Handel           nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           nein        R1bis4     Miete           
-		   0.25,        0.5,         0.25,         // ja           Studium       Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // ja           Gymnasium     Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // ja           Lehre         Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R4bis8     Eigentum        
-		   0.5,         0.25,        0.25,         // ja           Hauptschule   Industrie        ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R0bis1     Miete           
-		   0.5,         0.25,        0.25,         // ja           Hauptschule   Handel           nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R4bis8     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R0bis1     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R0bis1     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R1bis4     Miete           
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R1bis4     Eigentum        
-		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R4bis8     Miete           
-		   0.3333333,   0.3333333,   0.3333333);   // ja           Hauptschule   Handwerk         nein        R4bis8     Eigentum        ;
-	numcases = 
-		                 // Aktienbesitz Bildungsstand Beruf            Verheiratet Kinderzahl Wohnverhaeltnis 
-		  (6,            // nein         Studium       Industrie        ja          R0bis1     Miete           
-		   5,            // nein         Studium       Industrie        ja          R0bis1     Eigentum        
-		   13,           // nein         Studium       Industrie        ja          R1bis4     Miete           
-		   8,            // nein         Studium       Industrie        ja          R1bis4     Eigentum        
-		   4,            // nein         Studium       Industrie        ja          R4bis8     Miete           
-		   4,            // nein         Studium       Industrie        ja          R4bis8     Eigentum        
-		   12,           // nein         Studium       Industrie        nein        R0bis1     Miete           
-		   4,            // nein         Studium       Industrie        nein        R0bis1     Eigentum        
-		   5,            // nein         Studium       Industrie        nein        R1bis4     Miete           
-		   3,            // nein         Studium       Industrie        nein        R1bis4     Eigentum        
-		   3,            // nein         Studium       Industrie        nein        R4bis8     Miete           
-		   3,            // nein         Studium       Industrie        nein        R4bis8     Eigentum        
-		   3,            // nein         Studium       OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // nein         Studium       OeffentlicherDie ja          R0bis1     Eigentum        
-		   5,            // nein         Studium       OeffentlicherDie ja          R1bis4     Miete           
-		   5,            // nein         Studium       OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // nein         Studium       OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // nein         Studium       OeffentlicherDie ja          R4bis8     Eigentum        
-		   7,            // nein         Studium       OeffentlicherDie nein        R0bis1     Miete           
-		   5,            // nein         Studium       OeffentlicherDie nein        R0bis1     Eigentum        
-		   3,            // nein         Studium       OeffentlicherDie nein        R1bis4     Miete           
-		   4,            // nein         Studium       OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // nein         Studium       OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // nein         Studium       OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // nein         Studium       Handel           ja          R0bis1     Miete           
-		   3,            // nein         Studium       Handel           ja          R0bis1     Eigentum        
-		   9,            // nein         Studium       Handel           ja          R1bis4     Miete           
-		   7,            // nein         Studium       Handel           ja          R1bis4     Eigentum        
-		   3,            // nein         Studium       Handel           ja          R4bis8     Miete           
-		   3,            // nein         Studium       Handel           ja          R4bis8     Eigentum        
-		   8,            // nein         Studium       Handel           nein        R0bis1     Miete           
-		   8,            // nein         Studium       Handel           nein        R0bis1     Eigentum        
-		   5,            // nein         Studium       Handel           nein        R1bis4     Miete           
-		   5,            // nein         Studium       Handel           nein        R1bis4     Eigentum        
-		   3,            // nein         Studium       Handel           nein        R4bis8     Miete           
-		   3,            // nein         Studium       Handel           nein        R4bis8     Eigentum        
-		   3,            // nein         Studium       Handwerk         ja          R0bis1     Miete           
-		   3,            // nein         Studium       Handwerk         ja          R0bis1     Eigentum        
-		   3,            // nein         Studium       Handwerk         ja          R1bis4     Miete           
-		   3,            // nein         Studium       Handwerk         ja          R1bis4     Eigentum        
-		   3,            // nein         Studium       Handwerk         ja          R4bis8     Miete           
-		   3,            // nein         Studium       Handwerk         ja          R4bis8     Eigentum        
-		   3,            // nein         Studium       Handwerk         nein        R0bis1     Miete           
-		   3,            // nein         Studium       Handwerk         nein        R0bis1     Eigentum        
-		   3,            // nein         Studium       Handwerk         nein        R1bis4     Miete           
-		   3,            // nein         Studium       Handwerk         nein        R1bis4     Eigentum        
-		   3,            // nein         Studium       Handwerk         nein        R4bis8     Miete           
-		   3,            // nein         Studium       Handwerk         nein        R4bis8     Eigentum        
-		   3,            // nein         Gymnasium     Industrie        ja          R0bis1     Miete           
-		   3,            // nein         Gymnasium     Industrie        ja          R0bis1     Eigentum        
-		   9,            // nein         Gymnasium     Industrie        ja          R1bis4     Miete           
-		   3,            // nein         Gymnasium     Industrie        ja          R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     Industrie        ja          R4bis8     Miete           
-		   3,            // nein         Gymnasium     Industrie        ja          R4bis8     Eigentum        
-		   6,            // nein         Gymnasium     Industrie        nein        R0bis1     Miete           
-		   3,            // nein         Gymnasium     Industrie        nein        R0bis1     Eigentum        
-		   3,            // nein         Gymnasium     Industrie        nein        R1bis4     Miete           
-		   3,            // nein         Gymnasium     Industrie        nein        R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     Industrie        nein        R4bis8     Miete           
-		   3,            // nein         Gymnasium     Industrie        nein        R4bis8     Eigentum        
-		   3,            // nein         Gymnasium     OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // nein         Gymnasium     OeffentlicherDie ja          R0bis1     Eigentum        
-		   3,            // nein         Gymnasium     OeffentlicherDie ja          R1bis4     Miete           
-		   3,            // nein         Gymnasium     OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // nein         Gymnasium     OeffentlicherDie ja          R4bis8     Eigentum        
-		   4,            // nein         Gymnasium     OeffentlicherDie nein        R0bis1     Miete           
-		   3,            // nein         Gymnasium     OeffentlicherDie nein        R0bis1     Eigentum        
-		   3,            // nein         Gymnasium     OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // nein         Gymnasium     OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // nein         Gymnasium     OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // nein         Gymnasium     Handel           ja          R0bis1     Miete           
-		   3,            // nein         Gymnasium     Handel           ja          R0bis1     Eigentum        
-		   3,            // nein         Gymnasium     Handel           ja          R1bis4     Miete           
-		   3,            // nein         Gymnasium     Handel           ja          R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     Handel           ja          R4bis8     Miete           
-		   3,            // nein         Gymnasium     Handel           ja          R4bis8     Eigentum        
-		   4,            // nein         Gymnasium     Handel           nein        R0bis1     Miete           
-		   3,            // nein         Gymnasium     Handel           nein        R0bis1     Eigentum        
-		   3,            // nein         Gymnasium     Handel           nein        R1bis4     Miete           
-		   3,            // nein         Gymnasium     Handel           nein        R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     Handel           nein        R4bis8     Miete           
-		   3,            // nein         Gymnasium     Handel           nein        R4bis8     Eigentum        
-		   4,            // nein         Gymnasium     Handwerk         ja          R0bis1     Miete           
-		   3,            // nein         Gymnasium     Handwerk         ja          R0bis1     Eigentum        
-		   5,            // nein         Gymnasium     Handwerk         ja          R1bis4     Miete           
-		   3,            // nein         Gymnasium     Handwerk         ja          R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     Handwerk         ja          R4bis8     Miete           
-		   3,            // nein         Gymnasium     Handwerk         ja          R4bis8     Eigentum        
-		   6,            // nein         Gymnasium     Handwerk         nein        R0bis1     Miete           
-		   3,            // nein         Gymnasium     Handwerk         nein        R0bis1     Eigentum        
-		   3,            // nein         Gymnasium     Handwerk         nein        R1bis4     Miete           
-		   3,            // nein         Gymnasium     Handwerk         nein        R1bis4     Eigentum        
-		   3,            // nein         Gymnasium     Handwerk         nein        R4bis8     Miete           
-		   3,            // nein         Gymnasium     Handwerk         nein        R4bis8     Eigentum        
-		   6,            // nein         Lehre         Industrie        ja          R0bis1     Miete           
-		   3,            // nein         Lehre         Industrie        ja          R0bis1     Eigentum        
-		   12,           // nein         Lehre         Industrie        ja          R1bis4     Miete           
-		   3,            // nein         Lehre         Industrie        ja          R1bis4     Eigentum        
-		   3,            // nein         Lehre         Industrie        ja          R4bis8     Miete           
-		   3,            // nein         Lehre         Industrie        ja          R4bis8     Eigentum        
-		   4,            // nein         Lehre         Industrie        nein        R0bis1     Miete           
-		   4,            // nein         Lehre         Industrie        nein        R0bis1     Eigentum        
-		   5,            // nein         Lehre         Industrie        nein        R1bis4     Miete           
-		   3,            // nein         Lehre         Industrie        nein        R1bis4     Eigentum        
-		   3,            // nein         Lehre         Industrie        nein        R4bis8     Miete           
-		   3,            // nein         Lehre         Industrie        nein        R4bis8     Eigentum        
-		   3,            // nein         Lehre         OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // nein         Lehre         OeffentlicherDie ja          R0bis1     Eigentum        
-		   7,            // nein         Lehre         OeffentlicherDie ja          R1bis4     Miete           
-		   4,            // nein         Lehre         OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // nein         Lehre         OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // nein         Lehre         OeffentlicherDie ja          R4bis8     Eigentum        
-		   6,            // nein         Lehre         OeffentlicherDie nein        R0bis1     Miete           
-		   3,            // nein         Lehre         OeffentlicherDie nein        R0bis1     Eigentum        
-		   4,            // nein         Lehre         OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // nein         Lehre         OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // nein         Lehre         OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // nein         Lehre         OeffentlicherDie nein        R4bis8     Eigentum        
-		   4,            // nein         Lehre         Handel           ja          R0bis1     Miete           
-		   3,            // nein         Lehre         Handel           ja          R0bis1     Eigentum        
-		   6,            // nein         Lehre         Handel           ja          R1bis4     Miete           
-		   3,            // nein         Lehre         Handel           ja          R1bis4     Eigentum        
-		   3,            // nein         Lehre         Handel           ja          R4bis8     Miete           
-		   3,            // nein         Lehre         Handel           ja          R4bis8     Eigentum        
-		   6,            // nein         Lehre         Handel           nein        R0bis1     Miete           
-		   3,            // nein         Lehre         Handel           nein        R0bis1     Eigentum        
-		   4,            // nein         Lehre         Handel           nein        R1bis4     Miete           
-		   3,            // nein         Lehre         Handel           nein        R1bis4     Eigentum        
-		   3,            // nein         Lehre         Handel           nein        R4bis8     Miete           
-		   3,            // nein         Lehre         Handel           nein        R4bis8     Eigentum        
-		   3,            // nein         Lehre         Handwerk         ja          R0bis1     Miete           
-		   3,            // nein         Lehre         Handwerk         ja          R0bis1     Eigentum        
-		   16,           // nein         Lehre         Handwerk         ja          R1bis4     Miete           
-		   4,            // nein         Lehre         Handwerk         ja          R1bis4     Eigentum        
-		   3,            // nein         Lehre         Handwerk         ja          R4bis8     Miete           
-		   3,            // nein         Lehre         Handwerk         ja          R4bis8     Eigentum        
-		   9,            // nein         Lehre         Handwerk         nein        R0bis1     Miete           
-		   4,            // nein         Lehre         Handwerk         nein        R0bis1     Eigentum        
-		   3,            // nein         Lehre         Handwerk         nein        R1bis4     Miete           
-		   3,            // nein         Lehre         Handwerk         nein        R1bis4     Eigentum        
-		   3,            // nein         Lehre         Handwerk         nein        R4bis8     Miete           
-		   3,            // nein         Lehre         Handwerk         nein        R4bis8     Eigentum        
-		   3,            // nein         Hauptschule   Industrie        ja          R0bis1     Miete           
-		   3,            // nein         Hauptschule   Industrie        ja          R0bis1     Eigentum        
-		   6,            // nein         Hauptschule   Industrie        ja          R1bis4     Miete           
-		   3,            // nein         Hauptschule   Industrie        ja          R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   Industrie        ja          R4bis8     Miete           
-		   3,            // nein         Hauptschule   Industrie        ja          R4bis8     Eigentum        
-		   5,            // nein         Hauptschule   Industrie        nein        R0bis1     Miete           
-		   3,            // nein         Hauptschule   Industrie        nein        R0bis1     Eigentum        
-		   3,            // nein         Hauptschule   Industrie        nein        R1bis4     Miete           
-		   4,            // nein         Hauptschule   Industrie        nein        R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   Industrie        nein        R4bis8     Miete           
-		   3,            // nein         Hauptschule   Industrie        nein        R4bis8     Eigentum        
-		   3,            // nein         Hauptschule   OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // nein         Hauptschule   OeffentlicherDie ja          R0bis1     Eigentum        
-		   3,            // nein         Hauptschule   OeffentlicherDie ja          R1bis4     Miete           
-		   3,            // nein         Hauptschule   OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // nein         Hauptschule   OeffentlicherDie ja          R4bis8     Eigentum        
-		   3,            // nein         Hauptschule   OeffentlicherDie nein        R0bis1     Miete           
-		   3,            // nein         Hauptschule   OeffentlicherDie nein        R0bis1     Eigentum        
-		   3,            // nein         Hauptschule   OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // nein         Hauptschule   OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // nein         Hauptschule   OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // nein         Hauptschule   Handel           ja          R0bis1     Miete           
-		   3,            // nein         Hauptschule   Handel           ja          R0bis1     Eigentum        
-		   5,            // nein         Hauptschule   Handel           ja          R1bis4     Miete           
-		   3,            // nein         Hauptschule   Handel           ja          R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   Handel           ja          R4bis8     Miete           
-		   3,            // nein         Hauptschule   Handel           ja          R4bis8     Eigentum        
-		   4,            // nein         Hauptschule   Handel           nein        R0bis1     Miete           
-		   3,            // nein         Hauptschule   Handel           nein        R0bis1     Eigentum        
-		   3,            // nein         Hauptschule   Handel           nein        R1bis4     Miete           
-		   3,            // nein         Hauptschule   Handel           nein        R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   Handel           nein        R4bis8     Miete           
-		   3,            // nein         Hauptschule   Handel           nein        R4bis8     Eigentum        
-		   3,            // nein         Hauptschule   Handwerk         ja          R0bis1     Miete           
-		   3,            // nein         Hauptschule   Handwerk         ja          R0bis1     Eigentum        
-		   4,            // nein         Hauptschule   Handwerk         ja          R1bis4     Miete           
-		   3,            // nein         Hauptschule   Handwerk         ja          R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   Handwerk         ja          R4bis8     Miete           
-		   3,            // nein         Hauptschule   Handwerk         ja          R4bis8     Eigentum        
-		   3,            // nein         Hauptschule   Handwerk         nein        R0bis1     Miete           
-		   3,            // nein         Hauptschule   Handwerk         nein        R0bis1     Eigentum        
-		   3,            // nein         Hauptschule   Handwerk         nein        R1bis4     Miete           
-		   3,            // nein         Hauptschule   Handwerk         nein        R1bis4     Eigentum        
-		   3,            // nein         Hauptschule   Handwerk         nein        R4bis8     Miete           
-		   3,            // nein         Hauptschule   Handwerk         nein        R4bis8     Eigentum        
-		   5,            // ja           Studium       Industrie        ja          R0bis1     Miete           
-		   4,            // ja           Studium       Industrie        ja          R0bis1     Eigentum        
-		   8,            // ja           Studium       Industrie        ja          R1bis4     Miete           
-		   7,            // ja           Studium       Industrie        ja          R1bis4     Eigentum        
-		   3,            // ja           Studium       Industrie        ja          R4bis8     Miete           
-		   3,            // ja           Studium       Industrie        ja          R4bis8     Eigentum        
-		   16,           // ja           Studium       Industrie        nein        R0bis1     Miete           
-		   4,            // ja           Studium       Industrie        nein        R0bis1     Eigentum        
-		   4,            // ja           Studium       Industrie        nein        R1bis4     Miete           
-		   5,            // ja           Studium       Industrie        nein        R1bis4     Eigentum        
-		   3,            // ja           Studium       Industrie        nein        R4bis8     Miete           
-		   3,            // ja           Studium       Industrie        nein        R4bis8     Eigentum        
-		   3,            // ja           Studium       OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // ja           Studium       OeffentlicherDie ja          R0bis1     Eigentum        
-		   4,            // ja           Studium       OeffentlicherDie ja          R1bis4     Miete           
-		   4,            // ja           Studium       OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // ja           Studium       OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // ja           Studium       OeffentlicherDie ja          R4bis8     Eigentum        
-		   8,            // ja           Studium       OeffentlicherDie nein        R0bis1     Miete           
-		   4,            // ja           Studium       OeffentlicherDie nein        R0bis1     Eigentum        
-		   5,            // ja           Studium       OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // ja           Studium       OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // ja           Studium       OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // ja           Studium       OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // ja           Studium       Handel           ja          R0bis1     Miete           
-		   4,            // ja           Studium       Handel           ja          R0bis1     Eigentum        
-		   4,            // ja           Studium       Handel           ja          R1bis4     Miete           
-		   4,            // ja           Studium       Handel           ja          R1bis4     Eigentum        
-		   3,            // ja           Studium       Handel           ja          R4bis8     Miete           
-		   3,            // ja           Studium       Handel           ja          R4bis8     Eigentum        
-		   5,            // ja           Studium       Handel           nein        R0bis1     Miete           
-		   4,            // ja           Studium       Handel           nein        R0bis1     Eigentum        
-		   3,            // ja           Studium       Handel           nein        R1bis4     Miete           
-		   4,            // ja           Studium       Handel           nein        R1bis4     Eigentum        
-		   3,            // ja           Studium       Handel           nein        R4bis8     Miete           
-		   3,            // ja           Studium       Handel           nein        R4bis8     Eigentum        
-		   3,            // ja           Studium       Handwerk         ja          R0bis1     Miete           
-		   3,            // ja           Studium       Handwerk         ja          R0bis1     Eigentum        
-		   3,            // ja           Studium       Handwerk         ja          R1bis4     Miete           
-		   3,            // ja           Studium       Handwerk         ja          R1bis4     Eigentum        
-		   3,            // ja           Studium       Handwerk         ja          R4bis8     Miete           
-		   3,            // ja           Studium       Handwerk         ja          R4bis8     Eigentum        
-		   3,            // ja           Studium       Handwerk         nein        R0bis1     Miete           
-		   3,            // ja           Studium       Handwerk         nein        R0bis1     Eigentum        
-		   3,            // ja           Studium       Handwerk         nein        R1bis4     Miete           
-		   3,            // ja           Studium       Handwerk         nein        R1bis4     Eigentum        
-		   3,            // ja           Studium       Handwerk         nein        R4bis8     Miete           
-		   3,            // ja           Studium       Handwerk         nein        R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     Industrie        ja          R0bis1     Miete           
-		   3,            // ja           Gymnasium     Industrie        ja          R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     Industrie        ja          R1bis4     Miete           
-		   3,            // ja           Gymnasium     Industrie        ja          R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     Industrie        ja          R4bis8     Miete           
-		   3,            // ja           Gymnasium     Industrie        ja          R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     Industrie        nein        R0bis1     Miete           
-		   3,            // ja           Gymnasium     Industrie        nein        R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     Industrie        nein        R1bis4     Miete           
-		   3,            // ja           Gymnasium     Industrie        nein        R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     Industrie        nein        R4bis8     Miete           
-		   3,            // ja           Gymnasium     Industrie        nein        R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // ja           Gymnasium     OeffentlicherDie ja          R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     OeffentlicherDie ja          R1bis4     Miete           
-		   3,            // ja           Gymnasium     OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // ja           Gymnasium     OeffentlicherDie ja          R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     OeffentlicherDie nein        R0bis1     Miete           
-		   3,            // ja           Gymnasium     OeffentlicherDie nein        R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // ja           Gymnasium     OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // ja           Gymnasium     OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     Handel           ja          R0bis1     Miete           
-		   3,            // ja           Gymnasium     Handel           ja          R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     Handel           ja          R1bis4     Miete           
-		   3,            // ja           Gymnasium     Handel           ja          R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     Handel           ja          R4bis8     Miete           
-		   3,            // ja           Gymnasium     Handel           ja          R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     Handel           nein        R0bis1     Miete           
-		   3,            // ja           Gymnasium     Handel           nein        R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     Handel           nein        R1bis4     Miete           
-		   3,            // ja           Gymnasium     Handel           nein        R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     Handel           nein        R4bis8     Miete           
-		   3,            // ja           Gymnasium     Handel           nein        R4bis8     Eigentum        
-		   3,            // ja           Gymnasium     Handwerk         ja          R0bis1     Miete           
-		   3,            // ja           Gymnasium     Handwerk         ja          R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     Handwerk         ja          R1bis4     Miete           
-		   3,            // ja           Gymnasium     Handwerk         ja          R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     Handwerk         ja          R4bis8     Miete           
-		   3,            // ja           Gymnasium     Handwerk         ja          R4bis8     Eigentum        
-		   4,            // ja           Gymnasium     Handwerk         nein        R0bis1     Miete           
-		   3,            // ja           Gymnasium     Handwerk         nein        R0bis1     Eigentum        
-		   3,            // ja           Gymnasium     Handwerk         nein        R1bis4     Miete           
-		   3,            // ja           Gymnasium     Handwerk         nein        R1bis4     Eigentum        
-		   3,            // ja           Gymnasium     Handwerk         nein        R4bis8     Miete           
-		   3,            // ja           Gymnasium     Handwerk         nein        R4bis8     Eigentum        
-		   3,            // ja           Lehre         Industrie        ja          R0bis1     Miete           
-		   3,            // ja           Lehre         Industrie        ja          R0bis1     Eigentum        
-		   3,            // ja           Lehre         Industrie        ja          R1bis4     Miete           
-		   3,            // ja           Lehre         Industrie        ja          R1bis4     Eigentum        
-		   3,            // ja           Lehre         Industrie        ja          R4bis8     Miete           
-		   3,            // ja           Lehre         Industrie        ja          R4bis8     Eigentum        
-		   3,            // ja           Lehre         Industrie        nein        R0bis1     Miete           
-		   3,            // ja           Lehre         Industrie        nein        R0bis1     Eigentum        
-		   3,            // ja           Lehre         Industrie        nein        R1bis4     Miete           
-		   3,            // ja           Lehre         Industrie        nein        R1bis4     Eigentum        
-		   3,            // ja           Lehre         Industrie        nein        R4bis8     Miete           
-		   3,            // ja           Lehre         Industrie        nein        R4bis8     Eigentum        
-		   3,            // ja           Lehre         OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // ja           Lehre         OeffentlicherDie ja          R0bis1     Eigentum        
-		   3,            // ja           Lehre         OeffentlicherDie ja          R1bis4     Miete           
-		   3,            // ja           Lehre         OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // ja           Lehre         OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // ja           Lehre         OeffentlicherDie ja          R4bis8     Eigentum        
-		   3,            // ja           Lehre         OeffentlicherDie nein        R0bis1     Miete           
-		   3,            // ja           Lehre         OeffentlicherDie nein        R0bis1     Eigentum        
-		   3,            // ja           Lehre         OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // ja           Lehre         OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // ja           Lehre         OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // ja           Lehre         OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // ja           Lehre         Handel           ja          R0bis1     Miete           
-		   3,            // ja           Lehre         Handel           ja          R0bis1     Eigentum        
-		   3,            // ja           Lehre         Handel           ja          R1bis4     Miete           
-		   3,            // ja           Lehre         Handel           ja          R1bis4     Eigentum        
-		   3,            // ja           Lehre         Handel           ja          R4bis8     Miete           
-		   3,            // ja           Lehre         Handel           ja          R4bis8     Eigentum        
-		   3,            // ja           Lehre         Handel           nein        R0bis1     Miete           
-		   3,            // ja           Lehre         Handel           nein        R0bis1     Eigentum        
-		   3,            // ja           Lehre         Handel           nein        R1bis4     Miete           
-		   3,            // ja           Lehre         Handel           nein        R1bis4     Eigentum        
-		   3,            // ja           Lehre         Handel           nein        R4bis8     Miete           
-		   3,            // ja           Lehre         Handel           nein        R4bis8     Eigentum        
-		   3,            // ja           Lehre         Handwerk         ja          R0bis1     Miete           
-		   3,            // ja           Lehre         Handwerk         ja          R0bis1     Eigentum        
-		   3,            // ja           Lehre         Handwerk         ja          R1bis4     Miete           
-		   3,            // ja           Lehre         Handwerk         ja          R1bis4     Eigentum        
-		   3,            // ja           Lehre         Handwerk         ja          R4bis8     Miete           
-		   3,            // ja           Lehre         Handwerk         ja          R4bis8     Eigentum        
-		   4,            // ja           Lehre         Handwerk         nein        R0bis1     Miete           
-		   3,            // ja           Lehre         Handwerk         nein        R0bis1     Eigentum        
-		   3,            // ja           Lehre         Handwerk         nein        R1bis4     Miete           
-		   3,            // ja           Lehre         Handwerk         nein        R1bis4     Eigentum        
-		   3,            // ja           Lehre         Handwerk         nein        R4bis8     Miete           
-		   3,            // ja           Lehre         Handwerk         nein        R4bis8     Eigentum        
-		   4,            // ja           Hauptschule   Industrie        ja          R0bis1     Miete           
-		   3,            // ja           Hauptschule   Industrie        ja          R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   Industrie        ja          R1bis4     Miete           
-		   3,            // ja           Hauptschule   Industrie        ja          R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   Industrie        ja          R4bis8     Miete           
-		   3,            // ja           Hauptschule   Industrie        ja          R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   Industrie        nein        R0bis1     Miete           
-		   3,            // ja           Hauptschule   Industrie        nein        R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   Industrie        nein        R1bis4     Miete           
-		   3,            // ja           Hauptschule   Industrie        nein        R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   Industrie        nein        R4bis8     Miete           
-		   3,            // ja           Hauptschule   Industrie        nein        R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   OeffentlicherDie ja          R0bis1     Miete           
-		   3,            // ja           Hauptschule   OeffentlicherDie ja          R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   OeffentlicherDie ja          R1bis4     Miete           
-		   3,            // ja           Hauptschule   OeffentlicherDie ja          R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   OeffentlicherDie ja          R4bis8     Miete           
-		   3,            // ja           Hauptschule   OeffentlicherDie ja          R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   OeffentlicherDie nein        R0bis1     Miete           
-		   3,            // ja           Hauptschule   OeffentlicherDie nein        R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   OeffentlicherDie nein        R1bis4     Miete           
-		   3,            // ja           Hauptschule   OeffentlicherDie nein        R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   OeffentlicherDie nein        R4bis8     Miete           
-		   3,            // ja           Hauptschule   OeffentlicherDie nein        R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   Handel           ja          R0bis1     Miete           
-		   3,            // ja           Hauptschule   Handel           ja          R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   Handel           ja          R1bis4     Miete           
-		   3,            // ja           Hauptschule   Handel           ja          R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   Handel           ja          R4bis8     Miete           
-		   3,            // ja           Hauptschule   Handel           ja          R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   Handel           nein        R0bis1     Miete           
-		   4,            // ja           Hauptschule   Handel           nein        R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   Handel           nein        R1bis4     Miete           
-		   3,            // ja           Hauptschule   Handel           nein        R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   Handel           nein        R4bis8     Miete           
-		   3,            // ja           Hauptschule   Handel           nein        R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   Handwerk         ja          R0bis1     Miete           
-		   3,            // ja           Hauptschule   Handwerk         ja          R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   Handwerk         ja          R1bis4     Miete           
-		   3,            // ja           Hauptschule   Handwerk         ja          R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   Handwerk         ja          R4bis8     Miete           
-		   3,            // ja           Hauptschule   Handwerk         ja          R4bis8     Eigentum        
-		   3,            // ja           Hauptschule   Handwerk         nein        R0bis1     Miete           
-		   3,            // ja           Hauptschule   Handwerk         nein        R0bis1     Eigentum        
-		   3,            // ja           Hauptschule   Handwerk         nein        R1bis4     Miete           
-		   3,            // ja           Hauptschule   Handwerk         nein        R1bis4     Eigentum        
-		   3,            // ja           Hauptschule   Handwerk         nein        R4bis8     Miete           
-		   3);           // ja           Hauptschule   Handwerk         nein        R4bis8     Eigentum        ;
-	whenchanged = 1554728021;
+	whenchanged = 1554730322;
 	};
 
 node Tarif {
@@ -1261,6 +877,7 @@ node Tarif {
 		   2,            // R4bis8     R21482bis69383    Eigentum        
 		   3,            // R4bis8     R69383bis141235   Miete           
 		   3);           // R4bis8     R69383bis141235   Eigentum        ;
+	whenchanged = 1554730322;
 	};
-ElimOrder = (Land, Ort, Tarif, aeltestesKind, juengstesKind, Geschlecht, Altersgruppe, Bildungsstand, Kinderzahl, Beruf, Aktienbesitz, Verheiratet, Wohnverhaeltnis, Familieneinkommen);
+ElimOrder = (Land, Ort, Wohnverhaeltnis, Tarif, aeltestesKind, juengstesKind, Geschlecht, Altersgruppe, Bildungsstand, Kinderzahl, Beruf, Aktienbesitz, Verheiratet, Familieneinkommen);
 };

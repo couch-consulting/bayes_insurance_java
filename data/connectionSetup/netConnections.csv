@@ -1,6 +1,6 @@
 Bildungsstand;Altersgruppe
 Beruf;Altersgruppe;Geschlecht;Kinderzahl
-Familieneinkommen;Aktienbesitz;Bildungsstand;Beruf;Verheiratet;Kinderzahl;Wohnverhaeltnis
+Familieneinkommen;Aktienbesitz;Bildungsstand;Beruf;Verheiratet;Kinderzahl
 Kinderzahl;Altersgruppe;Geschlecht;aeltestesKind;juengstesKind
 Verheiratet;Geschlecht
 Ort;Land
