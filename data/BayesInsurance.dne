@@ -1,0 +1,896 @@
+// ~->[DNET-1]->~
+
+// File created by an unlicensed user using Netica 5.04 on Apr 08, 2019 at 16:50:10.
+
+bnet BayesInsurance {
+autoupdate = FALSE;
+whenchanged = 1554735010;
+
+node Altersgruppe {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (R26bis35, R50bis65, R18bis25, R66bis, R36bis49);
+	parents = ();
+	probs = 
+		// R26bis35     R50bis65     R18bis25     R66bis       R36bis49     
+		  (0.2097561,   0.2390244,   0.2585366,   0.1951219,   0.09756097);
+	numcases = 205;
+	whenchanged = 1554735010;
+	belief = (0.2097561, 0.2390244, 0.2585366, 0.195122, 0.09756098);
+	};
+
+node Bildungsstand {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Studium, Gymnasium, Lehre, Hauptschule);
+	parents = (Altersgruppe);
+	probs = 
+		// Studium      Gymnasium    Lehre        Hauptschule   // Altersgruppe 
+		  (0.5869565,   0.08695652,  0.2391304,   0.08695652,   // R26bis35     
+		   0.4807692,   0.1346154,   0.3269231,   0.05769231,   // R50bis65     
+		   0.5714286,   0.1071429,   0.2678571,   0.05357143,   // R18bis25     
+		   0.5581396,   0.09302326,  0.255814,    0.09302326,   // R66bis       
+		   0.5217391,   0.08695652,  0.2608696,   0.1304348);   // R36bis49     ;
+	numcases = 
+		                 // Altersgruppe 
+		  (46,           // R26bis35     
+		   52,           // R50bis65     
+		   56,           // R18bis25     
+		   43,           // R66bis       
+		   23);          // R36bis49     ;
+	whenchanged = 1554735010;
+	belief = (0.5455751, 0.1047508, 0.2729181, 0.07675593);
+	};
+
+node Geschlecht {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (w, m);
+	parents = ();
+	probs = 
+		// w            m            
+		  (0.4603961,   0.5396039);
+	numcases = 202;
+	whenchanged = 1554735010;
+	belief = (0.4603961, 0.5396039);
+	};
+
+node aeltestesKind {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (R0bis7, R7bis25, R25bis52);
+	parents = ();
+	probs = 
+		// R0bis7       R7bis25      R25bis52     
+		  (0.6059113,   0.2463054,   0.1477832);
+	numcases = 203;
+	whenchanged = 1554735010;
+	belief = (0.6059113, 0.2463054, 0.1477833);
+	};
+
+node juengstesKind {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (R0bis8, R8bis25, R25bis50);
+	parents = ();
+	probs = 
+		// R0bis8       R8bis25      R25bis50     
+		  (0.6305419,   0.2413793,   0.1280788);
+	numcases = 203;
+	whenchanged = 1554735010;
+	belief = (0.6305419, 0.2413793, 0.1280788);
+	};
+
+node Kinderzahl {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (R0bis1, R1bis4, R4bis8);
+	parents = (Altersgruppe, Geschlecht, aeltestesKind, juengstesKind);
+	probs = 
+		// R0bis1       R1bis4       R4bis8        // Altersgruppe Geschlecht aeltestesKind juengstesKind 
+		  (0.5714286,   0.3571429,   0.07142857,   // R26bis35     w          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R7bis25       R0bis8        
+		   0.2,         0.6,         0.2,          // R26bis35     w          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R25bis52      R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     w          R25bis52      R25bis50      
+		   0.6296296,   0.2962963,   0.07407407,   // R26bis35     m          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     m          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     m          R0bis7        R25bis50      
+		   0.2,         0.6,         0.2,          // R26bis35     m          R7bis25       R0bis8        
+		   0.1666667,   0.6666667,   0.1666667,    // R26bis35     m          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     m          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     m          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     m          R25bis52      R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R26bis35     m          R25bis52      R25bis50      
+		   0.8333333,   0.08333334,  0.08333334,   // R50bis65     w          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     w          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     w          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     w          R7bis25       R0bis8        
+		   0.09090909,  0.8181818,   0.09090909,   // R50bis65     w          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     w          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     w          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     w          R25bis52      R8bis25       
+		   0.125,       0.75,        0.125,        // R50bis65     w          R25bis52      R25bis50      
+		   0.8333333,   0.08333334,  0.08333334,   // R50bis65     m          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     m          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     m          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     m          R7bis25       R0bis8        
+		   0.08333334,  0.8333333,   0.08333334,   // R50bis65     m          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     m          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R50bis65     m          R25bis52      R0bis8        
+		   0.25,        0.5,         0.25,         // R50bis65     m          R25bis52      R8bis25       
+		   0.1,         0.8,         0.1,          // R50bis65     m          R25bis52      R25bis50      
+		   0.7,         0.2666667,   0.03333334,   // R18bis25     w          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R7bis25       R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R25bis52      R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     w          R25bis52      R25bis50      
+		   0.6428571,   0.3214286,   0.03571429,   // R18bis25     m          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R7bis25       R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R25bis52      R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R18bis25     m          R25bis52      R25bis50      
+		   0.75,        0.125,       0.125,        // R66bis       w          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       w          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       w          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       w          R7bis25       R0bis8        
+		   0.09090909,  0.8181818,   0.09090909,   // R66bis       w          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       w          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       w          R25bis52      R0bis8        
+		   0.25,        0.25,        0.5,          // R66bis       w          R25bis52      R8bis25       
+		   0.09090909,  0.8181818,   0.09090909,   // R66bis       w          R25bis52      R25bis50      
+		   0.7777778,   0.1111111,   0.1111111,    // R66bis       m          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       m          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       m          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       m          R7bis25       R0bis8        
+		   0.1428571,   0.7142857,   0.1428571,    // R66bis       m          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       m          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R66bis       m          R25bis52      R0bis8        
+		   0.2,         0.6,         0.2,          // R66bis       m          R25bis52      R8bis25       
+		   0.125,       0.75,        0.125,        // R66bis       m          R25bis52      R25bis50      
+		   0.6666667,   0.1666667,   0.1666667,    // R36bis49     w          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R0bis7        R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R7bis25       R0bis8        
+		   0.125,       0.75,        0.125,        // R36bis49     w          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R25bis52      R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     w          R25bis52      R25bis50      
+		   0.3333333,   0.5,         0.1666667,    // R36bis49     m          R0bis7        R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     m          R0bis7        R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     m          R0bis7        R25bis50      
+		   0.1666667,   0.6666667,   0.1666667,    // R36bis49     m          R7bis25       R0bis8        
+		   0.125,       0.75,        0.125,        // R36bis49     m          R7bis25       R8bis25       
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     m          R7bis25       R25bis50      
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     m          R25bis52      R0bis8        
+		   0.3333333,   0.3333333,   0.3333333,    // R36bis49     m          R25bis52      R8bis25       
+		   0.3333333,   0.3333333,   0.3333333);   // R36bis49     m          R25bis52      R25bis50      ;
+	numcases = 
+		                 // Altersgruppe Geschlecht aeltestesKind juengstesKind 
+		  (14,           // R26bis35     w          R0bis7        R0bis8        
+		   3,            // R26bis35     w          R0bis7        R8bis25       
+		   3,            // R26bis35     w          R0bis7        R25bis50      
+		   3,            // R26bis35     w          R7bis25       R0bis8        
+		   5,            // R26bis35     w          R7bis25       R8bis25       
+		   3,            // R26bis35     w          R7bis25       R25bis50      
+		   3,            // R26bis35     w          R25bis52      R0bis8        
+		   3,            // R26bis35     w          R25bis52      R8bis25       
+		   3,            // R26bis35     w          R25bis52      R25bis50      
+		   27,           // R26bis35     m          R0bis7        R0bis8        
+		   3,            // R26bis35     m          R0bis7        R8bis25       
+		   3,            // R26bis35     m          R0bis7        R25bis50      
+		   5,            // R26bis35     m          R7bis25       R0bis8        
+		   6,            // R26bis35     m          R7bis25       R8bis25       
+		   3,            // R26bis35     m          R7bis25       R25bis50      
+		   3,            // R26bis35     m          R25bis52      R0bis8        
+		   3,            // R26bis35     m          R25bis52      R8bis25       
+		   3,            // R26bis35     m          R25bis52      R25bis50      
+		   12,           // R50bis65     w          R0bis7        R0bis8        
+		   3,            // R50bis65     w          R0bis7        R8bis25       
+		   3,            // R50bis65     w          R0bis7        R25bis50      
+		   3,            // R50bis65     w          R7bis25       R0bis8        
+		   11,           // R50bis65     w          R7bis25       R8bis25       
+		   3,            // R50bis65     w          R7bis25       R25bis50      
+		   3,            // R50bis65     w          R25bis52      R0bis8        
+		   3,            // R50bis65     w          R25bis52      R8bis25       
+		   8,            // R50bis65     w          R25bis52      R25bis50      
+		   12,           // R50bis65     m          R0bis7        R0bis8        
+		   3,            // R50bis65     m          R0bis7        R8bis25       
+		   3,            // R50bis65     m          R0bis7        R25bis50      
+		   3,            // R50bis65     m          R7bis25       R0bis8        
+		   12,           // R50bis65     m          R7bis25       R8bis25       
+		   3,            // R50bis65     m          R7bis25       R25bis50      
+		   3,            // R50bis65     m          R25bis52      R0bis8        
+		   4,            // R50bis65     m          R25bis52      R8bis25       
+		   10,           // R50bis65     m          R25bis52      R25bis50      
+		   30,           // R18bis25     w          R0bis7        R0bis8        
+		   3,            // R18bis25     w          R0bis7        R8bis25       
+		   3,            // R18bis25     w          R0bis7        R25bis50      
+		   3,            // R18bis25     w          R7bis25       R0bis8        
+		   3,            // R18bis25     w          R7bis25       R8bis25       
+		   3,            // R18bis25     w          R7bis25       R25bis50      
+		   3,            // R18bis25     w          R25bis52      R0bis8        
+		   3,            // R18bis25     w          R25bis52      R8bis25       
+		   3,            // R18bis25     w          R25bis52      R25bis50      
+		   28,           // R18bis25     m          R0bis7        R0bis8        
+		   3,            // R18bis25     m          R0bis7        R8bis25       
+		   3,            // R18bis25     m          R0bis7        R25bis50      
+		   3,            // R18bis25     m          R7bis25       R0bis8        
+		   3,            // R18bis25     m          R7bis25       R8bis25       
+		   3,            // R18bis25     m          R7bis25       R25bis50      
+		   3,            // R18bis25     m          R25bis52      R0bis8        
+		   3,            // R18bis25     m          R25bis52      R8bis25       
+		   3,            // R18bis25     m          R25bis52      R25bis50      
+		   8,            // R66bis       w          R0bis7        R0bis8        
+		   3,            // R66bis       w          R0bis7        R8bis25       
+		   3,            // R66bis       w          R0bis7        R25bis50      
+		   3,            // R66bis       w          R7bis25       R0bis8        
+		   11,           // R66bis       w          R7bis25       R8bis25       
+		   3,            // R66bis       w          R7bis25       R25bis50      
+		   3,            // R66bis       w          R25bis52      R0bis8        
+		   4,            // R66bis       w          R25bis52      R8bis25       
+		   11,           // R66bis       w          R25bis52      R25bis50      
+		   9,            // R66bis       m          R0bis7        R0bis8        
+		   3,            // R66bis       m          R0bis7        R8bis25       
+		   3,            // R66bis       m          R0bis7        R25bis50      
+		   3,            // R66bis       m          R7bis25       R0bis8        
+		   7,            // R66bis       m          R7bis25       R8bis25       
+		   3,            // R66bis       m          R7bis25       R25bis50      
+		   3,            // R66bis       m          R25bis52      R0bis8        
+		   5,            // R66bis       m          R25bis52      R8bis25       
+		   8,            // R66bis       m          R25bis52      R25bis50      
+		   6,            // R36bis49     w          R0bis7        R0bis8        
+		   3,            // R36bis49     w          R0bis7        R8bis25       
+		   3,            // R36bis49     w          R0bis7        R25bis50      
+		   3,            // R36bis49     w          R7bis25       R0bis8        
+		   8,            // R36bis49     w          R7bis25       R8bis25       
+		   3,            // R36bis49     w          R7bis25       R25bis50      
+		   3,            // R36bis49     w          R25bis52      R0bis8        
+		   3,            // R36bis49     w          R25bis52      R8bis25       
+		   3,            // R36bis49     w          R25bis52      R25bis50      
+		   6,            // R36bis49     m          R0bis7        R0bis8        
+		   3,            // R36bis49     m          R0bis7        R8bis25       
+		   3,            // R36bis49     m          R0bis7        R25bis50      
+		   6,            // R36bis49     m          R7bis25       R0bis8        
+		   8,            // R36bis49     m          R7bis25       R8bis25       
+		   3,            // R36bis49     m          R7bis25       R25bis50      
+		   3,            // R36bis49     m          R25bis52      R0bis8        
+		   3,            // R36bis49     m          R25bis52      R8bis25       
+		   3);           // R36bis49     m          R25bis52      R25bis50      ;
+	whenchanged = 1554735010;
+	belief = (0.4558866, 0.3212643, 0.2228491);
+	};
+
+node Beruf {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Industrie, OeffentlicherDienst, Handel, Handwerk);
+	parents = (Altersgruppe, Geschlecht, Kinderzahl);
+	probs = 
+		// Industrie    OeffentlicherDie Handel   Handwerk      // Altersgruppe Geschlecht Kinderzahl 
+		  (0.4545455,   0.1818182,   0.1818182,   0.1818182,    // R26bis35     w          R0bis1     
+		   0.2,         0.4,         0.2,         0.2,          // R26bis35     w          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R26bis35     w          R4bis8     
+		   0.5,         0.1,         0.3,         0.1,          // R26bis35     m          R0bis1     
+		   0.375,       0.25,        0.125,       0.25,         // R26bis35     m          R1bis4     
+		   0.4,         0.2,         0.2,         0.2,          // R26bis35     m          R4bis8     
+		   0.1538462,   0.3076923,   0.3846154,   0.1538462,    // R50bis65     w          R0bis1     
+		   0.5882353,   0.1176471,   0.05882353,  0.2352941,    // R50bis65     w          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R50bis65     w          R4bis8     
+		   0.5384616,   0.1538462,   0.07692308,  0.2307692,    // R50bis65     m          R0bis1     
+		   0.3333333,   0.1428571,   0.3333333,   0.1904762,    // R50bis65     m          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R50bis65     m          R4bis8     
+		   0.4583333,   0.125,       0.2083333,   0.2083333,    // R18bis25     w          R0bis1     
+		   0.3636364,   0.1818182,   0.1818182,   0.2727273,    // R18bis25     w          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R18bis25     w          R4bis8     
+		   0.3809524,   0.1904762,   0.2857143,   0.1428571,    // R18bis25     m          R0bis1     
+		   0.5,         0.1666667,   0.25,        0.08333334,   // R18bis25     m          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R18bis25     m          R4bis8     
+		   0.3333333,   0.2222222,   0.2222222,   0.2222222,    // R66bis       w          R0bis1     
+		   0.5,         0.1,         0.25,        0.15,         // R66bis       w          R1bis4     
+		   0.4,         0.2,         0.2,         0.2,          // R66bis       w          R4bis8     
+		   0.3,         0.4,         0.1,         0.2,          // R66bis       m          R0bis1     
+		   0.4666667,   0.2,         0.2,         0.1333333,    // R66bis       m          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R66bis       m          R4bis8     
+		   0.4285714,   0.2857143,   0.1428571,   0.1428571,    // R36bis49     w          R0bis1     
+		   0.4444444,   0.1111111,   0.3333333,   0.1111111,    // R36bis49     w          R1bis4     
+		   0.25,        0.25,        0.25,        0.25,         // R36bis49     w          R4bis8     
+		   0.2,         0.2,         0.4,         0.2,          // R36bis49     m          R0bis1     
+		   0.2857143,   0.1428571,   0.3571429,   0.2142857,    // R36bis49     m          R1bis4     
+		   0.25,        0.25,        0.25,        0.25);        // R36bis49     m          R4bis8     ;
+	numcases = 
+		                 // Altersgruppe Geschlecht Kinderzahl 
+		  (11,           // R26bis35     w          R0bis1     
+		   10,           // R26bis35     w          R1bis4     
+		   4,            // R26bis35     w          R4bis8     
+		   20,           // R26bis35     m          R0bis1     
+		   16,           // R26bis35     m          R1bis4     
+		   5,            // R26bis35     m          R4bis8     
+		   13,           // R50bis65     w          R0bis1     
+		   17,           // R50bis65     w          R1bis4     
+		   4,            // R50bis65     w          R4bis8     
+		   13,           // R50bis65     m          R0bis1     
+		   21,           // R50bis65     m          R1bis4     
+		   4,            // R50bis65     m          R4bis8     
+		   24,           // R18bis25     w          R0bis1     
+		   11,           // R18bis25     w          R1bis4     
+		   4,            // R18bis25     w          R4bis8     
+		   21,           // R18bis25     m          R0bis1     
+		   12,           // R18bis25     m          R1bis4     
+		   4,            // R18bis25     m          R4bis8     
+		   9,            // R66bis       w          R0bis1     
+		   20,           // R66bis       w          R1bis4     
+		   5,            // R66bis       w          R4bis8     
+		   10,           // R66bis       m          R0bis1     
+		   15,           // R66bis       m          R1bis4     
+		   4,            // R66bis       m          R4bis8     
+		   7,            // R36bis49     w          R0bis1     
+		   9,            // R36bis49     w          R1bis4     
+		   4,            // R36bis49     w          R4bis8     
+		   5,            // R36bis49     m          R0bis1     
+		   14,           // R36bis49     m          R1bis4     
+		   4);           // R36bis49     m          R4bis8     ;
+	whenchanged = 1554735010;
+	belief = (0.3679605, 0.2116047, 0.2248389, 0.1955959);
+	};
+
+node Aktienbesitz {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (nein, ja);
+	parents = ();
+	probs = 
+		// nein         ja           
+		  (0.7475247,   0.2524753);
+	numcases = 202;
+	whenchanged = 1554735010;
+	belief = (0.7475247, 0.2524753);
+	};
+
+node Verheiratet {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (ja, nein);
+	parents = (Geschlecht);
+	probs = 
+		// ja           nein          // Geschlecht 
+		  (0.5106383,   0.4893617,    // w          
+		   0.5272727,   0.4727273);   // m          ;
+	numcases = 
+		                 // Geschlecht 
+		  (94,           // w          
+		   110);         // m          ;
+	whenchanged = 1554735010;
+	belief = (0.5196143, 0.4803857);
+	};
+
+node Familieneinkommen {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (R0bis21482, R21482bis69383, R69383bis141235);
+	parents = (Aktienbesitz, Bildungsstand, Beruf, Verheiratet, Kinderzahl);
+	probs = 
+		// R0bis21482   R21482bis69383 R69383bis141235  // Aktienbesitz Bildungsstand Beruf            Verheiratet Kinderzahl 
+		  (0.125,       0.375,       0.5,          // nein         Studium       Industrie        ja          R0bis1     
+		   0.05555556,  0.3333333,   0.6111111,    // nein         Studium       Industrie        ja          R1bis4     
+		   0.2,         0.2,         0.6,          // nein         Studium       Industrie        ja          R4bis8     
+		   0.07692308,  0.5384616,   0.3846154,    // nein         Studium       Industrie        nein        R0bis1     
+		   0.2,         0.4,         0.4,          // nein         Studium       Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R0bis1     
+		   0.1428571,   0.4285714,   0.4285714,    // nein         Studium       OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie ja          R4bis8     
+		   0.1111111,   0.5555556,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R0bis1     
+		   0.25,        0.5,         0.25,         // nein         Studium       OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R0bis1     
+		   0.07692308,  0.4615385,   0.4615385,    // nein         Studium       Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           ja          R4bis8     
+		   0.07692308,  0.4615385,   0.4615385,    // nein         Studium       Handel           nein        R0bis1     
+		   0.1428571,   0.7142857,   0.1428571,    // nein         Studium       Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Studium       Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R0bis1     
+		   0.7777778,   0.1111111,   0.1111111,    // nein         Gymnasium     Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        ja          R4bis8     
+		   0.6666667,   0.1666667,   0.1666667,    // nein         Gymnasium     Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie ja          R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Gymnasium     OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           ja          R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Gymnasium     Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handel           nein        R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Gymnasium     Handwerk         ja          R0bis1     
+		   0.6,         0.2,         0.2,          // nein         Gymnasium     Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         ja          R4bis8     
+		   0.6666667,   0.1666667,   0.1666667,    // nein         Gymnasium     Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Gymnasium     Handwerk         nein        R4bis8     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Industrie        ja          R0bis1     
+		   0.3333333,   0.5833333,   0.08333334,   // nein         Lehre         Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        ja          R4bis8     
+		   0.2,         0.6,         0.2,          // nein         Lehre         Industrie        nein        R0bis1     
+		   0.4,         0.4,         0.2,          // nein         Lehre         Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R0bis1     
+		   0.375,       0.5,         0.125,        // nein         Lehre         OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         OeffentlicherDie nein        R0bis1     
+		   0.25,        0.5,         0.25,         // nein         Lehre         OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         OeffentlicherDie nein        R4bis8     
+		   0.25,        0.5,         0.25,         // nein         Lehre         Handel           ja          R0bis1     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           ja          R4bis8     
+		   0.3333333,   0.5,         0.1666667,    // nein         Lehre         Handel           nein        R0bis1     
+		   0.5,         0.25,        0.25,         // nein         Lehre         Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R0bis1     
+		   0.4117647,   0.5294118,   0.05882353,   // nein         Lehre         Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         ja          R4bis8     
+		   0.3,         0.6,         0.1,          // nein         Lehre         Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Lehre         Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R0bis1     
+		   0.6666667,   0.1666667,   0.1666667,    // nein         Hauptschule   Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        ja          R4bis8     
+		   0.6,         0.2,         0.2,          // nein         Hauptschule   Industrie        nein        R0bis1     
+		   0.5,         0.25,        0.25,         // nein         Hauptschule   Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R0bis1     
+		   0.6,         0.2,         0.2,          // nein         Hauptschule   Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           ja          R4bis8     
+		   0.5,         0.25,        0.25,         // nein         Hauptschule   Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R0bis1     
+		   0.5,         0.25,        0.25,         // nein         Hauptschule   Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // nein         Hauptschule   Handwerk         nein        R4bis8     
+		   0.1666667,   0.6666667,   0.1666667,    // ja           Studium       Industrie        ja          R0bis1     
+		   0.08333334,  0.6666667,   0.25,         // ja           Studium       Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        ja          R4bis8     
+		   0.05882353,  0.5882353,   0.3529412,    // ja           Studium       Industrie        nein        R0bis1     
+		   0.1666667,   0.6666667,   0.1666667,    // ja           Studium       Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R0bis1     
+		   0.2,         0.6,         0.2,          // ja           Studium       OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie ja          R4bis8     
+		   0.1111111,   0.4444444,   0.4444444,    // ja           Studium       OeffentlicherDie nein        R0bis1     
+		   0.2,         0.4,         0.4,          // ja           Studium       OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       OeffentlicherDie nein        R4bis8     
+		   0.25,        0.25,        0.5,          // ja           Studium       Handel           ja          R0bis1     
+		   0.2,         0.2,         0.6,          // ja           Studium       Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           ja          R4bis8     
+		   0.1666667,   0.3333333,   0.5,          // ja           Studium       Handel           nein        R0bis1     
+		   0.25,        0.5,         0.25,         // ja           Studium       Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Studium       Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         ja          R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Gymnasium     Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Gymnasium     Handwerk         nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         ja          R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Lehre         Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Lehre         Handwerk         nein        R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Hauptschule   Industrie        ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Industrie        nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   OeffentlicherDie nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           ja          R4bis8     
+		   0.5,         0.25,        0.25,         // ja           Hauptschule   Handel           nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handel           nein        R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R1bis4     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         ja          R4bis8     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R0bis1     
+		   0.3333333,   0.3333333,   0.3333333,    // ja           Hauptschule   Handwerk         nein        R1bis4     
+		   0.3333333,   0.3333333,   0.3333333);   // ja           Hauptschule   Handwerk         nein        R4bis8     ;
+	numcases = 
+		                 // Aktienbesitz Bildungsstand Beruf            Verheiratet Kinderzahl 
+		  (8,            // nein         Studium       Industrie        ja          R0bis1     
+		   18,           // nein         Studium       Industrie        ja          R1bis4     
+		   5,            // nein         Studium       Industrie        ja          R4bis8     
+		   13,           // nein         Studium       Industrie        nein        R0bis1     
+		   5,            // nein         Studium       Industrie        nein        R1bis4     
+		   3,            // nein         Studium       Industrie        nein        R4bis8     
+		   3,            // nein         Studium       OeffentlicherDie ja          R0bis1     
+		   7,            // nein         Studium       OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Studium       OeffentlicherDie ja          R4bis8     
+		   9,            // nein         Studium       OeffentlicherDie nein        R0bis1     
+		   4,            // nein         Studium       OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Studium       OeffentlicherDie nein        R4bis8     
+		   3,            // nein         Studium       Handel           ja          R0bis1     
+		   13,           // nein         Studium       Handel           ja          R1bis4     
+		   3,            // nein         Studium       Handel           ja          R4bis8     
+		   13,           // nein         Studium       Handel           nein        R0bis1     
+		   7,            // nein         Studium       Handel           nein        R1bis4     
+		   3,            // nein         Studium       Handel           nein        R4bis8     
+		   3,            // nein         Studium       Handwerk         ja          R0bis1     
+		   3,            // nein         Studium       Handwerk         ja          R1bis4     
+		   3,            // nein         Studium       Handwerk         ja          R4bis8     
+		   3,            // nein         Studium       Handwerk         nein        R0bis1     
+		   3,            // nein         Studium       Handwerk         nein        R1bis4     
+		   3,            // nein         Studium       Handwerk         nein        R4bis8     
+		   3,            // nein         Gymnasium     Industrie        ja          R0bis1     
+		   9,            // nein         Gymnasium     Industrie        ja          R1bis4     
+		   3,            // nein         Gymnasium     Industrie        ja          R4bis8     
+		   6,            // nein         Gymnasium     Industrie        nein        R0bis1     
+		   3,            // nein         Gymnasium     Industrie        nein        R1bis4     
+		   3,            // nein         Gymnasium     Industrie        nein        R4bis8     
+		   3,            // nein         Gymnasium     OeffentlicherDie ja          R0bis1     
+		   3,            // nein         Gymnasium     OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Gymnasium     OeffentlicherDie ja          R4bis8     
+		   4,            // nein         Gymnasium     OeffentlicherDie nein        R0bis1     
+		   3,            // nein         Gymnasium     OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Gymnasium     OeffentlicherDie nein        R4bis8     
+		   3,            // nein         Gymnasium     Handel           ja          R0bis1     
+		   3,            // nein         Gymnasium     Handel           ja          R1bis4     
+		   3,            // nein         Gymnasium     Handel           ja          R4bis8     
+		   4,            // nein         Gymnasium     Handel           nein        R0bis1     
+		   3,            // nein         Gymnasium     Handel           nein        R1bis4     
+		   3,            // nein         Gymnasium     Handel           nein        R4bis8     
+		   4,            // nein         Gymnasium     Handwerk         ja          R0bis1     
+		   5,            // nein         Gymnasium     Handwerk         ja          R1bis4     
+		   3,            // nein         Gymnasium     Handwerk         ja          R4bis8     
+		   6,            // nein         Gymnasium     Handwerk         nein        R0bis1     
+		   3,            // nein         Gymnasium     Handwerk         nein        R1bis4     
+		   3,            // nein         Gymnasium     Handwerk         nein        R4bis8     
+		   6,            // nein         Lehre         Industrie        ja          R0bis1     
+		   12,           // nein         Lehre         Industrie        ja          R1bis4     
+		   3,            // nein         Lehre         Industrie        ja          R4bis8     
+		   5,            // nein         Lehre         Industrie        nein        R0bis1     
+		   5,            // nein         Lehre         Industrie        nein        R1bis4     
+		   3,            // nein         Lehre         Industrie        nein        R4bis8     
+		   3,            // nein         Lehre         OeffentlicherDie ja          R0bis1     
+		   8,            // nein         Lehre         OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Lehre         OeffentlicherDie ja          R4bis8     
+		   6,            // nein         Lehre         OeffentlicherDie nein        R0bis1     
+		   4,            // nein         Lehre         OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Lehre         OeffentlicherDie nein        R4bis8     
+		   4,            // nein         Lehre         Handel           ja          R0bis1     
+		   6,            // nein         Lehre         Handel           ja          R1bis4     
+		   3,            // nein         Lehre         Handel           ja          R4bis8     
+		   6,            // nein         Lehre         Handel           nein        R0bis1     
+		   4,            // nein         Lehre         Handel           nein        R1bis4     
+		   3,            // nein         Lehre         Handel           nein        R4bis8     
+		   3,            // nein         Lehre         Handwerk         ja          R0bis1     
+		   17,           // nein         Lehre         Handwerk         ja          R1bis4     
+		   3,            // nein         Lehre         Handwerk         ja          R4bis8     
+		   10,           // nein         Lehre         Handwerk         nein        R0bis1     
+		   3,            // nein         Lehre         Handwerk         nein        R1bis4     
+		   3,            // nein         Lehre         Handwerk         nein        R4bis8     
+		   3,            // nein         Hauptschule   Industrie        ja          R0bis1     
+		   6,            // nein         Hauptschule   Industrie        ja          R1bis4     
+		   3,            // nein         Hauptschule   Industrie        ja          R4bis8     
+		   5,            // nein         Hauptschule   Industrie        nein        R0bis1     
+		   4,            // nein         Hauptschule   Industrie        nein        R1bis4     
+		   3,            // nein         Hauptschule   Industrie        nein        R4bis8     
+		   3,            // nein         Hauptschule   OeffentlicherDie ja          R0bis1     
+		   3,            // nein         Hauptschule   OeffentlicherDie ja          R1bis4     
+		   3,            // nein         Hauptschule   OeffentlicherDie ja          R4bis8     
+		   3,            // nein         Hauptschule   OeffentlicherDie nein        R0bis1     
+		   3,            // nein         Hauptschule   OeffentlicherDie nein        R1bis4     
+		   3,            // nein         Hauptschule   OeffentlicherDie nein        R4bis8     
+		   3,            // nein         Hauptschule   Handel           ja          R0bis1     
+		   5,            // nein         Hauptschule   Handel           ja          R1bis4     
+		   3,            // nein         Hauptschule   Handel           ja          R4bis8     
+		   4,            // nein         Hauptschule   Handel           nein        R0bis1     
+		   3,            // nein         Hauptschule   Handel           nein        R1bis4     
+		   3,            // nein         Hauptschule   Handel           nein        R4bis8     
+		   3,            // nein         Hauptschule   Handwerk         ja          R0bis1     
+		   4,            // nein         Hauptschule   Handwerk         ja          R1bis4     
+		   3,            // nein         Hauptschule   Handwerk         ja          R4bis8     
+		   3,            // nein         Hauptschule   Handwerk         nein        R0bis1     
+		   3,            // nein         Hauptschule   Handwerk         nein        R1bis4     
+		   3,            // nein         Hauptschule   Handwerk         nein        R4bis8     
+		   6,            // ja           Studium       Industrie        ja          R0bis1     
+		   12,           // ja           Studium       Industrie        ja          R1bis4     
+		   3,            // ja           Studium       Industrie        ja          R4bis8     
+		   17,           // ja           Studium       Industrie        nein        R0bis1     
+		   6,            // ja           Studium       Industrie        nein        R1bis4     
+		   3,            // ja           Studium       Industrie        nein        R4bis8     
+		   3,            // ja           Studium       OeffentlicherDie ja          R0bis1     
+		   5,            // ja           Studium       OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Studium       OeffentlicherDie ja          R4bis8     
+		   9,            // ja           Studium       OeffentlicherDie nein        R0bis1     
+		   5,            // ja           Studium       OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Studium       OeffentlicherDie nein        R4bis8     
+		   4,            // ja           Studium       Handel           ja          R0bis1     
+		   5,            // ja           Studium       Handel           ja          R1bis4     
+		   3,            // ja           Studium       Handel           ja          R4bis8     
+		   6,            // ja           Studium       Handel           nein        R0bis1     
+		   4,            // ja           Studium       Handel           nein        R1bis4     
+		   3,            // ja           Studium       Handel           nein        R4bis8     
+		   3,            // ja           Studium       Handwerk         ja          R0bis1     
+		   3,            // ja           Studium       Handwerk         ja          R1bis4     
+		   3,            // ja           Studium       Handwerk         ja          R4bis8     
+		   3,            // ja           Studium       Handwerk         nein        R0bis1     
+		   3,            // ja           Studium       Handwerk         nein        R1bis4     
+		   3,            // ja           Studium       Handwerk         nein        R4bis8     
+		   3,            // ja           Gymnasium     Industrie        ja          R0bis1     
+		   3,            // ja           Gymnasium     Industrie        ja          R1bis4     
+		   3,            // ja           Gymnasium     Industrie        ja          R4bis8     
+		   3,            // ja           Gymnasium     Industrie        nein        R0bis1     
+		   3,            // ja           Gymnasium     Industrie        nein        R1bis4     
+		   3,            // ja           Gymnasium     Industrie        nein        R4bis8     
+		   3,            // ja           Gymnasium     OeffentlicherDie ja          R0bis1     
+		   3,            // ja           Gymnasium     OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Gymnasium     OeffentlicherDie ja          R4bis8     
+		   3,            // ja           Gymnasium     OeffentlicherDie nein        R0bis1     
+		   3,            // ja           Gymnasium     OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Gymnasium     OeffentlicherDie nein        R4bis8     
+		   3,            // ja           Gymnasium     Handel           ja          R0bis1     
+		   3,            // ja           Gymnasium     Handel           ja          R1bis4     
+		   3,            // ja           Gymnasium     Handel           ja          R4bis8     
+		   3,            // ja           Gymnasium     Handel           nein        R0bis1     
+		   3,            // ja           Gymnasium     Handel           nein        R1bis4     
+		   3,            // ja           Gymnasium     Handel           nein        R4bis8     
+		   3,            // ja           Gymnasium     Handwerk         ja          R0bis1     
+		   3,            // ja           Gymnasium     Handwerk         ja          R1bis4     
+		   3,            // ja           Gymnasium     Handwerk         ja          R4bis8     
+		   4,            // ja           Gymnasium     Handwerk         nein        R0bis1     
+		   3,            // ja           Gymnasium     Handwerk         nein        R1bis4     
+		   3,            // ja           Gymnasium     Handwerk         nein        R4bis8     
+		   3,            // ja           Lehre         Industrie        ja          R0bis1     
+		   3,            // ja           Lehre         Industrie        ja          R1bis4     
+		   3,            // ja           Lehre         Industrie        ja          R4bis8     
+		   3,            // ja           Lehre         Industrie        nein        R0bis1     
+		   3,            // ja           Lehre         Industrie        nein        R1bis4     
+		   3,            // ja           Lehre         Industrie        nein        R4bis8     
+		   3,            // ja           Lehre         OeffentlicherDie ja          R0bis1     
+		   3,            // ja           Lehre         OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Lehre         OeffentlicherDie ja          R4bis8     
+		   3,            // ja           Lehre         OeffentlicherDie nein        R0bis1     
+		   3,            // ja           Lehre         OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Lehre         OeffentlicherDie nein        R4bis8     
+		   3,            // ja           Lehre         Handel           ja          R0bis1     
+		   3,            // ja           Lehre         Handel           ja          R1bis4     
+		   3,            // ja           Lehre         Handel           ja          R4bis8     
+		   3,            // ja           Lehre         Handel           nein        R0bis1     
+		   3,            // ja           Lehre         Handel           nein        R1bis4     
+		   3,            // ja           Lehre         Handel           nein        R4bis8     
+		   3,            // ja           Lehre         Handwerk         ja          R0bis1     
+		   3,            // ja           Lehre         Handwerk         ja          R1bis4     
+		   3,            // ja           Lehre         Handwerk         ja          R4bis8     
+		   4,            // ja           Lehre         Handwerk         nein        R0bis1     
+		   3,            // ja           Lehre         Handwerk         nein        R1bis4     
+		   3,            // ja           Lehre         Handwerk         nein        R4bis8     
+		   4,            // ja           Hauptschule   Industrie        ja          R0bis1     
+		   3,            // ja           Hauptschule   Industrie        ja          R1bis4     
+		   3,            // ja           Hauptschule   Industrie        ja          R4bis8     
+		   3,            // ja           Hauptschule   Industrie        nein        R0bis1     
+		   3,            // ja           Hauptschule   Industrie        nein        R1bis4     
+		   3,            // ja           Hauptschule   Industrie        nein        R4bis8     
+		   3,            // ja           Hauptschule   OeffentlicherDie ja          R0bis1     
+		   3,            // ja           Hauptschule   OeffentlicherDie ja          R1bis4     
+		   3,            // ja           Hauptschule   OeffentlicherDie ja          R4bis8     
+		   3,            // ja           Hauptschule   OeffentlicherDie nein        R0bis1     
+		   3,            // ja           Hauptschule   OeffentlicherDie nein        R1bis4     
+		   3,            // ja           Hauptschule   OeffentlicherDie nein        R4bis8     
+		   3,            // ja           Hauptschule   Handel           ja          R0bis1     
+		   3,            // ja           Hauptschule   Handel           ja          R1bis4     
+		   3,            // ja           Hauptschule   Handel           ja          R4bis8     
+		   4,            // ja           Hauptschule   Handel           nein        R0bis1     
+		   3,            // ja           Hauptschule   Handel           nein        R1bis4     
+		   3,            // ja           Hauptschule   Handel           nein        R4bis8     
+		   3,            // ja           Hauptschule   Handwerk         ja          R0bis1     
+		   3,            // ja           Hauptschule   Handwerk         ja          R1bis4     
+		   3,            // ja           Hauptschule   Handwerk         ja          R4bis8     
+		   3,            // ja           Hauptschule   Handwerk         nein        R0bis1     
+		   3,            // ja           Hauptschule   Handwerk         nein        R1bis4     
+		   3);           // ja           Hauptschule   Handwerk         nein        R4bis8     ;
+	whenchanged = 1554735010;
+	belief = (0.2826869, 0.3902099, 0.3271032);
+	};
+
+node Land {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (BadenWuerttemberg, Hessen, Bayern);
+	parents = ();
+	probs = 
+		// BadenWuerttember Hessen   Bayern       
+		  (0.5566502,   0.1231527,   0.320197);
+	numcases = 203;
+	whenchanged = 1554735010;
+	belief = (0.5566502, 0.1231527, 0.320197);
+	};
+
+node Ort {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (urban, laendlich);
+	parents = (Land);
+	probs = 
+		// urban        laendlich     // Land             
+		  (0.622807,    0.377193,     // BadenWuerttember 
+		   0.5384616,   0.4615385,    // Hessen           
+		   0.6666667,   0.3333333);   // Bayern           ;
+	numcases = 
+		                 // Land             
+		  (114,          // BadenWuerttember 
+		   26,           // Hessen           
+		   66);          // Bayern           ;
+	whenchanged = 1554735010;
+	belief = (0.6264634, 0.3735366);
+	};
+
+node Wohnverhaeltnis {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Miete, Eigentum);
+	parents = (Ort, Kinderzahl);
+	probs = 
+		// Miete        Eigentum      // Ort       Kinderzahl 
+		  (0.9264706,   0.07352941,   // urban     R0bis1     
+		   0.8833333,   0.1166667,    // urban     R1bis4     
+		   0.5,         0.5,          // urban     R4bis8     
+		   0.4827586,   0.5172414,    // laendlich R0bis1     
+		   0.5714286,   0.4285714,    // laendlich R1bis4     
+		   0.5,         0.5);         // laendlich R4bis8     ;
+	numcases = 
+		                 // Ort       Kinderzahl 
+		  (68,           // urban     R0bis1     
+		   60,           // urban     R1bis4     
+		   4,            // urban     R4bis8     
+		   29,           // laendlich R0bis1     
+		   49,           // laendlich R1bis4     
+		   2);           // laendlich R4bis8     ;
+	whenchanged = 1554735010;
+	belief = (0.7045839, 0.2954161);
+	};
+
+node Tarif {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (B, A);
+	parents = (Kinderzahl, Familieneinkommen, Wohnverhaeltnis);
+	probs = 
+		// B            A             // Kinderzahl Familieneinkommen Wohnverhaeltnis 
+		  (0.9545454,   0.04545455,   // R0bis1     R0bis21482        Miete           
+		   0.6666667,   0.3333333,    // R0bis1     R0bis21482        Eigentum        
+		   0.9761904,   0.02380952,   // R0bis1     R21482bis69383    Miete           
+		   0.8888889,   0.1111111,    // R0bis1     R21482bis69383    Eigentum        
+		   0.8823529,   0.1176471,    // R0bis1     R69383bis141235   Miete           
+		   0.9166667,   0.08333334,   // R0bis1     R69383bis141235   Eigentum        
+		   0.9642857,   0.03571429,   // R1bis4     R0bis21482        Miete           
+		   0.8,         0.2,          // R1bis4     R0bis21482        Eigentum        
+		   0.9761904,   0.02380952,   // R1bis4     R21482bis69383    Miete           
+		   0.2666667,   0.7333333,    // R1bis4     R21482bis69383    Eigentum        
+		   0.8,         0.2,          // R1bis4     R69383bis141235   Miete           
+		   0.1666667,   0.8333333,    // R1bis4     R69383bis141235   Eigentum        
+		   0.5,         0.5,          // R4bis8     R0bis21482        Miete           
+		   0.5,         0.5,          // R4bis8     R0bis21482        Eigentum        
+		   0.5,         0.5,          // R4bis8     R21482bis69383    Miete           
+		   0.5,         0.5,          // R4bis8     R21482bis69383    Eigentum        
+		   0.6666667,   0.3333333,    // R4bis8     R69383bis141235   Miete           
+		   0.6666667,   0.3333333);   // R4bis8     R69383bis141235   Eigentum        ;
+	numcases = 
+		                 // Kinderzahl Familieneinkommen Wohnverhaeltnis 
+		  (22,           // R0bis1     R0bis21482        Miete           
+		   3,            // R0bis1     R0bis21482        Eigentum        
+		   42,           // R0bis1     R21482bis69383    Miete           
+		   9,            // R0bis1     R21482bis69383    Eigentum        
+		   17,           // R0bis1     R69383bis141235   Miete           
+		   12,           // R0bis1     R69383bis141235   Eigentum        
+		   28,           // R1bis4     R0bis21482        Miete           
+		   5,            // R1bis4     R0bis21482        Eigentum        
+		   42,           // R1bis4     R21482bis69383    Miete           
+		   15,           // R1bis4     R21482bis69383    Eigentum        
+		   15,           // R1bis4     R69383bis141235   Miete           
+		   12,           // R1bis4     R69383bis141235   Eigentum        
+		   2,            // R4bis8     R0bis21482        Miete           
+		   2,            // R4bis8     R0bis21482        Eigentum        
+		   2,            // R4bis8     R21482bis69383    Miete           
+		   2,            // R4bis8     R21482bis69383    Eigentum        
+		   3,            // R4bis8     R69383bis141235   Miete           
+		   3);           // R4bis8     R69383bis141235   Eigentum        ;
+	belief = (0.7964298, 0.2035702);
+	};
+ElimOrder = (Land, Ort, Wohnverhaeltnis, Tarif, aeltestesKind, juengstesKind, Geschlecht, Altersgruppe, Bildungsstand, Kinderzahl, Beruf, Aktienbesitz, Verheiratet, Familieneinkommen);
+};
