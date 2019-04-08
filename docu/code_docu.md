@@ -9,3 +9,5 @@
 * Code is stored in the "src/" directory. 
 * Ranges are excluding upper limit and including lower limit
 * System out println used instead of logger on purpose  
+
+* Grafiken

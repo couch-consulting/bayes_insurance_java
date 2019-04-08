@@ -7,7 +7,7 @@
 * Create complete documentation 
     * Warum Netica, Warum java etc.... + warum so gebaut 
     * Eigene test bewertungen mit input data (an 4 beispielen - wenig zu viel test daten)
-    * Doku Read.me in leserlich 
+    * Doku Read.me 
 
 
 

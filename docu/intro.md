@@ -2,7 +2,9 @@
 * https://www.norsys.com/netica-j/docs/NeticaJ_Man.pdf
 * HTML FIles under "NeticaJ_WIn/NeticaJ_504/docs/javadocs"
 * Free Version of netic only suppports 15 nodes (our initial solution had 17). Thus we are not using made up nodes and only the given 14. 
-
+## Content
+* Warum Netica, Warum java etc.... + warum so gebaut 
+* Eigene test bewertungen mit input data (an 4 beispielen - wenig zu viel test daten)
 
 # General project content 
 1. Extract all possible nodes + values (possibilities) from CSV Input file [DONE]
@@ -19,16 +21,14 @@
     * This can only be done afterwards 
 7. Give possibility to enter input and get prediction [DONE]
     * Given CSV File which is a subset of the original dataset 
-
+* Workflow grafik
 
 * decided against synthetic node because we could only use one extra node and learning a new node is not working correctly 
 * using Counting Learning as cpt learn algo (see netica_J manual)
 * example data is almost everytime b (not enough a)
 * n.a mapped to lowest range for numbers
 
-## Content
-* Warum Netica, Warum java etc.... + warum so gebaut 
-* Eigene test bewertungen mit input data (an 4 beispielen - wenig zu viel test daten)
+
 
 ### Learning/Training
  (for connection tests)
