@@ -81,7 +81,7 @@ class Main {
     }
 }
 
-/*
+/*NeticaNetBuilder
 Class to build a full Netica net
  */
 class NeticaNetBuilder {
@@ -403,7 +403,7 @@ class NeticaNetBuilder {
 }
 
 
-/*
+/*CSVUtils
   CVS Reader Class
  Original source Taken from: https://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
  Slightly modified to return a ist of String Lists from the csv file where each string list equals one line
@@ -540,7 +540,7 @@ class CSVUtils {
 }
 
 
-/*
+/*Utils
   Utils Class
   Contains several non-class-specific utility functions
  */
@@ -784,7 +784,7 @@ class Utils {
     }
 }
 
-/*
+/*NeticaUtils
 Netica Utils Code
  */
 class NeticaUtils {
@@ -906,7 +906,7 @@ class NeticaUtils {
 
 }
 
-/*
+/*NeticaClassifyData
  * Class for Classification of Data
  */
 class NeticaClassifyData {

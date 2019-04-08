@@ -1,5 +1,5 @@
 Bildungsstand;Altersgruppe
-Beruf;Altersgruppe;Geschlecht;Kinderzahl
+Beruf;Altersgruppe;Geschlecht
 Familieneinkommen;Aktienbesitz;Bildungsstand;Beruf;Verheiratet;Kinderzahl
 Kinderzahl;Altersgruppe;Geschlecht;aeltestesKind;juengstesKind
 Verheiratet;Geschlecht

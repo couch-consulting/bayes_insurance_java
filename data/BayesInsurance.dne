@@ -1,10 +1,9 @@
 // ~->[DNET-1]->~
 
-// File created by an unlicensed user using Netica 5.04 on Apr 08, 2019 at 16:50:10.
+// File created by an unlicensed user using Netica 5.04 on Apr 09, 2019 at 00:26:10.
 
 bnet BayesInsurance {
 autoupdate = FALSE;
-whenchanged = 1554735010;
 
 node Altersgruppe {
 	kind = NATURE;
@@ -16,7 +15,6 @@ node Altersgruppe {
 		// R26bis35     R50bis65     R18bis25     R66bis       R36bis49     
 		  (0.2097561,   0.2390244,   0.2585366,   0.1951219,   0.09756097);
 	numcases = 205;
-	whenchanged = 1554735010;
 	belief = (0.2097561, 0.2390244, 0.2585366, 0.195122, 0.09756098);
 	};
 
@@ -40,7 +38,6 @@ node Bildungsstand {
 		   56,           // R18bis25     
 		   43,           // R66bis       
 		   23);          // R36bis49     ;
-	whenchanged = 1554735010;
 	belief = (0.5455751, 0.1047508, 0.2729181, 0.07675593);
 	};
 
@@ -54,8 +51,40 @@ node Geschlecht {
 		// w            m            
 		  (0.4603961,   0.5396039);
 	numcases = 202;
-	whenchanged = 1554735010;
 	belief = (0.4603961, 0.5396039);
+	};
+
+node Beruf {
+	kind = NATURE;
+	discrete = TRUE;
+	chance = CHANCE;
+	states = (Industrie, OeffentlicherDienst, Handel, Handwerk);
+	parents = (Altersgruppe, Geschlecht);
+	probs = 
+		// Industrie    OeffentlicherDie Handel   Handwerk      // Altersgruppe Geschlecht 
+		  (0.3529412,   0.2941177,   0.1764706,   0.1764706,    // R26bis35     w          
+		   0.4848485,   0.1515152,   0.2121212,   0.1515152,    // R26bis35     m          
+		   0.4230769,   0.1923077,   0.1923077,   0.1923077,    // R50bis65     w          
+		   0.4333333,   0.1333333,   0.2333333,   0.2,          // R50bis65     m          
+		   0.4516129,   0.1290323,   0.1935484,   0.2258064,    // R18bis25     w          
+		   0.4482759,   0.1724138,   0.2758621,   0.1034483,    // R18bis25     m          
+		   0.5,         0.1153846,   0.2307692,   0.1538462,    // R66bis       w          
+		   0.4285714,   0.2857143,   0.1428571,   0.1428571,    // R66bis       m          
+		   0.5,         0.1666667,   0.25,        0.08333334,   // R36bis49     w          
+		   0.2666667,   0.1333333,   0.4,         0.2);         // R36bis49     m          ;
+	numcases = 
+		                 // Altersgruppe Geschlecht 
+		  (17,           // R26bis35     w          
+		   33,           // R26bis35     m          
+		   26,           // R50bis65     w          
+		   30,           // R50bis65     m          
+		   31,           // R18bis25     w          
+		   29,           // R18bis25     m          
+		   26,           // R66bis       w          
+		   21,           // R66bis       m          
+		   12,           // R36bis49     w          
+		   15);          // R36bis49     m          ;
+	belief = (0.4342402, 0.1782771, 0.2218902, 0.1655926);
 	};
 
 node aeltestesKind {
@@ -68,7 +97,6 @@ node aeltestesKind {
 		// R0bis7       R7bis25      R25bis52     
 		  (0.6059113,   0.2463054,   0.1477832);
 	numcases = 203;
-	whenchanged = 1554735010;
 	belief = (0.6059113, 0.2463054, 0.1477833);
 	};
 
@@ -82,7 +110,6 @@ node juengstesKind {
 		// R0bis8       R8bis25      R25bis50     
 		  (0.6305419,   0.2413793,   0.1280788);
 	numcases = 203;
-	whenchanged = 1554735010;
 	belief = (0.6305419, 0.2413793, 0.1280788);
 	};
 
@@ -276,82 +303,7 @@ node Kinderzahl {
 		   3,            // R36bis49     m          R25bis52      R0bis8        
 		   3,            // R36bis49     m          R25bis52      R8bis25       
 		   3);           // R36bis49     m          R25bis52      R25bis50      ;
-	whenchanged = 1554735010;
-	belief = (0.4558866, 0.3212643, 0.2228491);
-	};
-
-node Beruf {
-	kind = NATURE;
-	discrete = TRUE;
-	chance = CHANCE;
-	states = (Industrie, OeffentlicherDienst, Handel, Handwerk);
-	parents = (Altersgruppe, Geschlecht, Kinderzahl);
-	probs = 
-		// Industrie    OeffentlicherDie Handel   Handwerk      // Altersgruppe Geschlecht Kinderzahl 
-		  (0.4545455,   0.1818182,   0.1818182,   0.1818182,    // R26bis35     w          R0bis1     
-		   0.2,         0.4,         0.2,         0.2,          // R26bis35     w          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R26bis35     w          R4bis8     
-		   0.5,         0.1,         0.3,         0.1,          // R26bis35     m          R0bis1     
-		   0.375,       0.25,        0.125,       0.25,         // R26bis35     m          R1bis4     
-		   0.4,         0.2,         0.2,         0.2,          // R26bis35     m          R4bis8     
-		   0.1538462,   0.3076923,   0.3846154,   0.1538462,    // R50bis65     w          R0bis1     
-		   0.5882353,   0.1176471,   0.05882353,  0.2352941,    // R50bis65     w          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R50bis65     w          R4bis8     
-		   0.5384616,   0.1538462,   0.07692308,  0.2307692,    // R50bis65     m          R0bis1     
-		   0.3333333,   0.1428571,   0.3333333,   0.1904762,    // R50bis65     m          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R50bis65     m          R4bis8     
-		   0.4583333,   0.125,       0.2083333,   0.2083333,    // R18bis25     w          R0bis1     
-		   0.3636364,   0.1818182,   0.1818182,   0.2727273,    // R18bis25     w          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R18bis25     w          R4bis8     
-		   0.3809524,   0.1904762,   0.2857143,   0.1428571,    // R18bis25     m          R0bis1     
-		   0.5,         0.1666667,   0.25,        0.08333334,   // R18bis25     m          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R18bis25     m          R4bis8     
-		   0.3333333,   0.2222222,   0.2222222,   0.2222222,    // R66bis       w          R0bis1     
-		   0.5,         0.1,         0.25,        0.15,         // R66bis       w          R1bis4     
-		   0.4,         0.2,         0.2,         0.2,          // R66bis       w          R4bis8     
-		   0.3,         0.4,         0.1,         0.2,          // R66bis       m          R0bis1     
-		   0.4666667,   0.2,         0.2,         0.1333333,    // R66bis       m          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R66bis       m          R4bis8     
-		   0.4285714,   0.2857143,   0.1428571,   0.1428571,    // R36bis49     w          R0bis1     
-		   0.4444444,   0.1111111,   0.3333333,   0.1111111,    // R36bis49     w          R1bis4     
-		   0.25,        0.25,        0.25,        0.25,         // R36bis49     w          R4bis8     
-		   0.2,         0.2,         0.4,         0.2,          // R36bis49     m          R0bis1     
-		   0.2857143,   0.1428571,   0.3571429,   0.2142857,    // R36bis49     m          R1bis4     
-		   0.25,        0.25,        0.25,        0.25);        // R36bis49     m          R4bis8     ;
-	numcases = 
-		                 // Altersgruppe Geschlecht Kinderzahl 
-		  (11,           // R26bis35     w          R0bis1     
-		   10,           // R26bis35     w          R1bis4     
-		   4,            // R26bis35     w          R4bis8     
-		   20,           // R26bis35     m          R0bis1     
-		   16,           // R26bis35     m          R1bis4     
-		   5,            // R26bis35     m          R4bis8     
-		   13,           // R50bis65     w          R0bis1     
-		   17,           // R50bis65     w          R1bis4     
-		   4,            // R50bis65     w          R4bis8     
-		   13,           // R50bis65     m          R0bis1     
-		   21,           // R50bis65     m          R1bis4     
-		   4,            // R50bis65     m          R4bis8     
-		   24,           // R18bis25     w          R0bis1     
-		   11,           // R18bis25     w          R1bis4     
-		   4,            // R18bis25     w          R4bis8     
-		   21,           // R18bis25     m          R0bis1     
-		   12,           // R18bis25     m          R1bis4     
-		   4,            // R18bis25     m          R4bis8     
-		   9,            // R66bis       w          R0bis1     
-		   20,           // R66bis       w          R1bis4     
-		   5,            // R66bis       w          R4bis8     
-		   10,           // R66bis       m          R0bis1     
-		   15,           // R66bis       m          R1bis4     
-		   4,            // R66bis       m          R4bis8     
-		   7,            // R36bis49     w          R0bis1     
-		   9,            // R36bis49     w          R1bis4     
-		   4,            // R36bis49     w          R4bis8     
-		   5,            // R36bis49     m          R0bis1     
-		   14,           // R36bis49     m          R1bis4     
-		   4);           // R36bis49     m          R4bis8     ;
-	whenchanged = 1554735010;
-	belief = (0.3679605, 0.2116047, 0.2248389, 0.1955959);
+	belief = (0.4558866, 0.3212643, 0.2228492);
 	};
 
 node Aktienbesitz {
@@ -364,7 +316,6 @@ node Aktienbesitz {
 		// nein         ja           
 		  (0.7475247,   0.2524753);
 	numcases = 202;
-	whenchanged = 1554735010;
 	belief = (0.7475247, 0.2524753);
 	};
 
@@ -382,7 +333,6 @@ node Verheiratet {
 		                 // Geschlecht 
 		  (94,           // w          
 		   110);         // m          ;
-	whenchanged = 1554735010;
 	belief = (0.5196143, 0.4803857);
 	};
 
@@ -780,8 +730,7 @@ node Familieneinkommen {
 		   3,            // ja           Hauptschule   Handwerk         nein        R0bis1     
 		   3,            // ja           Hauptschule   Handwerk         nein        R1bis4     
 		   3);           // ja           Hauptschule   Handwerk         nein        R4bis8     ;
-	whenchanged = 1554735010;
-	belief = (0.2826869, 0.3902099, 0.3271032);
+	belief = (0.2790796, 0.3913642, 0.3295561);
 	};
 
 node Land {
@@ -794,7 +743,6 @@ node Land {
 		// BadenWuerttember Hessen   Bayern       
 		  (0.5566502,   0.1231527,   0.320197);
 	numcases = 203;
-	whenchanged = 1554735010;
 	belief = (0.5566502, 0.1231527, 0.320197);
 	};
 
@@ -814,7 +762,6 @@ node Ort {
 		  (114,          // BadenWuerttember 
 		   26,           // Hessen           
 		   66);          // Bayern           ;
-	whenchanged = 1554735010;
 	belief = (0.6264634, 0.3735366);
 	};
 
@@ -840,7 +787,6 @@ node Wohnverhaeltnis {
 		   29,           // laendlich R0bis1     
 		   49,           // laendlich R1bis4     
 		   2);           // laendlich R4bis8     ;
-	whenchanged = 1554735010;
 	belief = (0.7045839, 0.2954161);
 	};
 
@@ -890,7 +836,7 @@ node Tarif {
 		   2,            // R4bis8     R21482bis69383    Eigentum        
 		   3,            // R4bis8     R69383bis141235   Miete           
 		   3);           // R4bis8     R69383bis141235   Eigentum        ;
-	belief = (0.7964298, 0.2035702);
+	belief = (0.7967167, 0.2032833);
 	};
-ElimOrder = (Land, Ort, Wohnverhaeltnis, Tarif, aeltestesKind, juengstesKind, Geschlecht, Altersgruppe, Bildungsstand, Kinderzahl, Beruf, Aktienbesitz, Verheiratet, Familieneinkommen);
+ElimOrder = (Land, Ort, Wohnverhaeltnis, Tarif, aeltestesKind, juengstesKind, Geschlecht, Altersgruppe, Bildungsstand, Beruf, Kinderzahl, Aktienbesitz, Verheiratet, Familieneinkommen);
 };
