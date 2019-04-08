@@ -291,16 +291,30 @@ class NeticaNetBuilder {
     static List<List<String>> buildCaseinputData(List<List<String>> csvdata) throws UnexpectedException {
         // Translate Data
         List<List<String>> inputData = new ArrayList<>(csvdata);
+        // Do not use first row of headers
         inputData.remove(0);
         int index = 0;
+
+
         for (String node : nodes) {
-            Integer checkValueTest = modifiedFlagMap.get(node);
-            if (checkValueTest != null) {
-                int checkValue = modifiedFlagMap.get(node);
-                // Change Input data for this node
-                for (List<String> inputLine : inputData) {
+
+
+            // Change Input data for this node
+            for (List<String> inputLine : inputData) {
+
+
+                // Change nodes that were changed in the process of net creation
+                Integer checkValueTest = modifiedFlagMap.get(node);
+                if (checkValueTest != null) {
+                    int checkValue = modifiedFlagMap.get(node);
+
+                    // Replace values correctly
                     String newInputData;
                     String currValue = inputLine.get(index);
+                    if(currValue.equals("")){
+                        continue;
+                    }
+
                     if (checkValue == 0) {
                         // 0: "R" at start and "-" replace with "bis" for a set of numbers
                         List<String> ranges = newPossibilities.get(index);
@@ -370,13 +384,17 @@ class NeticaNetBuilder {
                         throw new UnexpectedException("CheckValue is an unexpected value" + checkValue);
                     }
 
+
                     // Replace Input Data with fitting input typ for modifed possibilities
                     inputLine.set(index, newInputData);
-
                 }
 
+
             }
+
             index++;
+
+
         }
         return inputData;
     }
@@ -915,7 +933,7 @@ class NeticaClassifyData {
             }
             int caseNr = 0;
             int caseNrCorrect = 0;
-
+            int caseNrNA = 0;
             // Vars for Result stats
             int caseNr1 = 0;
             int caseNr2 = 0;
@@ -928,13 +946,17 @@ class NeticaClassifyData {
                 // Go through each node for this set and enter findings
                 int index = 0;
                 int listLength = nodes.size() - 1;
+
                 for (String node : nodes) {
                     // break for last column because it is the evaluation node
-                    if (index == listLength) {
+
+                    String caseState = classifyCase.get(index);
+                    if (index == listLength || caseState.equals("")) {
+                        index++;
                         continue;
                     }
                     // Set state for given input
-                    net.getNode(node).finding().enterState(classifyCase.get(index));
+                    net.getNode(node).finding().enterState(caseState);
                     index++;
                 }
 
@@ -953,12 +975,19 @@ class NeticaClassifyData {
                 System.out.println("Case " + caseNr + " is:" + classifyCase);
                 System.out.print("For case " + caseNr + ", ");
 
+                if(lastValue.equals("")){
+                    System.out.println("the belief of " + firstResult + " is " + beliefs[0] +
+                            ", of " + secondeResult + " is " + beliefs[1] + ". The controll answer is not given.\n");
+                }else{
+                    System.out.println("the belief of " + firstResult + " is " + beliefs[0] +
+                            ", of " + secondeResult + " is " + beliefs[1] + ". The controll answer is: " + lastValue + "\n");
 
-                System.out.println("the belief of " + firstResult + " is " + beliefs[0] +
-                        ", of " + secondeResult + " is " + beliefs[1] + ". The correct answer is: " + lastValue + "\n");
+                }
+
 
                 if (lastValue.equals(firstResult)) {
                     caseNr1++;
+                    caseNr++;
                     if (beliefs[0] > beliefs[1]) {
                         caseNrCorrect++;
                         caseNr1Correct++;
@@ -966,16 +995,18 @@ class NeticaClassifyData {
 
                 } else if (lastValue.equals(secondeResult)) {
                     caseNr2++;
+                    caseNr++;
                     if (beliefs[0] < beliefs[1]) {
                         caseNrCorrect++;
                         caseNr2Correct++;
 
                     }
 
+                }else {
+                    caseNrNA++;
                 }
 
 
-                caseNr++;
 
                 // Reset net
                 for (int n = 0; n < nodesList.size(); n++) {
@@ -984,8 +1015,10 @@ class NeticaClassifyData {
             }
 
             // Print stats
+            System.out.println("\n\n" + caseNrNA + " cases did not have a controll result.");
+
             float correctRatio = ((float) caseNrCorrect / (float) caseNr) * (float) 100;
-            System.out.println("\n\n" + caseNrCorrect + " of " + caseNr + " cases are correct! Ratio: " + correctRatio + " %");
+            System.out.println(caseNrCorrect + " of " + caseNr + " cases are correct! Ratio: " + correctRatio + " %");
 
             float correctRatio1 = ((float) caseNr1Correct / (float) caseNr1) * (float) 100;
             System.out.println("For cases with result " + firstResult + ": " + caseNr1Correct + " of " + caseNr1 + " cases are correct! Ratio: " + correctRatio1 + " %");

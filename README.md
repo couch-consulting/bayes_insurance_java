@@ -12,7 +12,7 @@
 * HTML FIles under "NeticaJ_WIn/NeticaJ_504/docs/javadocs"
 * Free Version of netic only suppports 15 nodes (our initial solution had 17). Thus we are not using made up nodes and only the given 14. 
 
-# General TODOS and project plan   
+# General project content 
 1. Extract all possible nodes + values (possibilities) from CSV Input file [DONE]
 2. Build nodes with possibilities [DONE]
     * possibilities will be normalized (to String) and sets of numbers will be transformed into ranges
@@ -35,12 +35,10 @@
     
 
 
-* Test data input file
-    * find out how to leave out "any" vars of current case line 
-    * give possibility to not give "tarif" in the case line 
+
 * Create complete documentation 
     * Warum Netica, Warum java etc.... + warum so gebaut 
-    * Eigene test bewertungen mit input data (an 1-2 beispielen)
+    * Eigene test bewertungen mit input data (an 4 beispielen - wenig zu viel test daten)
     * Doku Read.me in leserlich 
 
 ## Current Workflow
@@ -83,8 +81,9 @@
 * Last column contains evaluation information (e.g. Assigned product A/B). Only two evaluation results exist (e.g. A and B)
 * Values separated by semicolon 
 * No usage of quotes 
-* "Empty" values are marked with "n.a."
+* "Empty" numeric values are marked with "n.a.", non numeric vales can not be empty
 * Number values minimum are 0
+* no empty lines
 
 ### "netConnections" CSV File
 * First element is target, rest of row are elements that point to the first element
@@ -96,10 +95,16 @@
 * different names for different net results with these connections on all data
 
 
-#### Input
+#### Input Test data csv
 * CSV not cli and additionally the Netviewer can work as  a GUI to enter cases etc.
 * CSV with same assumption as input csv file 
 * n.a for some
+* Here, empty non numeric values can be makred with just no text between the ";" or at the end
+* no empty lines
+* must have same words for headers and attributes as normal input data
+* any var can be left out for a case line and it will still try to classify it
+    * A controll tarif answer does not to have to give but gives better statistics if it is the case
+* an all empty line will return default setup that the cpts learned (can also be see that way in the netviewr) 
 
 ### Learning/Training
  (for connection tests)
@@ -114,4 +119,11 @@
     11.055277 % of all cases are with the result A
     ````
     Here you can see that our test data has not enough A cases!
-* for reality data should be: used with k-folding or other input data! 
+* for reality data should be: used with k-folding or other input data!
+
+
+### Data nodes:
+* n.a mapped to lowest range for numbers
+
+
+

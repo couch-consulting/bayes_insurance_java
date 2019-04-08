@@ -1,101 +1,21 @@
 Altersgruppe;Geschlecht;Verheiratet;Kinderzahl;aeltestesKind;juengstesKind;Bildungsstand;Beruf;Familieneinkommen;Wohnverhaeltnis;Ort;Land;Aktienbesitz;Tarif
 26-35;w;ja;0;n.a.;n.a.;Studium;Industrie;72105;Miete;urban;Baden-Wuerttemberg;nein;B
-50-65;w;ja;3;23;21;Studium;Industrie;75241;Eigentum;urban;Baden-Wuerttemberg;nein;A
 26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;68985;Miete;urban;Hessen;ja;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Oeffentlicher Dienst;75844;Eigentum;laendlich;Baden-Wuerttemberg;nein;B
-66-;w;nein;1;28;28;Studium;Handel;64816;Eigentum;laendlich;Hessen;nein;B
 26-35;m;ja;2;7;6;Gymnasium;Industrie;15086;Miete;laendlich;Bayern;nein;B
-50-65;m;ja;3;17;15;Studium;Handel;75021;Eigentum;urban;Baden-Wuerttemberg;ja;A
 18-25;w;nein;0;n.a.;n.a.;Studium;Industrie;64282;Miete;laendlich;Bayern;ja;B
 36-49;w;nein;0;n.a.;n.a.;Studium;Industrie;73169;Miete;urban;Baden-Wuerttemberg;ja;B
-50-65;w;ja;0;n.a.;n.a.;Studium;Handel;74957;Eigentum;laendlich;Baden-Wuerttemberg;ja;B
-66-;m;nein;0;n.a.;n.a.;Lehre;Handwerk;21031;Miete;urban;Baden-Wuerttemberg;nein;B
-50-65;m;nein;0;n.a.;n.a.;Gymnasium;Handwerk;18036;Miete;urban;Bayern;nein;B
-26-35;w;nein;0;n.a.;n.a.;Studium;Industrie;68366;Miete;urban;Bayern;nein;B
-50-65;m;ja;2;30;29;Gymnasium;Industrie;18980;Miete;urban;Hessen;nein;B
-66-;w;ja;1;23;23;Studium;Industrie;76940;Eigentum;laendlich;Baden-Wuerttemberg;nein;A
-26-35;w;nein;0;n.a.;n.a.;Hauptschule;Industrie;15745;Miete;urban;Bayern;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Handel;73978;Miete;laendlich;Bayern;nein;B
-50-65;w;ja;3;20;17;Studium;Industrie;76267;Miete;urban;Bayern;nein;B
-50-65;m;nein;1;24;24;Lehre;Handel;21341;Miete;urban;Bayern;nein;B
-18-25;m;nein;0;n.a.;n.a.;Lehre;Oeffentlicher Dienst;22140;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;w;ja;3;23;20;Hauptschule;Industrie;16536;Miete;laendlich;Baden-Wuerttemberg;nein;B
+18-25;m;nein;0;n.a.;n.a.;Studium;Oeffentlicher Dienst;75844;Eigentum;laendlich;Baden-Wuerttemberg;nein;B
 66-;m;ja;3;29;27;Studium;Handel;70936;Miete;laendlich;Baden-Wuerttemberg;nein;A
-50-65;m;ja;2;25;24;Gymnasium;Industrie;19678;Miete;urban;Bayern;nein;B
-18-25;w;nein;1;3;3;Studium;Oeffentlicher Dienst;76144;Miete;urban;Baden-Wuerttemberg;ja;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Handel;67333;Eigentum;laendlich;Baden-Wuerttemberg;nein;B
-18-25;w;ja;2;2;0;Lehre;Handwerk;20844;Eigentum;urban;Baden-Wuerttemberg;nein;B
-36-49;w;ja;2;10;10;Studium;Industrie;73774;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;w;nein;0;n.a.;n.a.;Studium;Industrie;75077;Miete;urban;Bayern;nein;B
-50-65;w;ja;0;n.a.;n.a.;Lehre;Handel;22430;Miete;urban;Hessen;nein;B
-36-49;m;ja;3;6;3;Studium;Industrie;76308;Eigentum;urban;Bayern;ja;A
-26-35;m;ja;0;n.a.;n.a.;Studium;Industrie;67322;Miete;urban;Hessen;ja;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Industrie;69630;Eigentum;urban;Bayern;nein;B
-26-35;w;nein;0;n.a.;n.a.;Studium;Industrie;65889;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Industrie;65237;Miete;urban;Baden-Wuerttemberg;ja;B
-66-;m;ja;3;27;23;Studium;Handel;65441;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;m;ja;0;n.a.;n.a.;Lehre;Industrie;23399;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;w;nein;1;0;0;Studium;Industrie;61366;Eigentum;laendlich;Baden-Wuerttemberg;ja;A
-18-25;m;nein;0;n.a.;n.a.;Hauptschule;Handel;20306;Eigentum;laendlich;Bayern;ja;B
-36-49;m;ja;2;11;9;Gymnasium;Handwerk;18867;Miete;urban;Bayern;nein;B
-50-65;m;ja;3;23;19;Lehre;Industrie;20925;Miete;urban;Hessen;nein;B
-36-49;m;ja;2;6;4;Studium;Industrie;74718;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;w;nein;0;n.a.;n.a.;Studium;Handel;75183;Miete;urban;Bayern;nein;B
-18-25;w;nein;0;n.a.;n.a.;Studium;Oeffentlicher Dienst;64351;Miete;urban;Bayern;ja;B
-36-49;m;nein;0;n.a.;n.a.;Studium;Handel;67237;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;w;ja;3;5;4;Studium;Oeffentlicher Dienst;62234;Miete;urban;Baden-Wuerttemberg;ja;B
-50-65;m;ja;0;n.a.;n.a.;Studium;Industrie;72677;Eigentum;laendlich;Bayern;nein;B
-36-49;m;ja;1;16;16;Studium;Handel;70934;Eigentum;laendlich;Bayern;nein;A
-26-35;m;ja;1;9;9;Lehre;Handwerk;24408;Miete;laendlich;Baden-Wuerttemberg;nein;B
-50-65;m;ja;3;28;26;Lehre;Handwerk;20498;Miete;laendlich;Hessen;nein;B
-18-25;w;nein;1;6;6;Lehre;Industrie;21543;Miete;laendlich;Baden-Wuerttemberg;nein;B
-36-49;m;ja;2;9;6;Lehre;Oeffentlicher Dienst;19871;Eigentum;laendlich;Baden-Wuerttemberg;nein;B
-66-;w;ja;0;n.a.;n.a.;Studium;Industrie;72711;Eigentum;laendlich;Bayern;nein;B
-18-25;w;nein;0;n.a.;n.a.;Lehre;Industrie;23070;Miete;urban;Baden-Wuerttemberg;nein;B
-50-65;w;nein;0;n.a.;n.a.;Studium;Handel;66485;Eigentum;urban;Bayern;nein;B
-18-25;m;nein;1;4;4;Studium;Industrie;70297;Miete;urban;Baden-Wuerttemberg;nein;B
-50-65;w;ja;2;30;27;Hauptschule;Handwerk;16456;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;m;ja;0;n.a.;n.a.;Lehre;Industrie;24710;Miete;urban;Bayern;nein;B
-50-65;m;ja;2;29;28;Lehre;Handwerk;21468;Miete;laendlich;Baden-Wuerttemberg;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Oeffentlicher Dienst;60760;Miete;urban;Baden-Wuerttemberg;ja;B
-26-35;m;ja;2;6;5;Gymnasium;Industrie;16930;Miete;laendlich;Baden-Wuerttemberg;nein;B
-18-25;m;nein;1;1;1;Studium;Industrie;65860;Eigentum;urban;Bayern;ja;A
-36-49;m;ja;1;8;8;Studium;Handel;75834;Miete;laendlich;Baden-Wuerttemberg;nein;A
-50-65;w;ja;1;24;24;Studium;Industrie;65647;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;w;nein;1;5;5;Lehre;Industrie;19598;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;68870;Miete;urban;Baden-Wuerttemberg;ja;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Handel;74127;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;m;ja;1;23;23;Hauptschule;Industrie;14912;Miete;laendlich;Baden-Wuerttemberg;nein;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Handel;61722;Miete;urban;Baden-Wuerttemberg;ja;B
-26-35;m;nein;0;n.a.;n.a.;Lehre;Handel;21912;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;m;nein;1;5;5;Studium;Handel;61473;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Handel;70395;Eigentum;laendlich;Bayern;nein;B
-50-65;m;ja;2;23;22;Lehre;Industrie;20720;Miete;urban;Baden-Wuerttemberg;nein;B
-50-65;w;ja;3;27;26;Lehre;Handwerk;21319;Miete;laendlich;Bayern;nein;B
-26-35;m;nein;0;n.a.;n.a.;Lehre;Industrie;23274;Eigentum;laendlich;Bayern;nein;B
-66-;w;ja;1;23;23;Lehre;Industrie;23892;Miete;laendlich;Baden-Wuerttemberg;nein;B
-50-65;w;nein;0;n.a.;n.a.;Studium;Oeffentlicher Dienst;63495;Miete;urban;Baden-Wuerttemberg;ja;B
-50-65;w;ja;2;29;27;Lehre;Industrie;21783;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;w;ja;2;31;30;Studium;Handel;69380;Eigentum;laendlich;Baden-Wuerttemberg;nein;A
-18-25;m;nein;0;n.a.;n.a.;Studium;Industrie;65821;Miete;urban;Bayern;ja;B
-50-65;m;ja;0;n.a.;n.a.;Studium;Industrie;69268;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;w;ja;0;n.a.;n.a.;Gymnasium;Handwerk;16840;Miete;laendlich;Bayern;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;65034;Miete;urban;Baden-Wuerttemberg;ja;B
-26-35;w;ja;3;0;0;Studium;Industrie;68039;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;m;ja;1;6;6;Gymnasium;Handwerk;15276;Miete;laendlich;Bayern;nein;B
-36-49;w;ja;3;18;14;Lehre;Industrie;23204;Miete;urban;Bayern;nein;B
-18-25;w;nein;0;n.a.;n.a.;Lehre;Handwerk;24026;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;76238;Miete;laendlich;Baden-Wuerttemberg;nein;B
-18-25;w;nein;0;n.a.;n.a.;Gymnasium;Industrie;19301;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;60964;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;m;nein;0;n.a.;n.a.;Studium;Industrie;65064;Miete;urban;Bayern;nein;B
-66-;m;ja;2;29;29;Studium;Oeffentlicher Dienst;67674;Eigentum;laendlich;Baden-Wuerttemberg;nein;A
-36-49;w;ja;1;9;9;Studium;Handel;61641;Miete;urban;Baden-Wuerttemberg;nein;B
-50-65;w;ja;0;n.a.;n.a.;Hauptschule;Industrie;19557;Miete;laendlich;Hessen;ja;B
-66-;w;nein;0;n.a.;n.a.;Gymnasium;Industrie;17805;Miete;urban;Baden-Wuerttemberg;nein;B
-18-25;m;nein;0;n.a.;n.a.;Lehre;Handwerk;19388;Miete;laendlich;Bayern;nein;B
-18-25;w;nein;0;n.a.;n.a.;Gymnasium;Industrie;14794;Miete;urban;Baden-Wuerttemberg;nein;B
-26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;75085;Miete;urban;Baden-Wuerttemberg;ja;B
-66-;w;ja;2;21;20;Lehre;Oeffentlicher Dienst;24761;Miete;urban;Baden-Wuerttemberg;nein;B
-66-;m;ja;2;27;26;Studium;Industrie;66971;Miete;urban;Bayern;ja;B
-18-25;m;nein;0;n.a.;n.a.;Gymnasium;Handwerk;19067;Miete;urban;Baden-Wuerttemberg;nein;B
+50-65;w;ja;3;23;21;Studium;Industrie;75241;Eigentum;urban;Baden-Wuerttemberg;nein;A
+50-65;m;ja;3;17;15;Studium;Handel;75021;Eigentum;urban;Baden-Wuerttemberg;ja;A
+66-;w;ja;1;23;23;Studium;Industrie;76940;Eigentum;laendlich;Baden-Wuerttemberg;nein;A
+66-;w;ja;1;23;23;Studium;Industrie;76940;Eigentum;laendlich;Baden-Wuerttemberg;nein;
+36-49;w;nein;0;n.a.;n.a.;Studium;Industrie;73169;Miete;urban;Baden-Wuerttemberg;ja;
+26-35;m;nein;0;n.a.;n.a.;;Industrie;68985;Miete;urban;Hessen;ja;B
+66-;w;ja;1;23;23;Studium;Industrie;;Eigentum;laendlich;Baden-Wuerttemberg;nein;A
+26-35;m;nein;0;n.a.;n.a.;Studium;Industrie;68985;;urban;Hessen;ja;B
+;;;;;;;;68985;;;;;B
+36-49;w;;0;n.a.;n.a.;;Industrie;73169;;;;ja;B
+;w;ja;3;23;21;Studium;;;;;Baden-Wuerttemberg;nein;A
+26-35;w;;;;;;;;;;;;B
+;;;;;;;;;;;;;
