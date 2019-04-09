@@ -57,10 +57,10 @@ class Main {
 
         //Get Paths
         File rootPath = new File(PROJECTROOTPATH);
-        String trainFullPath = ""; // may throw IOException
-        String testFullPath = ""; // may throw IOException
-        String connectionFullPath = ""; // may throw IOException
-        String outputFullpath = ""; // may throw IOException
+        String trainFullPath = "";
+        String testFullPath = "";
+        String connectionFullPath = "";
+        String outputFullpath = "";
         try {
             trainFullPath = new File(PROJECTROOTPATH, trainGivenPath).getCanonicalPath();
             testFullPath = new File(PROJECTROOTPATH, testGivenPath).getCanonicalPath();

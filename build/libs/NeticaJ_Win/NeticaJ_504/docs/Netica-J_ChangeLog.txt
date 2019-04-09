@@ -1,0 +1,103 @@
+
+
+Changelog  for Netica-J  versions 4.xx and 5.xx
+
+Note that not all releases were made publicly available.
+
+5.04  2012-01-21
+- Many major speed improvments, especially when operating in a multi-threaded environment.
+- Further improvements to time-series net and dynamic bayes net (DBN) capability (e.g. titles of nodes are now augmented with their point in time during expansion).
+  Improved or added functions Net.expandTimeSeries, Node.setInputDelay, Node.setPersistance, Net.getNodeAtTime.
+- Can enter "action values" to nodes, which follow semantics of Pearl's do-calculus of causal intervention.  
+  These are accessable via Node.action(), which works similar to Node.finding().
+- Major improvements to Net.generateRandomCase (including more determinstic forward propagation for continuous real values), and fixing some bugs:
+    Generating a random case by forward sampling didnt work right if there was a CPT with UNDEF_PROB, where the whole row wasnt UNDEF_PROB
+    Generating a random case by join tree could fail with an error #2078
+- Major upgrade to callback system in speed and functionality.  One result is that when nodes and nets are duplicated, now their listeners are duplicated as well.
+- Improved reading values from case files and its error reporting.  Now handles ">70" if there is a discrete node with the state title ">70" (earlier it tried to interpret that as a UVF value)
+- Fixed problem in the way versions 5.02 and 5.03 saved printer settings to file, that made it not readable by older versions of Netica (example 4.16).
+- Expanded on the 'options' parameter for Net.copyNodes and Net copy constructor, which can control what gets copied.
+- Reading a Bayes net file that was incorrectly constructed now usually generates warnings and continues, instead of throwing an exception
+	
+5.03  2011-08-11
+- When entering a calibration finding that conflicts with the finding already at the node, now removes the original finding first.
+- Can now learn from cases when starting with no CPT supplied, but experience value supplied (table with all entries the same).
+- While EM learning from a case file having a case inconsistent with the Bayes net, now puts the IDnum of the case in the error message.
+
+5.02  2011-04-09
+- Added Environ.controlConcurrancy, and made all of Netica able to concurrently run Bayes nets in separate threads if desired.
+- Major improvements to time-series net and dynamic bayes net (DBN) capability.  Now does a "burn-in" to generate initial-state probability distribution.  Added function Net.expandTimeSeries.
+- Improved Netica's architecture for pseudo-random operations, and made it possible to act deterministically under multi-threading
+  Added the RandomGenerator class and Net.setRandomGenerator.  Net.generateRandomCase can now be passed a RandomGenerator.  
+- Keeps track of starting experience used for learning (normally 1), saved in NETA file for each node.  Adjusted when doing table hardening or softening.
+- Equations now recognize discrete constant nodes with a state setting.
+- Node.state(java.lang.String stateName) when passed null for 'stateName' crashed, also same for last argument to Node.switchParent
+- Fixed a memory leak which occured (only) when reversing links in a net with visual information.
+- Net.copyNodes options argument can now take "dont_return_list", in which case a list of the new nodes will not be returned.
+- Node.getExpectedValue now forces a belief updating if one is needed, instead of just returning UNDEF_DBL.
+- Internal graphics dimensions of fonts and strings changed.  Under Windows faster than it was, and under Linux gives better graphics than it did (especially for Arial font).
+
+5.01  2011-01-08
+- EM learning now leaves any findings that were originally in the net while operating (and handles them properly; they can override the case file).
+- EM learning now handles multiple CPT tables constrained to be the same (indicated by the node user field "CPT_ID" having the same value).
+- Custom Reports now leaves "&nbsp;" without trying to replace it with character 160, so we don't get square box chars (missing font char) in HTML reports.
+- All functions that take an 'options' string argument that is supposed to be empty (in other words, for future use), now allow that string to be non-empty (unless the argument checking level is COMPLETE_CHECK) and just ignore it.  This is just for forward compatibility.
+- Major speedup across many functions, due to significant profiling and optimization effort.
+
+4.18  2010-10-23
+- Added function Node.enterCalibration.
+		
+4.17  2010-06-29
+- Can now do probabilistic inference when there are disconnected links.
+- Names of built-in node-sets are now preceded by colon (:) instead of dash (-).
+- Custom Report templates can now take CaseProbability and CaseExpectedUtility tags, and now recognize correct spelling of "Separator".
+
+4.16  2010-05-16
+- When reading a case file, missing data symbols (empty, ' ', ?, *, N/A) will now instead be interpreted as a state, if the node has a state with an exactly matching state title.
+- Got rid of a memory leak when constructing a case-set from a database.
+- DatabaseManager.addNodes can now be passed null for columns and it will infer the columns.
+
+4.15  2009-12-19
+- Fixed problem which caused intermittent failures under multithreading on Red Hat Enterprise Linux.
+- Fixed: When added states on the fly to a node with an experience table, it didn't re-normalize properly.
+
+4.14  2009-11-10
+- Added Net.createCustomReport function to generate user-customizable reports on a wide variety of things including: network, nodes, states, cases, findings, inference results, sensitivity, internal compiled structure.
+- Within .dne files, it now uses a superior flat format for tables (which means the Bayes net files it creates cannot be completely read by very old versions of Netica (previous to 2.27 of 2003-05-02)).  But new versions of Netica can still read all the old .dne files, created by all previous versions of Netica.
+- When reading UVF files, uncertain findings for states with an _ in their name caused 2878 error.
+- When reading UVF files, extra spaces could cause errors.
+- Net copy constructor now allows for "no_nodes" and "no_links" in its 'options' string, and Net.copyNodes now allows for "no_links" and "no_tables" in its 'options' string.
+- Now API can compile and infer okay if nodes have some or all CPT entries or tables missing, the same way as Netica Application handles it.
+- Net.generateRandomCase with METHOD=0, now does forward sampling if the net has no findings entered.
+- Overloaded Net.readFindings with extra 'add' argument to indicate whether or not existing findings should be retracted first.
+- Deprecated Net.reportJunctionTree, because now that can be done with Net.createCustomReport.
+- Fixed: Whenever reporting an error while reading cases from an Excel file, it gave a line number 6 more than the Excel line number.
+- Now accepts illegal IDnum in case file (makes it -1) (so now can read/skip blank lines in Excel).
+- Fixed: Simulating a net to make a case file in the "full" format when there is a deterministic node threw an error #2437.
+	
+4.09  2009-01-30
+- Fixed: When adding multiple states to a node, didn't always check the new state names for legality.
+- Database: Improved error messages for DB SQL interactions that go wrong.
+- Changed "markov_boundary" to "markov_blanket" as an option string, to match the documentation.
+
+4.08  2008-06-18
+- Fixed: When try to save a net with a CPT table (rather than a deterministic table) built from a deterministic equation, it threw error #3267.
+
+4.07  2008-05-27
+- Changed "hide_links" file field back to "hidelinks" in .dne and .neta net files (it got changed in version 3.05).  So Netica won't properly read the link hiding of Bayes nets made between 3.05 and 4.06.
+	
+4.02  2007-11-27
+- Improved the algorithms for equation functions BetaDist and FDist to avoid internal overflow (which gave error like "error evaluating function:  BetaDist (0.05, 346.8, 1351.57)").
+- Added NoisyOrMultiDist function, available from equations, to generalize the noisy-or to multiple states, in a way usually more fitting than noisy-max does.
+
+4.00  2007-11-07
+- Changed equation parsing so that a multichar operator can't end with #, so that it can handle things like:  A==#0
+- Node.getStateFuncTable can now return other negative quantities beside UNDEF_STATE (such as IMPOSS_STATE and EVERY_STATE).
+
+
+
+
+
+
+
+

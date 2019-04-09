@@ -24,6 +24,7 @@ The documentation for this projects consists of 4 different files (including thi
 * The NeticaJ_Win folder holds the Netica Java library
 * The "data" folder contains any input data
 * The "results" folder contains all output files (also temporary files)
+* The "build" folder functions as a simpler pre compiled runnable version of the code. 
 
 ## General project structure and deliverables  
 The following is a list of deliverables. 

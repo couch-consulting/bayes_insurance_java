@@ -1,6 +1,6 @@
 // ~->[DNET-1]->~
 
-// File created by an unlicensed user using Netica 5.04 on Apr 09, 2019 at 23:02:07.
+// File created by an unlicensed user using Netica 5.04 on Apr 10, 2019 at 00:56:46.
 
 bnet BayesInsurance {
 autoupdate = FALSE;

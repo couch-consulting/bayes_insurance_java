@@ -1,0 +1,138 @@
+/* Javadoc style sheet */
+
+/* Define colors, fonts and other style attributes here to override the defaults  */
+
+/* Page background color */
+body { background-color: #FFFFFF }
+
+/* Table colors */
+.TableHeadingColor     { background: #CCCCFF } /* Dark mauve */
+.TableSubHeadingColor  { background: #EEEEFF } /* Light mauve */
+.TableRowColor         { background: #FFFFFF } /* White */
+
+/* Font used in left-hand frame lists */
+.FrameTitleFont   { font-size: normal; font-family: normal }
+.FrameHeadingFont { font-size: normal; font-family: normal }
+.FrameItemFont    { font-size: normal; font-family: normal }
+
+/* Example of smaller, sans-serif font in frames */
+/* .FrameItemFont  { font-size: 10pt; font-family: Helvetica, Arial, sans-serif } */
+
+/* Navigation bar fonts and colors */
+.NavBarCell1    { background-color:#EEEEFF;}/* Light mauve */
+.NavBarCell1Rev { background-color:#00008B;}/* Dark Blue */
+.NavBarFont1    { font-family: Arial, Helvetica, sans-serif; color:#000000;}
+.NavBarFont1Rev { font-family: Arial, Helvetica, sans-serif; color:#FFFFFF;}
+
+.NavBarCell2    { font-family: Arial, Helvetica, sans-serif; background-color:#FFFFFF;}
+.NavBarCell3    { font-family: Arial, Helvetica, sans-serif; background-color:#FFFFFF;}
+
+
+body { background-color: #FFFFFF; font-family: Arial,TimesRoman,Times,serif; font-size: 11pt}
+
+a:link, a:active, a:visited, a:hover { color: #0000A0; text-decoration: none; font-size: 11pt;}
+a:hover   { background: #DCECFF; }
+
+span.paramNm              { color: #208020; 
+	                    font-family: Courier,monospace;
+		            font-weight: bold; }
+
+span.classType            { color: #002060; font-family: monospace;}
+
+span.typeNm               { color: #A02020; 
+	                    font-family: Courier,monospace;
+		            font-weight: bold;
+                            white-space: nowrap;
+		          }
+
+span.constantNm           { color: #604000; 
+	                    font-family: Courier,monospace;  }
+span.reservedWord         { color: #604000; 
+			    white-space:nowrap; 
+	                    font-family: Courier,monospace;  }
+span.sectionNm            { color: black; 
+	                    font-family: TimesRoman, serif; 
+		            font-weight: bold; }
+span.nonbreaking          { white-space:nowrap; }
+div.passageIndent        { margin-left: 15; }
+span.code                 { color: #804040; }
+div.version              { margin-top:    6pt;
+                           margin-bottom: 12pt; }
+table.seeAlso     { margin-top:    12pt;
+                    margin-bottom: 0pt; 
+		    line-height: 13pt;
+	            /*margin-left:   0.2in;*/ }
+table.seeAlso td  { font-family: TimesRoman; 
+                    font-size: 11pt;}
+p { margin-top: 6pt; }
+
+DD { margin-left: 3; }
+CODE { font-family: TimesRoman,Times,serif; font-size: 11pt }
+
+pre            { color: black;
+	         font-family: Courier, monospace;
+    		 font-size: 13pt; }
+
+H3             { color: blue;
+    		        font-size: 18pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold; } 
+
+pre.example   { color: black;
+	         font-family: monospace;
+                 margin-top: 6pt;
+    		 font-size:  9pt; }
+
+/* ---------------------------------------------------------- */
+
+
+.PT                   { color: black;
+    		        font-size: 15pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold; }
+.APT                   { color: #2020A0;
+    		        font-size: 15pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold; }
+div.PT                { margin-top: 5;
+	                margin-bottom: 5pt;
+	                margin-left: 0;
+			white-space:nowrap;}
+span.PTFnName         { color: blue;
+    		        font-size: 18pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold; }
+span.PTFntype         { color: #A02020; 
+    		        font-size: 15pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold; }
+span.PTParamType      { color: #A02020;
+    		        font-size: 15pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold;
+			white-space:nowrap; }
+span.PTParamName      { color: #208020;
+    		        font-size: 15pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold;
+			white-space:nowrap;}
+td.PTParen            { color: black;
+    		        font-size: 18pt; 
+	                font-family: Arial, sans-serif;
+		        font-style: bold; }
+.PTParamTable         { background: #F3F3F3; }
+/*.ANCH                 { margin-bottom: 10; }*/
+
+A.APT:link, A.APT:active, A.APT:visited, A.APT:hover { 
+		font-family: Arial, sans-serif;
+		font-style: bold;
+    		font-size: 15pt; 
+		color: #2020A0; }
+
+A.APT:hover { color: #202070; background: #DCECFF; }
+
+table.pageHeader { width: 100%; 
+		   background-color: #DCECFF;
+	           vertical-align: middle; }
+table.pageHeader td { vertical-align: middle; }
+

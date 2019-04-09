@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN""http://www.w3.org/TR/REC-html40/frameset.dtd">
+<HTML>
+<HEAD>
+
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+//var ns4=window.top.document.layers?window.top.document.layers:document.layers;
+
+var ns4 = (document.layers);
+var ie4 = (document.all && !document.getElementById);
+var ie5 = (document.all && document.getElementById);
+var ns6 = (!document.all && document.getElementById);
+
+function init () {
+  if (document.getElementById) {
+    var fm = top.document.getElementById( 'classFrm');
+    if (fm != null ) {
+       var url = fm.src;
+       var p1 = url.indexOf('netica');
+       if (p1>0) {
+         url = url.substr( p1+7 );
+	 if ( url.indexOf('-') < 0 ) {
+	   url = 'classItems/items_' + url;
+	   ///alert( url );
+           var fm = parent.document.getElementById('enhancedBotFrm');
+           if (fm != null ) fm.src = url; else alert ( "null 1234" );
+	 }
+       }
+    }
+  }
+  else { //ie4 and ns4
+    var fm = top.frames["classFrame"];
+    if (fm != null ) {
+       var url = fm.location.href;
+       var p1 = url.indexOf('netica');
+       if (p1>0) {
+         url = url.substr( p1+7 );
+	 if ( url.indexOf('-') < 0 ) {
+	   url = 'classItems/items_' + url;
+           var fm = parent.frames["enhancedBotFrame"];
+           if (fm != null )
+             fm.location.href = url;
+	   else alert ( "null 2345" );
+	 }
+       }
+    }
+  }
+}
+
+</SCRIPT>
+</HEAD>
+<BODY BGCOLOR="white" onLoad="init()">
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<LINK REL ="stylesheet" TYPE="text/css" HREF="leftTop.css" TITLE="Style">
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+//var ns4=window.top.document.layers?window.top.document.layers:document.layers;
+
+var ns4 = (document.layers);
+var ie4 = (document.all && !document.getElementById);
+var ie5 = (document.all && document.getElementById);
+var ns6 = (!document.all && document.getElementById);
+
+function openManualInPlainWindow() {
+  var url = '../NeticaJ_Man.pdf';
+  var newWindow = window.open(url,"NeticaJ_Manual","alwaysRaised,resizable,titlebar=no,scrollbars=yes,screenX=20" );
+  newWindow.focus();
+}
+
+function load(num) {
+  var pg = "allclasses-frame.html";
+  if ( num == 2 ) 
+      pg = "enhancedFrame.html";
+  else if ( num == 3 ) 
+      pg = "NeticaJIndex.html";
+
+      if (document.getElementById) {
+        document.getElementById('radio1').checked = false;
+        document.getElementById('radio2').checked = false;
+        document.getElementById('radio3').checked = false;
+        document.getElementById('radio'+num).checked = true;
+
+       var fm = parent.document.getElementById('leftBotFrm');
+       //var fm = top.document.getElementById('leftBotFrm');
+       if (fm != null ) {
+//alert("in");
+// alert(fm.src); testing for Opera
+ fm.src = pg; //ie5, ns7, & mozilla
+         //fm.location.href = pg;
+         //window.event.returnValue = false; 
+         //ie5 fm.src = pg;
+       }
+       else alert( "fm is null!");
+    }     
+    else { //ns4 & ie4
+        var fm = top.leftFrame.leftBotFrame;
+        document.forms[0].elements[0].checked = false;
+        document.forms[0].elements[1].checked = false;
+        document.forms[0].elements[2].checked = false;
+        document.forms[0].elements[num-1].checked = true;
+       if (fm != null ) {
+//test w. IE4
+         fm.location = pg;
+       }
+       else alert( "NS4 or IE4: fm is null!");
+   }
+
+}
+
+</SCRIPT> 
+</HEAD>
+
+<BODY bgcolor=white topmargin=4 bottommargin=0 rightmargin=0 leftmargin=5 marginwidth=0 marginheight=0">
+<form>
+<table cellpadding=0 cellspacing=0 width=100%><tr>
+  <td align=center><input type=radio  class=buttonClasses name="radio1" id="radio1" value="Classes1" onClick="JAVASCRIPT:load(1);" checked>1</td><td>&nbsp;</td>
+  <td align=center><input type=radio  class=buttonCateg id="radio2" value="Classes2" onClick="JAVASCRIPT:load(2);">2</td><td>&nbsp;</td>
+  <td align=center><input type=radio  class=buttonIndex   id="radio3"   value="Index"  onClick="JAVASCRIPT:load(3);">Index</td><td>&nbsp;</td>
+  <td align=center><input type=button class=buttonManual  id="manual1"  value="Manual" onClick="JAVASCRIPT:openManualInPlainWindow();"></td>
+</tr></table>
+</form>
+</BODY>
+</HTML>

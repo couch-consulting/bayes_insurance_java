@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: libs/NeticaJ_Win/NeticaJ_504/bin/NeticaJ.jar libs/commons-cli-1.4/commons-cli-1.4.jar
+Main-Class: app.Main
