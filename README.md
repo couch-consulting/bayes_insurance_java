@@ -2,11 +2,8 @@
 
 ## Next Todos
 * Write up connection setup
-* Think about: Build correct hierarchy (not one file)
-    * Create another file structure where it is not a one-file solution and easier to read/inspect
-    Think about
 * Check if docu is good
-* Think about jar app or stick with .bat?
+* Think about jar app or stick with .bat? -> unable to build jar because java library path thanks to netica. 
 * Switch to pdf docu for turn in
 
 

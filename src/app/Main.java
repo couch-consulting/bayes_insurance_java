@@ -8,6 +8,7 @@
 
 
 // Import Netica
+package app;
 
 import javafx.util.Pair;
 import norsys.netica.*;
@@ -24,6 +25,13 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.rmi.UnexpectedException;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Option;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.Option.Builder;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.ParseException;
 
 // Import for Main
 import java.nio.file.Paths;
@@ -36,18 +44,47 @@ Main Class
  */
 class Main {
 
-    private static final String PROJECTROOTPATH = new File(System.getProperty("user.dir")).getParentFile().getAbsolutePath();
+    private static final String PROJECTROOTPATH = new File(System.getProperty("user.dir")).getAbsolutePath();
 
     public static void main(String[] args) {
-        // Build paths
-        String inputFullPath = Paths.get(PROJECTROOTPATH, "data", "versicherung_a.csv").toString();
-        String connectionFullPath = Paths.get(PROJECTROOTPATH, "data", "connectionSetup", "netConnections.csv").toString();
-        String testFullPath = Paths.get(PROJECTROOTPATH, "data", "versicherung_a_classify.csv").toString();
-        String outputpathNetFile = Paths.get(PROJECTROOTPATH, "data", "BayesInsurance.dne").toString();
+
+        // Get Input Vars
+        CommandLine parameters = parseInputParameters(args);
+        String trainGivenPath = parameters.getOptionValue("tr");
+        String testGivenPath = parameters.getOptionValue("te");
+        String connectionGivenPath = parameters.getOptionValue("co");
+        String outputGivenPath = parameters.getOptionValue("ou");
+
+        //Get Paths
+        File rootPath = new File(PROJECTROOTPATH);
+        String trainFullPath = ""; // may throw IOException
+        String testFullPath = ""; // may throw IOException
+        String connectionFullPath = ""; // may throw IOException
+        String outputFullpath = ""; // may throw IOException
+        try {
+            trainFullPath = new File(PROJECTROOTPATH, trainGivenPath).getCanonicalPath();
+            testFullPath = new File(PROJECTROOTPATH, testGivenPath).getCanonicalPath();
+            connectionFullPath = new File(PROJECTROOTPATH, connectionGivenPath).getCanonicalPath();
+            outputFullpath = new File(PROJECTROOTPATH, outputGivenPath).getCanonicalPath();
+        } catch (IOException exception) {
+            throw new Error("File path error: " + exception.getMessage());
+        }
+        // Print out paths
+        System.out.println("Given file paths are:");
+        System.out.println("Train data: " + trainFullPath);
+        System.out.println("Test data: " + testFullPath);
+        System.out.println("Connection data: " + connectionFullPath);
+        System.out.println("Outputh path: " + outputFullpath + "\n");
+
+        // Build Net File output path
+        String outputpathNetFile = Paths.get(outputFullpath, "BayesInsurance.dne").toString();
+
+
+
 
         try {
             // Get data from csv files
-            List<List<String>> csvdata = CSVUtils.parseCSVFile(inputFullPath);
+            List<List<String>> csvdata = CSVUtils.parseCSVFile(trainFullPath);
             List<List<String>> connectionData = CSVUtils.parseCSVFile(connectionFullPath);
             List<List<String>> testData = CSVUtils.parseCSVFile(testFullPath);
 
@@ -57,7 +94,7 @@ class Main {
 
             System.out.println("Building network...");
             //build network
-            NeticaNetBuilder.buildNet(net, connectionData, csvdata, PROJECTROOTPATH);
+            NeticaNetBuilder.buildNet(net, connectionData, csvdata, outputFullpath);
             System.out.println("Done!");
 
 
@@ -78,6 +115,50 @@ class Main {
         }
 
 
+    }
+
+    private static CommandLine parseInputParameters(String[] parameters) {
+        CommandLine commandLine;
+        Option option_1 = Option.builder("tr")
+                .required(true)
+                .desc("Path to the csv input file that contain training data")
+                .longOpt("trainCSV")
+                .hasArg(true)
+                .build();
+        Option option_2 = Option.builder("te")
+                .required(true)
+                .desc("Path to the csv input file that contain test data")
+                .longOpt("testCSV")
+                .hasArg(true)
+                .build();
+        Option option_3 = Option.builder("co")
+                .required(true)
+                .desc("Path to the csv file that contain the connection setup for the network")
+                .longOpt("connectionInput")
+                .hasArg(true)
+                .build();
+        Option option_4 = Option.builder("ou")
+                .required(true)
+                .desc("Path to the csv file that contain the connection setup for the network")
+                .longOpt("output")
+                .hasArg(true)
+                .build();
+
+        Options options = new Options();
+        CommandLineParser parser = new DefaultParser();
+
+        options.addOption(option_1);
+        options.addOption(option_2);
+        options.addOption(option_3);
+        options.addOption(option_4);
+
+
+        try {
+            commandLine = parser.parse(options, parameters);
+            return commandLine;
+        } catch (ParseException exception) {
+            throw new Error("Parse error: " + exception.getMessage());
+        }
     }
 }
 
@@ -105,10 +186,10 @@ class NeticaNetBuilder {
      * @param csvdata:        Data from input csv file
      * @param rootpath:       Rootpath for this project
      */
-    static void buildNet(Net net, List<List<String>> connectionData, List<List<String>> csvdata, String rootpath) {
+    static void buildNet(Net net, List<List<String>> connectionData, List<List<String>> csvdata, String outputpath) {
         try {
             // Build paths
-            String outputpathCaseFile = Paths.get(rootpath, "tmp_data", "insuranceCaseFile.txt").toString();
+            String outputpathCaseFile = Paths.get(outputpath, "insuranceCaseFile.txt").toString();
 
             // Get Nodes
             nodes = Utils.extractNodes(csvdata);

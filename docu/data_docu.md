@@ -54,7 +54,3 @@ This file describes the links between nodes that shall be implemented for the ne
 * no trailing ";"
 * No empty lines
 
-
-## Using different csv files/path or names for files
-1. In the src/app/Main.java file edit the string in the main function of the Main class for each path according to your needs.
-2. Create your own file and replace currently existing files (same path/same name)   

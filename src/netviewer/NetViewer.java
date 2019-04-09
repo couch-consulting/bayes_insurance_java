@@ -1,3 +1,5 @@
+package netviewer;
+
 import norsys.netica.*;
 import norsys.netica.gui.*;
 import java.awt.*;

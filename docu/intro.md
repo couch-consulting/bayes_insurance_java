@@ -4,6 +4,8 @@ We have used the Framework Netica (Java API Version) from Norsys to build a baye
 We have chosen Netica because it is the best tool to visualize and reuse created networks even so the library structure, documentation and code feels like an artifact. 
 Java was chosen since it is the best version of the Netica API that fits our own skill set. Organically, other Python Libraries were looked at but later discarded due to their lack of required features (like visualization). 
 
+The goal has been to build tool that is as dynamic as possible by having all network properties defined by input files or automatically adjusted by the tool itself. 
+
 ## Netica Docu
 * Netica Homepage: https://www.norsys.com
 * Netica Java Manual: https://www.norsys.com/netica-j/docs/NeticaJ_Man.pdf
@@ -21,7 +23,7 @@ The documentation for this projects consists of 4 different files (including thi
 * The "src" folder holds the app and code we have created.
 * The NeticaJ_Win folder holds the Netica Java library
 * The "data" folder contains any input data
-* The "tmp_folder" contains temporary files.  
+* The "results" folder contains all output files (also temporary files)
 
 ## General project structure and deliverables  
 The following is a list of deliverables. 
@@ -31,7 +33,7 @@ The following is a list of deliverables.
     * The possibilities will be normalized (to String) and sets of numbers will be transformed into ranges (Strings). This is done to fit to Neticas input options. 
 3. The program will link all nodes accordingly to a CSV file that describes the desired links
 4. The program wil learn CPTs from the original input data
-    * CSV file data will be mapped normalized possibilities and put into a Netica CaseFile
+    * CSV file data will be mapped normalized possibilities and put into a Netica CaseFile (also saved to the output folder)
 5. The program will classify input test data given by a csv file and displays results of the classification.  
 6. The Network will be saved into a .dne file
 
@@ -43,13 +45,12 @@ The following is a list of deliverables.
 ![Wokrflow image](./workflow.PNG "Project Workflow")
 
 
-### Further notes 
+### Further Netica notes 
 * We decided against using synthetic nodes because we could only use one additional if we would have used them (due toe cap of 15 nodes) which would have not been enough for our ideal setup. Additionally the CPT learning for synthetic nodes did not work correctly.
 * Our CPT learning algorithm is called "counting learning" (see Netica_J manual). We used this implementation because it did was the best fit for our code structure. 
 * The example data is heavily biased (+50%) towards the result "B". This made the CPT learning creating CPT tables which are also statistically "biased" towards "B". This resulted in better classification for "B" and worse for "A" in most cases. We did look into editing, creating or modifying our trainings data against this bias but stopped after we decided that this is not in the scope. Similar idea existed for test data and the creation/usage of test/trainings data (K-folds, etc.) but seemed out of scope again.
 * We decided to create discrete variables from possible (positive) continuous once by deducing ranges from all given cases with the help of boxplots. This is now done automatically be the program. Hereby any "n.a." value will be mapped to the lowest range and zero is the lowest possible value even if the boxplot would have been lower. 
  
-
 
 
 ### Learning/Training

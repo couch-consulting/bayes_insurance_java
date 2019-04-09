@@ -4,6 +4,7 @@ This documentation shall provide a short overview of how to get the program star
 * The application builds the network, does classification for a set of data and saves the network.
 * The Netviewer allows you to view, examined and play with the network in an application format.
     * This is a default Netica app and could also be replaced by the actual Netica App. It has similar features. 
+* So far a simpler executable version was not possible due to Netica. 
 
 ## Installation Windows
 1. Download/Clone/Copy this project (with all its files)
@@ -17,6 +18,8 @@ This documentation shall provide a short overview of how to get the program star
 2. Execute "compile_and_run_app.bat" in CMD or Powershell. 
     * This will compile the Java code with Netica for your system and run it afterwards. 
 
+### Using different csv files/path or names for files
+Go to the src/compile_and_run_app.bat and edit the path in the last line after "Main"
 
 ## Netviewer
 1. Go to "src/netviewer"
