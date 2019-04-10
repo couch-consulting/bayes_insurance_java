@@ -1,9 +1,7 @@
 
 package norsys.netica.jspprojects.doinference;
 
-import java.beans.*;
-import javax.servlet.http.*;
-import javax.servlet.*;
+
 import java.io.*;
 import java.net.*;
 import java.text.*;
@@ -80,69 +78,9 @@ public class DoInferenceBean {
     return returnMsg;
   }
 
-  public void processRequest (HttpServletRequest request) {
+  public void processRequest () {
       
-      //-- Do HTTP stuff
 
-      logBuf = ""; //resets log
-
-      //log( "NewPatient="     + request.getParameter ("newPatient") ); 
-      //log( "VisitAsiaRadio=" + request.getParameter ("visitAsiaRadio") );  
-      //log( "SmokingRadio="   + request.getParameter ("smokingRadio") );  
-      //log( "xRayRadio="      + request.getParameter ("xRayRadio") );
-      //log( "dyspneaRadio="   + request.getParameter ("dyspneaRadio") );
-
-      if ( "New Patient Reset".equals( request.getParameter ("newPatient") ) ) {
-	  resetForNewPatient();
-      }
-      else {
-	  //read in parameters
-	  visitAsiaRadio = request.getParameter ("visitAsiaRadio");
-	  smokingRadio   = request.getParameter ("smokingRadio");
-	  xRayRadio      = request.getParameter ("xRayRadio");
-	  dyspneaRadio   = request.getParameter ("dyspneaRadio");
-      }
-
-      //-- Do Netica stuff
-      try {
-	  if (env == null) {
-	      env = Environ.getDefaultEnviron();
-	      if (env == null) {
-		  String errMsg = initSession();
-		  if (env == null) {
-		      log( errMsg );
-		      return; //no point in continuing
-		  }
-	      }
-	  }
-
-	  if ( net == null) {
-	      log( "Reloaded ChestClinic.dne" );
-	      loadChestClinicNet();
-	  }
-
-	  net.retractFindings();
-
-	  if ( "no". equals( visitAsiaRadio ) ) visitAsia.finding().setState( "No_Visit" ); else
-	  if ( "yes".equals( visitAsiaRadio ) ) visitAsia.finding().setState( "Visit"    ); 
-	  
-	  if ( "no". equals( smokingRadio ) ) smoking.finding().setState( "NonSmoker" ); else
-	  if ( "yes".equals( smokingRadio ) ) smoking.finding().setState( "Smoker"    ); 
-	  
-	  if ( "no". equals( xRayRadio ) ) xRay.finding().setState( "Normal"   ); else
-	  if ( "yes".equals( xRayRadio ) ) xRay.finding().setState( "Abnormal" ); 
-
-	  if ( "no". equals( dyspneaRadio ) ) dyspnea.finding().setState( "Absent"  ); else
-	  if ( "yes".equals( dyspneaRadio ) ) dyspnea.finding().setState( "Present" );
-
-	  net.compile();
-      }
-      catch (Exception e) {
-	  //-- We log any exceptions.
-	  //-- Suggestion: during development, you may want to have your jsp page display the
-	  //-- exception stack trace by calling getLog() below.
-	  log( e.getMessage() );
-      }
 
   }
 
